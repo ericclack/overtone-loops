@@ -1,7 +1,6 @@
 (ns overtone-loops.heart-beat
   (:use [overtone.live])
-  (:require [clojure.pprint :refer [pp pprint]]
-            [overtone-loops.loops :refer [defloop metro]]))
+  (:require [overtone-loops.loops :refer [defloop metro]]))
 
 ;; Define some samples from Freesound.org
 (def kick (freesound 250547))
