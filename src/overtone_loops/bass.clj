@@ -11,9 +11,6 @@
         drum (+ sqr (* env src))]
     (compander drum drum 0.2 1 0.1 0.01 0.01)))
 
-(defn kick2 [] (kick 200))
-(defn kick3 [] (kick 90 0.5))
-
 (definst hat [amp 0.8 t 0.04]
   (let [env (env-gen (perc 0.001 t) 1 1 0 1 FREE)
         noise (white-noise)
@@ -21,14 +18,17 @@
         filt (bpf (+ sqr noise) 9000 0.5)]
     (* amp env filt)))
 
+(defmacro thunk [& body]
+  `(fn [] ~@body))
+
 ;; Our loops - both 4 beats to the bar
 (defloop bass 4
   0 kick
   0.7 kick
-  1 kick2
+  1 (thunk (kick 200))
   2 kick
   2.7 kick
-  3 kick3 
+  3 (thunk (kick 400))
   )
 
 (defloop hats 4
