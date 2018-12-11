@@ -1,6 +1,6 @@
 # overtone-loops
 
-An attempt to make a really simple loop syntax for Overtone, so that I can use this at code clubs. 
+An attempt to make a really simple loop syntax for Overtone. Maybe this will be simple enough to use at code clubs?
 
 For example:
 
