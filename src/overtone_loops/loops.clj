@@ -46,4 +46,7 @@
 ;;(defloop kicks 2  0 kick 1 kick 1 snare)
 ;;(kicks (metro))
 
+(defmacro thunk [& body]
+  `(fn [] ~@body))
+
 ;;(stop)

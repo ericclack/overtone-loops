@@ -1,6 +1,6 @@
 (ns overtone-loops.bass
   (:use [overtone.live])
-  (:require [overtone-loops.loops :refer [defloop metro]]))
+  (:require [overtone-loops.loops :refer [defloop metro thunk]]))
 
 ;; Define some instruments
 (definst kick [freq 100 dur 0.3 width 0.5]
@@ -18,9 +18,6 @@
         filt (bpf (+ sqr noise) 9000 0.5)]
     (* amp env filt)))
 
-(defmacro thunk [& body]
-  `(fn [] ~@body))
-
 ;; Our loops - both 4 beats to the bar
 (defloop bass 4
   0 kick
@@ -28,14 +25,12 @@
   1 (thunk (kick 200))
   2 kick
   2.7 kick
-  3 (thunk (kick 800))
+  3 (thunk (kick 500))
   )
 
-(defloop hats 4
+(defloop hats 1
+  0 (thunk (hat 0.4))
   0.5 hat
-  1.5 hat
-  2.5 hat
-  3.5 hat
   )
 
 (metro-bpm metro 110)
