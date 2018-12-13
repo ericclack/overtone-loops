@@ -40,10 +40,13 @@
   "Wrap pairs of beats and playables into a loop"
   (let [beat-sym (gensym "beat")
         bars-left-sym (gensym "bars-left-sym")]
-    `(defn ~name [~beat-sym ~bars-left-sym]
-       (play-bar ~beat-sym ~@beats-and-playables)
-       (when (> ~bars-left-sym 0) 
-         (next-bar ~name (+ ~beats-in-bar ~beat-sym) (dec ~bars-left-sym))))))
+    `(defn ~name
+       "Play this loop, starting at beat, optionally playing for a number of bars"
+       ([~beat-sym] (~name ~beat-sym -1))
+       ([~beat-sym ~bars-left-sym]
+        (play-bar ~beat-sym ~@beats-and-playables)
+        (when (not (= 0 ~bars-left-sym)) 
+          (next-bar ~name (+ ~beats-in-bar ~beat-sym) (dec ~bars-left-sym)))))))
 
 ;;(defloop kicks 2  0 kick 1 kick 1 snare)
 ;;(kicks (metro))

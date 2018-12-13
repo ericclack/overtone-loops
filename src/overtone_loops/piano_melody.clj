@@ -27,7 +27,7 @@
 )  
 
 (p (metro) 3)
-(p-high (metro) 4)
+(p-high (metro))
 (p-low (metro) 2)
 
 ;;
