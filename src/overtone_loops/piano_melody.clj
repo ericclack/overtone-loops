@@ -13,10 +13,10 @@
 
 (defloop p-high 6
   0.5 (thunk (piano (note :c5) :vel 70))
-  1.5 (thunk (piano (note :c5)))
-  2.5 (thunk (piano (note :c5) :vel 70))
-  3.5 (thunk (piano (note :c4)))
-  4.5 (thunk (piano (note :c4) :vel 70))
+  1.5 (thunk (piano (note :b4)))
+  2.5 (thunk (piano (note :a4) :vel 70))
+  3.5 (thunk (piano (note :c5)))
+  4.5 (thunk (piano (note :g5) :vel 70))
   5.5 (thunk (piano (note :b4)))
   )
 
@@ -26,9 +26,9 @@
   4 (thunk (piano (note :g2) :vel 90))
 )  
 
-(p (metro))
-(p-high (metro))
-(p-low (metro))
+(p (metro) 3)
+(p-high (metro) 4)
+(p-low (metro) 2)
 
 ;;
 ;;(stop)

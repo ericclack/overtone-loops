@@ -32,16 +32,18 @@
 
 ;; (play-bar (metro) 0 kick 1 kick 1 snare 2 kick 3 kick 3 snare)
 
-(defn next-bar [fn beat]
+(defn next-bar [fn beat bars-left]
   "Call this function on beat"
-  (apply-by (metro beat) fn beat []))
+  (apply-by (metro beat) fn beat bars-left []))
 
 (defmacro defloop [name beats-in-bar & beats-and-playables]
   "Wrap pairs of beats and playables into a loop"
-  (let [beat-sym (gensym "beat")]
-    `(defn ~name [~beat-sym]
+  (let [beat-sym (gensym "beat")
+        bars-left-sym (gensym "bars-left-sym")]
+    `(defn ~name [~beat-sym ~bars-left-sym]
        (play-bar ~beat-sym ~@beats-and-playables)
-       (next-bar ~name (+ ~beats-in-bar ~beat-sym)))))
+       (when (> ~bars-left-sym 0) 
+         (next-bar ~name (+ ~beats-in-bar ~beat-sym) (dec ~bars-left-sym))))))
 
 ;;(defloop kicks 2  0 kick 1 kick 1 snare)
 ;;(kicks (metro))
