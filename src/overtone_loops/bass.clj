@@ -25,17 +25,23 @@
   1 (thunk (kick 200))
   2 kick
   2.7 kick
-  3 (thunk (kick 500))
+  3 (thunk (kick 300))
   )
 
-(defloop hats 1
+(defloop hats 2
   0 (thunk (hat 0.4))
   0.5 hat
+  1 (thunk (hat 0.4))
+  1.66 hat
+  1.88 hat
   )
 
 (metro-bpm metro 110)
-(bass (metro))
-(hats (metro))
+
+(comment
+  (bass (metro) 4)
+  (hats (metro) 4)
+  )
 
 ;;
 ;;(stop)

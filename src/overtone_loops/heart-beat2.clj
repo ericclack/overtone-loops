@@ -17,8 +17,8 @@
 (defloop ticks 4
   0 hat
   1 hat
-  1.33 hat
-  1.66 hat
+  1.44 hat
+  1.88 hat
   2 hat
   3 hat)
 
