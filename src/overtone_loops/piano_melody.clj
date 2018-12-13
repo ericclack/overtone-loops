@@ -5,7 +5,7 @@
 
 ;; Our loops
 (defloop p 6
-  0 (thunk (piano (note :c4)))
+  0 (thunk (piano (note :c2)))
   2 (thunk (piano (note :e3)))
   3 (thunk (piano (note :g3)))
   5 (thunk (piano (note :b3)))
@@ -21,9 +21,9 @@
   )
 
 (defloop p-low 6
-;  0.5 (thunk (piano (note :g2) :vel 70))
-;  3.5 (thunk (piano (note :b2) :vel 80))
-;  4 (thunk (piano (note :g2) :vel 90))
+  0 (thunk (piano (note :g2) :vel 70))
+  3 (thunk (piano (note :b2) :vel 80))
+  4 (thunk (piano (note :g2) :vel 90))
 )  
 
 (p (metro))
