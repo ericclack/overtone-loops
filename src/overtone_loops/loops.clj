@@ -44,12 +44,19 @@
   (let [beat-sym (gensym "beat")
         bars-left-sym (gensym "bars-left-sym")]
     `(defn ~name
-       "Play this loop, starting at beat, optionally playing for a number of bars"
+       "Play this loop, starting at beat, optionally for a number of bars"
        ([~beat-sym] (~name ~beat-sym -1))
        ([~beat-sym ~bars-left-sym]
         (play-bar ~beat-sym ~@beats-and-playables)
         (when (not (= 0 ~bars-left-sym)) 
           (next-bar ~name (+ ~beats-in-bar ~beat-sym) (dec ~bars-left-sym)))))))
+
+;; (defloop hats 4
+;;          0.5 hat 1.5 hat 2.5 hat 3.5 hat)
+;; then:
+;; (hats (metro))
+;; play for 16 bars:
+;; (hats (metro) 16)
 
 (defn add-instr [instr seq]
   "From the sequence of pairs (beat options) generate (beat (instrument options))"
@@ -59,15 +66,17 @@
                 (cons (thunk (apply instr (second seq)))
                       (add-instr instr (rest (rest seq)))))))
 
-;;(defloop kicks 2  0 kick 1 kick 1 snare)
-;;(kicks (metro))
-
 (defmacro defiloop [name beats-in-bar instr & beats-and-options]
   "Like defloop, but pairs are beats and options for instr"
   (let [beats-and-playables (add-instr instr beats-and-options)]
     `(defloop ~name ~beats-in-bar ~@beats-and-playables)))
 
-;;
-
+;; (defiloop piano-loop 4 piano
+;;           0 (:vel 50)
+;;           1 (:vel 70)
+;;           2 (:vel 85)
+;;           3 (:vel 100))
+;; then:
+;; (piano-loop (metro))
 
 ;;(stop)
