@@ -4,6 +4,9 @@
 
 (def metro (metronome 128))
 
+(defmacro thunk [& body]
+  `(fn [] ~@body))
+
 (defn pairer
   "Pair up items from a sequence, e.g. beat playable pairs"
   [seq]
@@ -17,7 +20,7 @@
 ;; => ((1 2) (3 4) (5 6) (7 8))
 
 (defn play-bar-pairs
-  "Play this bar on beat, given pairs of (offset playable)"
+  "Play this bar on beat, given a list of pairs (offset playable)"
   [beat beat-playable-pairs]
   (defn- player [[in-beats playable]]
     (at (metro (+ beat in-beats)) (playable)))
@@ -27,7 +30,7 @@
 ;; (play-bar-pairs (metro) (pairer (list 0.5 hat 1.5 hat)))
 
 (defn play-bar [beat & beats-and-playables]
-  "Play this bar on beat, given list of: offset playable offset playable ..."
+  "Play this bar on beat, given: offset playable offset playable ..."
   (play-bar-pairs beat (pairer beats-and-playables)))
 
 ;; (play-bar (metro) 0 kick 1 kick 1 snare 2 kick 3 kick 3 snare)
@@ -48,10 +51,23 @@
         (when (not (= 0 ~bars-left-sym)) 
           (next-bar ~name (+ ~beats-in-bar ~beat-sym) (dec ~bars-left-sym)))))))
 
+(defn add-instr [instr seq]
+  "From the sequence of pairs (beat options) generate (beat (instrument options))"
+  (cond
+    (empty? seq) '()
+    :else (cons (first seq)
+                (cons (thunk (apply instr (second seq)))
+                      (add-instr instr (rest (rest seq)))))))
+
 ;;(defloop kicks 2  0 kick 1 kick 1 snare)
 ;;(kicks (metro))
 
-(defmacro thunk [& body]
-  `(fn [] ~@body))
+(defmacro defiloop [name beats-in-bar instr & beats-and-options]
+  "Like defloop, but pairs are beats and options for instr"
+  (let [beats-and-playables (add-instr instr beats-and-options)]
+    `(defloop ~name ~beats-in-bar ~@beats-and-playables)))
+
+;;
+
 
 ;;(stop)
