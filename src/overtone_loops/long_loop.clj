@@ -24,20 +24,24 @@
 
 (defloop kicks2 4
   0 kick
+  0.8 kick
   1 kick
   2 snare
   3 kick)
 
 (metro-bpm metro 120)
+  
+(defn in-bars [bars beats-per-bar]
+  (+ (* bars beats-per-bar) (metro)))
 
 ;; Kicks all the way through
 (hats (metro))
 
-;; Kicks start at bar 4 and run for 4 bars
-(kicks1 (+ (* 4 4) (metro)) 4)
+;; Kicks start at bar 2 and run for 4 bars
+(kicks1 (in-bars 2 4) 4)
 
-;; New pattern at bar 8
-(kicks2 (+ (* 8 4) (metro)) 4)
+;; New pattern at bar 6
+(kicks2 (in-bars 6 4) 4)
 
 
 ;; ------------
