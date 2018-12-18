@@ -1,6 +1,6 @@
 # overtone-loops
 
-An attempt to make a really simple loop syntax for Overtone. Maybe this will be simple enough to use at code clubs?
+An attempt to make a really simple loop syntax for Overtone. Maybe this will be simple enough to use with students at code clubs?
 
 For example:
 
@@ -22,9 +22,30 @@ For example:
 (ticks (metro))
 ```
 
+Often you'll want to pass options to each intrument, e.g. the note to play, or the amplitude or velocity, in which case use `defloop2`:
+
+```
+(defloop2 piano-notes 6
+  0 (piano (note :c3))
+  2 (piano (note :e3))
+  3 (piano (note :g3))
+  5 (piano (note :b3))
+  )
+
+(defloop2 piano-louder 6
+  0 (piano :vel 50)
+  1.5 (piano :vel 70)
+  3.5 (piano :vel 80)
+  4 (piano :vel 100)
+)
+
+(piano-louder (metro))
+(piano-notes (metro) 2) ;; play for 2 bars
+```
+
 ## Usage
 
-See examples in `src/overtone-loops`
+See examples in `src/overtone-loops/examples`
 
 TBC
 
