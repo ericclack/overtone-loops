@@ -12,9 +12,8 @@
   [beat-sexp-pairs]
   (defn add-thunk [[beat s-exp]]
     (list beat (thunk s-exp)))
-  (let [new-pairs (map add-thunk beat-sexp-pairs)]
-    `(list ~@new-pairs)))
-  
+  (map add-thunk beat-sexp-pairs))
+
 (defn pairer
   "Pair up items from a sequence, e.g. beat playable pairs"
   [seq]
@@ -49,10 +48,11 @@
 
 (defmacro defloop [name beats-in-bar & beats-and-playables]
   "Wrap pairs of beats and playables into a loop"
-  (let [beat-sym (gensym "beat")
-        bars-left-sym (gensym "bars-left-sym")
-        pairs (pairer beats-and-playables)
-        thunk-pairs (thunkify-pairs pairs)]
+  (let* [beat-sym (gensym "beat")
+         bars-left-sym (gensym "bars-left-sym")
+         thunk-pairs (pairer beats-and-playables)
+         ;; thunk-pairs (thunkify-pairs pairs)
+         ]
     `(defn ~name
        "Play this loop, starting at beat, optionally for a number of bars"
        ([~beat-sym] (~name ~beat-sym -1))

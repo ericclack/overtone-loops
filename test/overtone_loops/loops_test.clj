@@ -22,9 +22,8 @@
 
 (deftest thunkify-tests
   (testing "a"
-    (let [pairs (thunkify-pairs (list
-                                 (list 0 (+ 1 1))
-                                 (list 1 (+ 2 2))))]
+    (let [pairs (thunkify-pairs ((0 (print "at 0"))
+                                 (1 (print "at 1"))))]
       (is (= 0 (first pairs)))
       (is (= 1 (nth pairs 2))))))
            
