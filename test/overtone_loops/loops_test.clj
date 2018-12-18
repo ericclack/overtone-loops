@@ -7,7 +7,8 @@
 
 (deftest thunk-tests
   (testing "Thunks"
-    (is (fn? (thunk (+ 1 2))))))
+    (is (fn? (thunk (+ 1 2))))
+    (is (= 2 ((thunk (+ 1 1)))))))
 
 
 (deftest pairer-tests
@@ -19,3 +20,11 @@
            (pairer '(1 2 3 4 5)))))
 
 
+(deftest thunkify-tests
+  (testing "a"
+    (let [pairs (thunkify-pairs (list
+                                 (list 0 (+ 1 1))
+                                 (list 1 (+ 2 2))))]
+      (is (= 0 (first pairs)))
+      (is (= 1 (nth pairs 2))))))
+           

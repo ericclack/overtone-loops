@@ -7,6 +7,14 @@
 (defmacro thunk [& body]
   `(fn [] ~@body))
 
+(defmacro thunkify-pairs
+  "From the seq of pairs (beat s-exp) wrap fn call in a thunk so we can defer playback"
+  [beat-sexp-pairs]
+  (defn add-thunk [[beat s-exp]]
+    (list beat (thunk s-exp)))
+  (let [new-pairs (map add-thunk beat-sexp-pairs)]
+    `(list ~@new-pairs)))
+  
 (defn pairer
   "Pair up items from a sequence, e.g. beat playable pairs"
   [seq]
@@ -42,14 +50,18 @@
 (defmacro defloop [name beats-in-bar & beats-and-playables]
   "Wrap pairs of beats and playables into a loop"
   (let [beat-sym (gensym "beat")
-        bars-left-sym (gensym "bars-left-sym")]
+        bars-left-sym (gensym "bars-left-sym")
+        pairs (pairer beats-and-playables)
+        thunk-pairs (thunkify-pairs pairs)]
     `(defn ~name
        "Play this loop, starting at beat, optionally for a number of bars"
        ([~beat-sym] (~name ~beat-sym -1))
        ([~beat-sym ~bars-left-sym]
-        (play-bar ~beat-sym ~@beats-and-playables)
+        (play-bar-pairs ~beat-sym ~thunk-pairs)
         (when (not (= 1 ~bars-left-sym)) 
-          (next-bar ~name (+ ~beats-in-bar ~beat-sym) (dec ~bars-left-sym)))))))
+          (next-bar ~name
+                    (+ ~beats-in-bar ~beat-sym)
+                    (dec ~bars-left-sym)))))))
 
 ;; (defloop hats 4
 ;;          0.5 hat 1.5 hat 2.5 hat 3.5 hat)
