@@ -5,7 +5,7 @@
 
 ;; Our loops
 (defloop2 p 6
-  0 (piano (note :c2) :vel 70)
+  0 (piano (note :c3) :vel 70)
   2 (piano (note :e3) :vel 70)
   3 (piano (note :g3) :vel 70)
   5 (piano (note :b3) :vel 70)

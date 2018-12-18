@@ -1,23 +1,25 @@
 (ns overtone-loops.piano-melody
   (:use [overtone.live]
         [overtone.inst.piano])
-  (:require [overtone-loops.loops :refer [defloop defiloop metro thunk]]))
+  (:require [overtone-loops.loops :refer [defloop defloop2 metro]]))
 
 ;; Our loops
-;;(defiloop p 6 piano
-;;  0 (note :c2)
-;;  2 (note :e3)
-;;  3 (note :g3)
-;;  5 (note :b3)
-;;  )
+(defloop2 piano-notes 6
+  0 (piano (note :c3))
+  2 (piano (note :e3))
+  3 (piano (note :g3))
+  5 (piano (note :b3))
+  )
 
-(defiloop piano-louder 4 piano
-  0 (list :vel 50)
-  1 (list :vel 70)
-  2 (list :vel 80)
-  3 (list :vel 100))
+(defloop2 piano-louder 6
+  0 (piano :vel 50)
+  1.5 (piano :vel 70)
+  3.5 (piano :vel 80)
+  4 (piano :vel 100)
+)
 
 (piano-louder (metro))
+(piano-notes (metro) 2)
 
 ;;
 ;;(stop)
