@@ -47,18 +47,21 @@
 ;; (play-bar-pairs (metro) (pairer (list 0 kick 1 kick 2 snare)))
 ;; (play-bar-pairs (metro) (pairer (list 0.5 hat 1.5 hat)))
 
-(defn play-bar [beat & beats-and-playables]
+(defn play-bar 
   "Play this bar on beat, given: offset playable offset playable ..."
+  [beat & beats-and-playables]
   (play-bar-pairs beat (pairer beats-and-playables)))
 
 ;; (play-bar (metro) 0 kick 1 kick 1 snare 2 kick 3 kick 3 snare)
 
-(defn next-bar [fn beat bars-left]
+(defn next-bar 
   "Call this function on beat"
+  [fn beat bars-left]
   (apply-by (metro beat) fn beat bars-left []))
 
-(defmacro defloop [name beats-in-bar & beats-and-playables]
+(defmacro defloop 
   "Wrap pairs of beats and playables into a loop"
+  [name beats-in-bar & beats-and-playables]
   (let* [beat-sym (gensym "beat")
          bars-left-sym (gensym "bars-left-sym")]
     `(defn ~name
@@ -77,5 +80,13 @@
 ;; (hats (metro))
 ;; play for 16 bars:
 ;; (hats (metro) 16)
+
+(defmacro defloop2
+  "Like defloop but pairs are beats and s-exps, which we wrap in a thunk so they don't all play immediately"
+  [name beats-in-bar & beats-and-sexps]
+  (defn- make-thunk [s-exp]
+    (fn [] s-exp))
+  (let [thunked-pairs (map-evens make-thunk beats-and-sexps)]
+    `(defloop ~name ~beats-in-bar ~@thunked-pairs))) 
 
 ;;(stop)
