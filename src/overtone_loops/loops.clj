@@ -66,17 +66,4 @@
                 (cons (thunk (apply instr (second seq)))
                       (add-instr instr (rest (rest seq)))))))
 
-(defmacro defiloop [name beats-in-bar instr & beats-and-options]
-  "Like defloop, but pairs are beats and options for instr"
-  (let [beats-and-playables (add-instr instr beats-and-options)]
-    `(defloop ~name ~beats-in-bar ~@beats-and-playables)))
-
-;; (defiloop piano-loop 4 piano
-;;           0 (list :vel 50)
-;;           1 (list :vel 70)
-;;           2 (list :vel 85)
-;;           3 (list :vel 100))
-;; then:
-;; (piano-loop (metro))
-
 ;;(stop)
