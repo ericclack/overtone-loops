@@ -72,10 +72,10 @@
     `(defloop ~name ~beats-in-bar ~@beats-and-playables)))
 
 ;; (defiloop piano-loop 4 piano
-;;           0 (:vel 50)
-;;           1 (:vel 70)
-;;           2 (:vel 85)
-;;           3 (:vel 100))
+;;           0 (list :vel 50)
+;;           1 (list :vel 70)
+;;           2 (list :vel 85)
+;;           3 (list :vel 100))
 ;; then:
 ;; (piano-loop (metro))
 
