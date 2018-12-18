@@ -16,7 +16,7 @@
 
 (deftest play-bar-pairs-tests
   (testing "Two kicks and a snare"
-    (is (list?
+    (is (some?
          (play-bar-pairs (metro)
                          (list
                           (list 0 kick)
@@ -25,9 +25,10 @@
 
 (deftest play-bar-tests
   (testing "Two kicks and a snare"
-    (is (list?
+    (is (some?
          (play-bar (metro)
                    0 kick
+                   0.66 kick
                    1 kick
                    2 snare)))))
 
