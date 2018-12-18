@@ -7,12 +7,23 @@
 (defmacro thunk [& body]
   `(fn [] ~@body))
 
-(defmacro thunkify-pairs
-  "From the seq of pairs (beat s-exp) wrap fn call in a thunk so we can defer playback"
-  [beat-sexp-pairs]
-  (defn add-thunk [[beat s-exp]]
-    (list beat (thunk s-exp)))
-  (map add-thunk beat-sexp-pairs))
+(defn map-odds
+  "Apply fn to odd items only: 1st, 3rd, ..."
+  [fn seq]
+  (cond
+    (empty? seq) '()
+    :else (list* (fn (first seq))
+                 (second seq)
+                 (map-odds fn (rest (rest seq))))))
+
+(defn map-evens
+  "Apply fn to even items only: 2nd, 4th, ..."
+  [fn seq]
+  (cond
+    (empty? seq) '()
+    :else (list* (first seq)
+                 (fn (second seq))
+                 (map-evens fn (rest (rest seq))))))
 
 (defn pairer
   "Pair up items from a sequence, e.g. beat playable pairs"
@@ -49,15 +60,12 @@
 (defmacro defloop [name beats-in-bar & beats-and-playables]
   "Wrap pairs of beats and playables into a loop"
   (let* [beat-sym (gensym "beat")
-         bars-left-sym (gensym "bars-left-sym")
-         thunk-pairs (pairer beats-and-playables)
-         ;; thunk-pairs (thunkify-pairs pairs)
-         ]
+         bars-left-sym (gensym "bars-left-sym")]
     `(defn ~name
        "Play this loop, starting at beat, optionally for a number of bars"
        ([~beat-sym] (~name ~beat-sym -1))
        ([~beat-sym ~bars-left-sym]
-        (play-bar-pairs ~beat-sym ~thunk-pairs)
+        (play-bar ~beat-sym ~@beats-and-playables)
         (when (not (= 1 ~bars-left-sym)) 
           (next-bar ~name
                     (+ ~beats-in-bar ~beat-sym)

@@ -20,10 +20,12 @@
            (pairer '(1 2 3 4 5)))))
 
 
-(deftest thunkify-tests
+(deftest map-odds-evens-tests
   (testing "a"
-    (let [pairs (thunkify-pairs ((0 (print "at 0"))
-                                 (1 (print "at 1"))))]
-      (is (= 0 (first pairs)))
-      (is (= 1 (nth pairs 2))))))
-           
+    (is (= '(2 2 4 4 6 6)
+           (map-odds inc '(1 2 3 4 5 6))))
+    (is (= '(1 3 3 5 5 7)
+           (map-evens inc '(1 2 3 4 5 6))))
+
+    ))
+  

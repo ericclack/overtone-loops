@@ -20,7 +20,8 @@
   1.44 hat
   1.88 hat
   2 hat
-  3 hat)
+  3 hat
+  3.5 hat)
 
 (metro-bpm metro 240)
 (heart (metro))
