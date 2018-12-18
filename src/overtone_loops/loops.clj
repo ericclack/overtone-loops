@@ -48,7 +48,7 @@
        ([~beat-sym] (~name ~beat-sym -1))
        ([~beat-sym ~bars-left-sym]
         (play-bar ~beat-sym ~@beats-and-playables)
-        (when (not (= 0 ~bars-left-sym)) 
+        (when (not (= 1 ~bars-left-sym)) 
           (next-bar ~name (+ ~beats-in-bar ~beat-sym) (dec ~bars-left-sym)))))))
 
 ;; (defloop hats 4
@@ -57,13 +57,5 @@
 ;; (hats (metro))
 ;; play for 16 bars:
 ;; (hats (metro) 16)
-
-(defn add-instr [instr seq]
-  "From the sequence of pairs (beat options) generate (beat (instrument options))"
-  (cond
-    (empty? seq) '()
-    :else (cons (first seq)
-                (cons (thunk (apply instr (second seq)))
-                      (add-instr instr (rest (rest seq)))))))
 
 ;;(stop)
