@@ -85,8 +85,9 @@
   "Like defloop but pairs are beats and s-exps, which we wrap in a thunk so they don't all play immediately"
   [name beats-in-bar & beats-and-sexps]
   (defn- make-thunk [s-exp]
-    (fn [] s-exp))
+    `(thunk ~s-exp))
   (let [thunked-pairs (map-evens make-thunk beats-and-sexps)]
+    (pprint thunked-pairs)
     `(defloop ~name ~beats-in-bar ~@thunked-pairs))) 
 
 ;;(stop)
