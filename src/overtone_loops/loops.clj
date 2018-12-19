@@ -87,7 +87,6 @@
   (defn- make-thunk [s-exp]
     `(thunk ~s-exp))
   (let [thunked-pairs (map-evens make-thunk beats-and-sexps)]
-    (pprint thunked-pairs)
     `(defloop ~name ~beats-in-bar ~@thunked-pairs))) 
 
 ;;(stop)
