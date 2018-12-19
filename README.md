@@ -2,6 +2,8 @@
 
 An attempt to make a really simple loop syntax for Overtone. Maybe this will be simple enough to use with students at code clubs?
 
+Currently this work is highly experimental. Feel free to leave suggestions on the Issues page.
+
 For example:
 
 ```
