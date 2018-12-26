@@ -4,6 +4,16 @@
 
 (def metro (metronome 128))
 
+(defn on-next-bar
+  "Metro marker for the next bar, or n bars ahead"
+  ([beats-per-bar] (on-next-bar beats-per-bar 1))
+  ([beats-per-bar bars]
+   (*
+    (+ bars
+       (quot (metro) beats-per-bar))
+    beats-per-bar)))
+
+
 (defmacro thunk [& body]
   `(fn [] ~@body))
 
