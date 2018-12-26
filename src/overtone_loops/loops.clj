@@ -54,8 +54,7 @@
 
 ;; (play-bar (metro) 0 kick 1 kick 1 snare 2 kick 3 kick 3 snare)
 
-(defn next-bar 
-  "Call this function on beat"
+(defn next-loop-iter
   [fn beat bars-left]
   (apply-by (metro beat) fn beat bars-left []))
 
@@ -70,7 +69,7 @@
        ([~beat-sym ~bars-left-sym]
         (play-bar ~beat-sym ~@beats-and-playables)
         (when (not (= 1 ~bars-left-sym)) 
-          (next-bar ~name
+          (next-loop-iter ~name
                     (+ ~beats-in-bar ~beat-sym)
                     (dec ~bars-left-sym)))))))
 
