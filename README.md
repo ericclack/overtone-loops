@@ -9,11 +9,11 @@ For example:
 ```
 ;; Both are 4 beats to the bar
 
-(defloop heart 4
+(defloop0 heart 4
   0 kick
   1 kick)
 
-(defloop ticks 4
+(defloop0 ticks 4
   0 hat
   1 hat
   2 hat
@@ -27,14 +27,14 @@ For example:
 Often you'll want to pass options to each intrument, e.g. the note to play, or the amplitude or velocity, in which case use `defloop2`:
 
 ```
-(defloop2 piano-notes 6
+(defloop piano-notes 6
   0 (piano (note :c3))
   2 (piano (note :e3))
   3 (piano (note :g3))
   5 (piano (note :b3))
   )
 
-(defloop2 piano-louder 6
+(defloop piano-louder 6
   0 (piano :vel 50)
   1.5 (piano :vel 70)
   3.5 (piano :vel 80)
