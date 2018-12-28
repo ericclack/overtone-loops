@@ -2,7 +2,7 @@
 
 An attempt to make a really simple loop syntax for Overtone. Maybe this will be simple enough to use with students at code clubs?
 
-Currently this work is highly experimental. Feel free to leave suggestions on the Issues page.
+Currently this work is highly experimental. Feel free to leave suggestions on the Issues page. I should point out that I'm not a talented drummer!
 
 For example:
 
@@ -47,7 +47,7 @@ Often you'll want to pass options to each intrument, e.g. the note to play, or t
 
 ## Usage
 
-See examples in `src/overtone-loops/examples`
+See code in [examples](src/overtone_loops/examples) or [music](src/overtone_loops/music).
 
 TBC
 
