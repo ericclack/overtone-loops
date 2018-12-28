@@ -2,7 +2,7 @@
   (:use [overtone.live]
         [overtone.inst.piano])
   (:require [clojure.pprint :refer [pp pprint]]
-            [overtone-loops.loops :refer [defloop defloop2 metro
+            [overtone-loops.loops :refer [defloop metro
                                           on-next-bar]]))
 
 ;; Define some samples from Freesound.org
@@ -12,33 +12,33 @@
 (def crash (freesound 439789))
 (def clap (freesound 24787))
 
-(defloop2 hats1 1
+(defloop hats1 1
   1 (hat :amp 0.5)
   )
 
-(defloop2 crashes1 8
+(defloop crashes1 8
   2.2 (hat :amp 0.3)
   2.6 (hat :amp 0.5)
   2.8 (hat :amp 0.7)
   3 (crash :amp 0.4)
   )
 
-(defloop2 kicks1 4
+(defloop kicks1 4
   0 (kick :amp 0.7)
   2 (kick :amp 0.6)
   ) 
 
-(defloop2 extra-kicks 8
+(defloop extra-kicks 8
   4.5 (kick :amp 0.4)
   5.5 (kick :amp 0.4)
   )
 
-(defloop2 snares1 4
+(defloop snares1 4
   1 (clap :amp 0.6)
   3 (clap :amp 0.8)
   )
 
-(defloop2 extra-snares 16
+(defloop extra-snares 16
   2.5 (snare :amp 0.7)
   
   6.5 (snare :amp 0.5)

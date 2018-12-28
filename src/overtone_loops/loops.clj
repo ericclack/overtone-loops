@@ -90,7 +90,7 @@
 ;; play for 16 bars:
 ;; (hats (metro) 16)
 
-(defmacro defloop2
+(defmacro defloop
   "Like defloop0 but pairs are beats and s-exps, which we wrap in a thunk so they don't all play immediately"
   [name beats-in-bar & beats-and-sexps]
   (defn- make-thunk [s-exp]
