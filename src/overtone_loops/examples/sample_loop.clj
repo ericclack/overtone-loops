@@ -1,7 +1,7 @@
 (ns overtone-loops.sample-loop
   (:use [overtone.live])
   (:require [clojure.pprint :refer [pp pprint]]
-            [overtone-loops.loops :refer [defloop metro]]))
+            [overtone-loops.loops :refer [defloop0 metro]]))
 
 ;; Define some samples from Freesound.org
 (def kick (freesound 250547))
@@ -9,7 +9,7 @@
 (def hat (freesound 96140))
 
 ;; Our loops - both 4 beats to the bar
-(defloop player 4
+(defloop0 player 4
   0 kick
   0.5 hat
   1 kick

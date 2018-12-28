@@ -68,7 +68,7 @@
   [fn beat bars-left]
   (apply-by (metro beat) fn beat bars-left []))
 
-(defmacro defloop 
+(defmacro defloop0 
   "Wrap pairs of beats and playables into a loop"
   [name beats-in-bar & beats-and-playables]
   (let* [beat-sym (gensym "beat")
@@ -83,19 +83,19 @@
                     (+ ~beats-in-bar ~beat-sym)
                     (dec ~bars-left-sym)))))))
 
-;; (defloop hats 4
-;;          0.5 hat 1.5 hat 2.5 hat 3.5 hat)
+;; (defloop0 hats 4
+;;           0.5 hat 1.5 hat 2.5 hat 3.5 hat)
 ;; then:
 ;; (hats (metro))
 ;; play for 16 bars:
 ;; (hats (metro) 16)
 
 (defmacro defloop2
-  "Like defloop but pairs are beats and s-exps, which we wrap in a thunk so they don't all play immediately"
+  "Like defloop0 but pairs are beats and s-exps, which we wrap in a thunk so they don't all play immediately"
   [name beats-in-bar & beats-and-sexps]
   (defn- make-thunk [s-exp]
     `(thunk ~s-exp))
   (let [thunked-pairs (map-evens make-thunk beats-and-sexps)]
-    `(defloop ~name ~beats-in-bar ~@thunked-pairs))) 
+    `(defloop0 ~name ~beats-in-bar ~@thunked-pairs))) 
 
 ;;(stop)

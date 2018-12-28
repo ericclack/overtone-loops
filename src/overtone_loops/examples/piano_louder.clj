@@ -1,7 +1,7 @@
 (ns overtone-loops.piano-melody
   (:use [overtone.live]
         [overtone.inst.piano])
-  (:require [overtone-loops.loops :refer [defloop defloop2 metro]]))
+  (:require [overtone-loops.loops :refer [defloop2 metro]]))
 
 ;; Our loops
 (defloop2 piano-notes 6

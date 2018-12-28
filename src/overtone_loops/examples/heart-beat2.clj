@@ -1,6 +1,6 @@
 (ns overtone-loops.heart-beat
   (:use [overtone.live])
-  (:require [overtone-loops.loops :refer [defloop defloop2 metro]]))
+  (:require [overtone-loops.loops :refer [defloop2 metro]]))
 
 ;; Define some samples from Freesound.org
 (def kick (freesound 250547))
@@ -28,9 +28,5 @@
 (metro-bpm metro 240)
 (heart (metro))
 (ticks (metro))
-;;
 
 ;;(stop)
-
-
-;; 
