@@ -29,7 +29,7 @@
   4 (kick :amp 0.6)
   )
 
-(defloop2 kicks 8) ; empty loop - silence
+;; (defloop2 kicks 8) ; empty loop - silence
 
 (defloop2 extra-kicks 8
   6 (kick :amp 0.5)
@@ -42,7 +42,7 @@
   6 (snare :amp 0.9)
   )
 
-(defloop2 snares 8) ; empty loop - silence
+;; (defloop2 snares 8) ; empty loop - silence
 
 (defloop2 extra-snares 8
   0.5 (snare :amp 0.5)
@@ -50,7 +50,7 @@
   7.5 (snare :amp 0.5)
   )
 
-(defloop2 snares 8) ; empty loop - silence
+;; (defloop2 snares 8) ; empty loop - silence
 
 ;; ---------------------------------------------
 
