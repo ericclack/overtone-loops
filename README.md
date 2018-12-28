@@ -4,7 +4,7 @@ An attempt to make a really simple loop syntax for Overtone. Maybe this will be 
 
 Currently this work is highly experimental. Feel free to leave suggestions on the Issues page. I should point out that I'm not a talented drummer!
 
-For example:
+For example -- use `defloop0` to combine beat numbers and callables:
 
 ```
 ;; Both are 4 beats to the bar
@@ -24,7 +24,7 @@ For example:
 (ticks (metro))
 ```
 
-Often you'll want to pass options to each intrument, e.g. the note to play, or the amplitude or velocity, in which case use `defloop2`:
+Often you'll want to pass options to each intrument, e.g. the note to play, or the amplitude or velocity, in which case use `defloop`:
 
 ```
 (defloop piano-notes 6
