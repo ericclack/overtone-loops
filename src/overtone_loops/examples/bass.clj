@@ -28,12 +28,13 @@
   3 (thunk (kick 300))
   )
 
-(defloop0 hats 2
+(defloop0 hats 4
   0 (thunk (hat 0.4))
   0.5 hat
   1 (thunk (hat 0.4))
-  1.66 hat
-  1.88 hat
+  2 (thunk (hat 0.4))
+  3 (thunk (hat 0.4))
+  3.7 hat
   )
 
 (metro-bpm metro 110)

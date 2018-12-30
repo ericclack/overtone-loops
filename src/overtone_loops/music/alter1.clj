@@ -39,9 +39,13 @@
   )
 
 (defloop extra-snares 16
-  2.5 (snare :amp 0.7)
+  2.5 (snare :amp 0.8)
+  3 (snare :amp 0.5)
+  3.5 (snare :amp 0.2)
   
-  6.5 (snare :amp 0.5)
+  6.5 (snare :amp 0.8)
+  7 (snare :amp 0.5)
+  7.5 (snare :amp 0.2)
   
   12.6 (snare :amp 0.4)
   12.7 (snare :amp 0.5)
@@ -67,7 +71,7 @@
 (comment ; all play for only a few phrases
   ;; Play these with Ctrl-X Ctrl-E
   (extra-kicks (on-next-bar 8) 4)
-  (extra-snares (on-next-bar 8) 4)
+  (extra-snares (on-next-bar 8) 8)
   )
 
 ;;(stop)
