@@ -21,22 +21,22 @@
 
 (definst tone
   "Simple sine tone that runs until stopped by gate 0"
-  [amp 0.8 freq 440 gate 1]
+  [freq 440 amp 0.7 gate 1]
   (let [env (env-gen (asr 0.2 1 1) :gate gate :action FREE)
         src (sin-osc freq)]
     (* amp env src)))
 
-;;(tone :freq 220)
+;;(tone 220)
 ;;(ctl tone :gate 0)
 ;;(stop)
 
-(definst tone2 [amp 0.7 freq 440]
+(definst tone2 [freq 440 amp 0.7 sustain 1]
   "Sine tone that lasts about a second"
-  (let [env (env-gen (perc 0.2 1) :action FREE)
+  (let [env (env-gen (lin :sustain sustain :release 0.5) :action FREE)
         src (sin-osc freq)]
     (* amp env src)))
 
-;; (tone2 :freq 220)
+;; (tone2 220 :sustain 0.1)
 
 ;; Our loops - both 4 beats to the bar
 (defloop bass 4
@@ -58,16 +58,16 @@
   )
 
 (defloop tones 4
-  0 (tone :freq 225 :amp 0.3)
-  0 (tone2 :freq 220)
-  1.5 (tone2 :freq 220)
-  2.5 (tone2 :freq 440)
-  
+  0 (tone :freq 220 :amp 0.3)
+  1 (tone :freq 330)
+  2 (tone :freq 440)
   3 (ctl tone :gate 0)
-
+  
   3 (tone2 :freq 220 :amp 0.9)
   3.33 (tone2 :freq 250)
   3.66 (tone2 :freq 290)
+  3.99 (tone2 :freq 220)
+
   )
 
 (defloop low-tones 4
