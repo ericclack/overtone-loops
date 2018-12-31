@@ -7,10 +7,16 @@
 
 ;; Define some samples from Freesound.org
 (def kick (freesound 171104))
-(def snare (freesound 404859))
+(def snare0 (freesound 404859))
 (def hat (freesound 404891))
 (def hat2 (freesound 404893))
 (def clap (freesound 24787))
+
+(definst snare
+  [amp 0.7]
+  (let [env     (env-gen (perc 0.01 1) :action FREE)
+        snd     (play-buf 1 snare0)]
+    (* amp env snd)))
 
 (defloop ticks 8
   0 (hat :amp 0.7)
