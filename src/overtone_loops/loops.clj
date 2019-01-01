@@ -98,6 +98,11 @@
   (let [thunked-pairs (map-evens make-thunk beats-and-sexps)]
     `(defloop0 ~name ~beats-in-bar ~@thunked-pairs)))
 
+;; (odoc defloop)
+;; (defloop hats 4 0.5 (hat :amp 1) 1.5 (hat :amp 0.8))
+;; then:
+;; (hats (metro))
+
 (defmacro defphrase
   [name & beats-and-sexps]
   (defn- make-thunk [s-exp]
