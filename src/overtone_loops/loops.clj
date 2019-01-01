@@ -96,6 +96,16 @@
   (defn- make-thunk [s-exp]
     `(thunk ~s-exp))
   (let [thunked-pairs (map-evens make-thunk beats-and-sexps)]
-    `(defloop0 ~name ~beats-in-bar ~@thunked-pairs))) 
+    `(defloop0 ~name ~beats-in-bar ~@thunked-pairs)))
+
+(defmacro defphrase
+  [name & beats-and-sexps]
+  (defn- make-thunk [s-exp]
+    `(thunk ~s-exp))
+  (let [thunked-pairs (map-evens make-thunk beats-and-sexps)
+        beat-sym (gensym "beat")]
+    `(defn ~name
+       [~beat-sym]
+       (play-bar ~beat-sym ~@thunked-pairs))))
 
 ;;(stop)
