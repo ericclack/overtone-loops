@@ -4,17 +4,6 @@
                                           on-next-bar]]))
 
 ;; Define some instruments
-(definst tone2
-  "Simple sine tone that runs until stopped by gate 0"
-  [freq 440 amp 0.7 gate 1]
-  (let [env (env-gen (asr 0.2 1 1) :gate gate :action FREE)
-        src (sin-osc freq)]
-    (* amp env src)))
-
-;;(tone 220)
-;;(ctl tone :gate 0)
-;;(stop)
-
 (definst tone 
   "Sine tone that lasts about a second"
   [freq 440 amp 0.7 sustain 0.8]
@@ -22,10 +11,10 @@
         src (sin-osc freq)]
     (* amp env src)))
 
-;; (tone 440 :sustain 0.1)
+;; (tone 440 :sustain 0.1) 
 
 (defn t
-  ([note-name] (t note-name 0.8 0.8))
+  ([note-name] (t note-name 0.5 0.8))
   ([note-name amp] (t note-name amp 0.8))
   ([note-name amp sus] 
    (tone (midi->hz (note note-name))
