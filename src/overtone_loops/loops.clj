@@ -5,6 +5,9 @@
 
 (def metro (metronome 128))
 
+(defn bpm [b]
+  (metro-bpm metro b))
+
 (defn on-next-bar
   "Metro marker for the next bar, or n bars ahead"
   ([beats-per-bar] (on-next-bar beats-per-bar 1))
