@@ -1,4 +1,5 @@
-(ns overtone-loops.sample-loop
+(ns overtone-loops.examples.new-style-loop
+  "Same pattern as old_style but using defloop0"
   (:use [overtone.live])
   (:require [clojure.pprint :refer [pp pprint]]
             [overtone-loops.loops :refer [defloop0 metro]]))

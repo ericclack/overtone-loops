@@ -1,4 +1,5 @@
-(ns overtone-loops.bass
+(ns overtone-loops.examples.bass
+  "Example of defloop0 and thunks -- use defloop instead!"
   (:use [overtone.live])
   (:require [overtone-loops.loops :refer [defloop0 metro thunk]]))
 
@@ -39,7 +40,7 @@
 
 (metro-bpm metro 110)
 
-(comment
+(do
   (bass (metro) 4)
   (hats (metro) 4)
   )

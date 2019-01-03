@@ -1,7 +1,6 @@
-(ns overtone-loops.samples
+(ns overtone-loops.examples.old-style-loop
+  "Using regular at notation to make loops"
   (:use [overtone.live]))
-
-;; Drum loop as per tutorials
 
 ;; Define some samples from Freesound.org
 (def kick (freesound 250547))

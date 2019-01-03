@@ -1,4 +1,4 @@
-(ns overtone-loops.music.alter1
+(ns overtone-loops.music.rap1
   (:use [overtone.live]
         [overtone.inst.piano])
   (:require [clojure.pprint :refer [pp pprint]]

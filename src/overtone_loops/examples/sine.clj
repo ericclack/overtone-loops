@@ -1,4 +1,5 @@
-(ns overtone-loops.bass
+(ns overtone-loops.examples.sine
+  "Example with simple sine tones"
   (:use [overtone.live])
   (:require [overtone-loops.loops :refer [defloop metro
                                           on-next-bar]]))

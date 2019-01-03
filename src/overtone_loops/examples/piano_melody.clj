@@ -1,4 +1,4 @@
-(ns overtone-loops.piano-melody
+(ns overtone-loops.examples.piano-melody
   (:use [overtone.live]
         [overtone.inst.piano])
   (:require [overtone-loops.loops :refer [metro defloop]]))
@@ -27,9 +27,11 @@
 )  
 
 (comment
-  (p (metro) 8)
-  (p-high (metro))
-  (p-low (metro) 8)
+  ;; Execute each of these when you like, with
+  ;; Ctrl-X Ctrl-E in emacs
+  (p (on-next-bar 4) 8)
+  (p-high (on-next-bar 4))
+  (p-low (on-next-bar 4) 8)
   )
 
 ;;

@@ -1,4 +1,5 @@
-(ns overtone-loops.heart-beat
+(ns overtone-loops.examples.heart-beat2
+  "Heart beat pattern using defloop, giving us more control"
   (:use [overtone.live])
   (:require [overtone-loops.loops :refer [defloop metro]]))
 

@@ -1,7 +1,9 @@
-(ns overtone-loops.sample-loop
+(ns overtone-loops.examples.long-loop
+  "A longer loop with variation using on-next-bar to schedule"
   (:use [overtone.live])
   (:require [clojure.pprint :refer [pp pprint]]
-            [overtone-loops.loops :refer [defloop0 metro]]))
+            [overtone-loops.loops
+             :refer [defloop0 metro on-next-bar]]))
 
 ;; Define some samples from Freesound.org
 (def kick (freesound 250547))
@@ -31,17 +33,14 @@
 
 (metro-bpm metro 120)
   
-(defn in-bars [bars beats-per-bar]
-  (+ (* bars beats-per-bar) (metro)))
-
 ;; Kicks all the way through
 (hats (metro))
 
 ;; Kicks start at bar 2 and run for 4 bars
-(kicks1 (in-bars 2 4) 4)
+(kicks1 (on-next-bar 4 2) 4)
 
 ;; New pattern at bar 6
-(kicks2 (in-bars 6 4) 4)
+(kicks2 (on-next-bar 4 6) 4)
 
 
 ;; ------------

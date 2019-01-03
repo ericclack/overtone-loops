@@ -1,4 +1,5 @@
 (ns overtone-loops.loops
+  "Simpler music loop syntax for Overtone, the programmable music toolkit"
   (:use [overtone.live])
   (:require [clojure.pprint :refer [pp pprint]]))
 
