@@ -18,6 +18,9 @@
         snd     (play-buf 1 snare0)]
     (* amp env snd)))
 
+;; Original (snare0)
+;; Improved (snare)
+
 (defloop ticks 8
   0 (hat :amp 0.7)
   1 (hat :amp 0.5)
