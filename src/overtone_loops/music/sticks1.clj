@@ -1,5 +1,6 @@
 (ns overtone-loops.music.sticks1
-  (:use [overtone.live])
+  (:use [overtone.live]
+        [overtone.inst.synth])
   (:require [overtone-loops.loops :refer [defloop metro
                                           on-next-bar]]))
 
@@ -15,19 +16,28 @@
         snd     (play-buf 1 stick)]
     (* amp env snd)))
 
-(stick1)
-
 (defloop sticks 4
   0 (stick1 0.8)
-  1.8 (stick1 0.7)
-  2.5 (stick1 0.7)
-  3.5 (stick1 0.7)
+  1 (stick1 0.6)  
+  1.8 (stick1 0.6)
+  2.5 (stick1 0.6)
+  3.2 (stick1 0.6)
   )
 
-(defloop kicks 1
+;; (sticks (metro))
+
+(defloop kicks 4
   0 (kick :amp 1)
+  1 (kick :amp 1)
+  2 (kick :amp 1)
+  3 (kick :amp 1)
   )
 
+(defloop bass-line 4
+  ;;0 (overpad (note :c3))
+  )
+
+;; (ctl vintage-bass :gate 0)
 (defloop extra-sticks 1
   0 (rim :amp 0.5)
   0.7 (rim)
@@ -40,6 +50,7 @@
 (do
   (sticks (on-next-bar 4))
   (kicks (on-next-bar 4))
+  (bass-line (on-next-bar 4 2))
   )
 
 (comment ; all play for only a few phrases
