@@ -31,32 +31,21 @@
   3 (hat :amp 0.4)
   )
 
-(defloop kicks1 8
-  0 (kick :amp 0.6)
-  1 (kick :amp 0.5)
-
-  4 (kick :amp 0.6)
-  5 (kick :amp 0.6)
-  ) 
-
-(defloop extra-kicks 4
+(defloop kicks 4
   4.6 (kick :amp 0.4)
   )
 
 (defloop snares1 8
   2 (snare :amp 1)
-
+  5.333 (snare :amp 0.5)
   6 (snare :amp 1)
   )
 
-(defloop extra-snares 8
-  5.333 (snare :amp 0.5)
-  )
-
-
 (defphrase melody-phrase1
   0 (piano (note :d4) :decay 0 :vel 80)
+  0.8 (piano (note :e4) :decay 0 :vel 70)
   1 (piano (note :f4))
+  3.8 (piano (note :f#4) :decay 0 :vel 70)
   4 (piano (note :g4) :decay 0 :vel 80)
   5 (piano (note :d4))
 
@@ -70,11 +59,14 @@
 
   12 (piano (note :bb3))
   )
+;; (melody-phrase1 (metro))
 
 (defphrase melody-phrase2
   0 (piano (note :d4) :decay 0 :vel 80)
   1 (piano (note :f4))
   4 (piano (note :g4) :decay 0 :vel 80)
+  4.344 (piano (note :f4) :decay 0 :vel 50)
+  4.66 (piano (note :e4) :decay 0 :vel 60)
   5 (piano (note :d4))
 
   8 (piano (note :d4) :vel 80)
@@ -87,28 +79,19 @@
 
   12 (piano (note :c4))
   )
+;; (melody-phrase2 (metro))
 
 ;; ---------------------------------------------
 
 (metro-bpm metro 120)
-  
-(defn in-bars [bars beats-per-bar]
-  (+ (* bars beats-per-bar) (metro)))
 
 (do
   (ticks (metro))
-  (kicks1 (metro))
   (snares1 (metro))
-  )
+  (kicks (on-next-bar 8))
 
-(comment
-  (extra-kicks (on-next-bar 8) 4)
-  (extra-snares (on-next-bar 8) 4)
-  )
-
-(comment
-  (melody-phrase1 (on-next-bar 8))
-  (melody-phrase2 (on-next-bar 8))
+  (melody-phrase1 (on-next-bar 8 2))
+  (melody-phrase2 (on-next-bar 8 4))
   )
 
 ;;(stop)
