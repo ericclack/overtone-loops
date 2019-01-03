@@ -11,18 +11,20 @@
         src (sin-osc freq)]
     (* amp env src)))
 
-;; (tone 440 :sustain 0.1) 
+;; (tone 440 :sustain 2)
+;; (tone 220 0.2)
 
 (defn t
-  ([note-name] (t note-name 0.5 0.8))
-  ([note-name amp] (t note-name amp 0.8))
-  ([note-name amp sus] 
-   (tone (midi->hz (note note-name))
-         amp
-         sus)))
+  "Tone player"
+  [note-name & args]
+  (print (first args))
+  (let [amp (or (first args) 0.8)
+        sus (or (second args) 0.8)
+        freq (midi->hz (note note-name))]
+    (tone freq amp sus)))
 
 ;; (t :c4)
-;; (t :d4 0.4)
+;; (t :d4 0.2)
 
 
 (metro-bpm metro 60)
