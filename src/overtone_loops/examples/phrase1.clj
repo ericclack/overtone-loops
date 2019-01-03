@@ -1,8 +1,9 @@
-(ns overtone-loops.music.largo
+(ns overtone-loops.examples.phrase1
   (:use [overtone.live]
         [overtone.inst.piano])
-  (:require [overtone-loops.loops :refer [defphrase metro
-                                          on-next-bar]]))
+  (:require [overtone-loops.loops
+             :refer [defphrase metro
+                     on-next-bar]]))
 
 
 (defn p
@@ -13,8 +14,7 @@
   (apply piano (note note-name) args))
 
 ;; (p :c4 :vel 50)
-;; (p :d4 0.2)
-
+;; (p :d4 :decay 1)
 
 (metro-bpm metro 60)
 
