@@ -15,7 +15,9 @@
     beats-per-bar)))
 
 
-(defmacro thunk [& body]
+(defmacro thunk
+  "Wrap the body in a function, thereby delaying execution"
+  [& body]
   `(fn [] ~@body))
 
 (defn map-odds
@@ -66,6 +68,7 @@
 ;; (play-bar (metro) 0 kick 1 kick 1 snare 2 kick 3 kick 3 snare)
 
 (defn next-loop-iter
+  "Schedule fn for beat with specified bars left"
   [fn beat bars-left]
   (apply-by (metro beat) fn beat bars-left []))
 
