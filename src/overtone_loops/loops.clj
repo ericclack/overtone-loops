@@ -98,12 +98,12 @@
   (let [thunked-pairs (map-evens make-thunk beats-and-sexps)]
     `(defloop0 ~name ~beats-in-bar ~@thunked-pairs)))
 
-;; (odoc defloop)
 ;; (defloop hats 4 0.5 (hat :amp 1) 1.5 (hat :amp 0.8))
 ;; then:
 ;; (hats (metro))
 
 (defmacro defphrase
+  "Define a phrase with pairs of beats and s-exps, like defloop but with no looping"
   [name & beats-and-sexps]
   (defn- make-thunk [s-exp]
     `(thunk ~s-exp))
@@ -112,5 +112,10 @@
     `(defn ~name
        [~beat-sym]
        (play-bar ~beat-sym ~@thunked-pairs))))
+
+;; (defphrase part1 0 (hat) 2 (hat) 3 (hat))
+;; then to play a repeat:
+;; (part1 (metro))
+;; (part1 (on-next-bar 4 2))
 
 ;;(stop)
