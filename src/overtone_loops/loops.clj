@@ -125,6 +125,18 @@
 ;; (part1 (metro))
 ;; (part1 (on-next-bar 4 2))
 
+(defmacro deflistloop
+  [name beats-in-bar instr amps-list]
+  ;; Generate beat / playable pairs
+  (defn- make-instr-pair [i amp]
+    (list i `(thunk (~instr :amp ~amp))))
+  (let [pairs (map-indexed make-instr-pair
+                           amps-list)
+        flat-list (flatten pairs)]
+    `(defloop0 ~name ~beats-in-bar ~@flat-list)))
+
+;; ---------------------------------------------------------------
+
 (defsynth my-mono-sample-player
   "Play a mono sample"
   [buf-id 0 duration 1 amp 1 rate 1 release 0.01]

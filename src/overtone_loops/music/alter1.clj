@@ -9,9 +9,8 @@
 (def crash (freesound2 439789))
 (def clap (freesound2 24787))
 
-(defloop hats1 1
-  1 (hat :amp 0.5)
-  )
+(deflistloop hats1 1 hat [0 0.5])
+;; (hats1 (metro))
 
 (defloop crashes1 8
   2.2 (hat :amp 0.3)
@@ -20,20 +19,15 @@
   3 (crash :amp 0.4)
   )
 
-(defloop kicks1 4
-  0 (kick :amp 0.7)
-  2 (kick :amp 0.6)
-  ) 
+(deflistloop kicks 4 kick [0.7 0 0.2 0 0.8])
+;; (kicks (metro))
 
 (defloop extra-kicks 8
   4.5 (kick :amp 0.4)
   5.5 (kick :amp 0.4)
   )
 
-(defloop snares1 4
-  1 (clap :amp 0.6)
-  3 (clap :amp 0.8)
-  )
+(deflistloop snares1 4 clap [0 0.6 0 0.8])
 
 (defloop extra-snares 16
   2.5 (snare :amp 0.8)
