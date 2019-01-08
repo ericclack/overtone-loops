@@ -134,11 +134,12 @@
                              release)
                         :action FREE)
         snd    (play-buf 1 buf-id rate)]
-    (* amp env snd)))
+    (out 0 (* amp env snd))))
 
 
 (defn freesound2
-  "Load and return a player for this freesound sample"
+  "Load and return a player for this freesound sample
+  which takes arguments amp rate and release."
   [id]
   (let [sample-buf (load-sample (freesound-path id))]
     (fn [ & args ]
@@ -148,5 +149,10 @@
              (:n-channels sample-buf)
              args))))
 
+
+;; (def f (freesound2 213904))
+;; (f)
+;; (f :amp 0.5)
+;; (f :rate 2)
 
 ;;(stop)
