@@ -133,7 +133,7 @@
                              (- dur release 0.01)
                              release)
                         :action FREE)
-        snd    (play-buf channels buf-id rate)]
+        snd    (play-buf 1 buf-id rate)]
     (* amp env snd)))
 
 
