@@ -13,7 +13,8 @@
 (def stick-buf (load-sample (freesound-path 82280)))
 (def chorus-buf (load-sample (freesound-path 213904)))
 
-(definst chorus [amp 1 rate 1 release 0.01]
+(definst chorus
+  [amp 1 rate 1 release 0.01]
   (let [buf    chorus-buf
         dur    (/ (:duration buf) rate)
         env    (env-gen (lin 0.01
@@ -25,7 +26,7 @@
 ;; (chorus :amp 1 :rate 0.5 :release 2)
 ;; (chorus :amp 1 :rate 0.5)
 
-;; (chorus :amp 1 :rate 4 :release 1)
+;; (chorus :amp 1 :rate 4 :release 3)
 
 
 ;; (stop)
