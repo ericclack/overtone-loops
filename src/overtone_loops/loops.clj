@@ -140,7 +140,10 @@
 
 (defn freesound2
   "Load and return a player for this freesound sample
-  which takes arguments amp rate and release."
+  which takes arguments: amp rate release.
+
+  A simpler form of the freesound function, without 
+  clicks and loops."
   [id]
   (let [sample-buf (load-sample (freesound-path id))]
     (fn [ & args ]
