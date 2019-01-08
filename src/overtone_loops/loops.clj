@@ -23,7 +23,7 @@
   [& body]
   `(fn [] ~@body))
 
-(defn map-odds
+(defn- map-odds
   "Apply fn to odd items only: 1st, 3rd, ..."
   [fn seq]
   (cond
@@ -32,7 +32,7 @@
                  (second seq)
                  (map-odds fn (rest (rest seq))))))
 
-(defn map-evens
+(defn- map-evens
   "Apply fn to even items only: 2nd, 4th, ..."
   [fn seq]
   (cond
@@ -41,7 +41,7 @@
                  (fn (second seq))
                  (map-evens fn (rest (rest seq))))))
 
-(defn pairer
+(defn- pairer
   "Pair up items from a sequence, e.g. beat playable pairs"
   [seq]
   (cond
@@ -53,7 +53,7 @@
 ;;(pairer '(1 2 3 4 5 6 7 8))
 ;; => ((1 2) (3 4) (5 6) (7 8))
 
-(defn play-bar-pairs
+(defn- play-bar-pairs
   "Play this bar on beat, given a list of pairs (offset playable)"
   [beat beat-playable-pairs]
   (defn- player [[in-beats playable]]

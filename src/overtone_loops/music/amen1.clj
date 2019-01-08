@@ -1,17 +1,14 @@
 (ns overtone-loops.music.amen1
   (:use [overtone.live]
-        [overtone.inst.piano])
-  (:require [clojure.pprint :refer [pp pprint]]
-            [overtone-loops.loops :refer [defloop metro
-                                          on-next-bar]]))
+        [overtone.inst.piano]
+        [overtone-loops.loops]))
 
 ;; Define some samples from Freesound.org
-(def kick (freesound 171104))
-(def snare (freesound 270156))
-(def hat (freesound 404890))
-(def openhat (freesound 317094))
-(def crash (freesound 439789))
-;; (crash)
+(def kick (freesound2 171104))
+(def snare (freesound2 270156))
+(def hat (freesound2 404890))
+(def openhat (freesound2 317094))
+(def crash (freesound2 439789))
 
 (defloop hats1 8
   0 (openhat :amp 0.5)
@@ -53,17 +50,14 @@
 
 ;; Eval these with Ctrl-X Ctrl-E
 
-(comment
+(do
   (hats1 (on-next-bar 8))
-  )
-
-(comment
   (kicks1 (on-next-bar 8))
-  (extra-kicks (on-next-bar 8))
+  (snares1 (on-next-bar 8))
   )
 
 (comment
-  (snares1 (on-next-bar 8))
+  (extra-kicks (on-next-bar 8))
   (extra-snares (on-next-bar 8))
   )
 
