@@ -132,9 +132,10 @@
                              (- dur release 0.01)
                              release)
                         :action FREE)
+        rate2  (* (buf-rate-scale buf-id) rate)
         snd    (cond
-                 (= 1 channels) (play-buf 1 buf-id rate)
-                 (= 2 channels) (play-buf 2 buf-id rate))]
+                 (= 1 channels) (play-buf 1 buf-id rate2)
+                 (= 2 channels) (play-buf 2 buf-id rate2))]
     (out 0 (* amp env snd))))
 
 (defn freesound2
