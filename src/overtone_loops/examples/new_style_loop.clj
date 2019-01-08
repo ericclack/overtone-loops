@@ -1,13 +1,12 @@
 (ns overtone-loops.examples.new-style-loop
   "Same pattern as old_style but using defloop0"
-  (:use [overtone.live])
-  (:require [clojure.pprint :refer [pp pprint]]
-            [overtone-loops.loops :refer [defloop0 metro]]))
+  (:use [overtone.live]
+        [overtone-loops.loops]))
 
 ;; Define some samples from Freesound.org
-(def kick (freesound 250547))
-(def snare (freesound 270156))
-(def hat (freesound 96140))
+(def kick (freesound2 250547))
+(def snare (freesound2 270156))
+(def hat (freesound2 96140))
 
 ;; Our loops - both 4 beats to the bar
 (defloop0 player 4
@@ -22,8 +21,6 @@
 
 (metro-bpm metro 120)
 (player (metro))
-
-;;
 
 ;;(stop)
 

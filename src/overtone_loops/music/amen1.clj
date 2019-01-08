@@ -1,6 +1,5 @@
 (ns overtone-loops.music.amen1
   (:use [overtone.live]
-        [overtone.inst.piano]
         [overtone-loops.loops]))
 
 ;; Define some samples from Freesound.org

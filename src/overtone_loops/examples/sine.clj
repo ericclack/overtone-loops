@@ -1,8 +1,7 @@
 (ns overtone-loops.examples.sine
   "Example with simple sine tones"
-  (:use [overtone.live])
-  (:require [overtone-loops.loops :refer [defloop metro
-                                          on-next-bar]]))
+  (:use [overtone.live]
+        [overtone-loops.loops]))
 
 ;; Define some instruments
 (definst kick [freq 100 dur 0.3 width 0.5]

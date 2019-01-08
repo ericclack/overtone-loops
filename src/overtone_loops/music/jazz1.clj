@@ -1,28 +1,12 @@
 (ns overtone-loops.music.jazz1
   (:use [overtone.live]
-        [overtone.inst.piano])
-  (:require [clojure.pprint :refer [pp pprint]]
-            [overtone-loops.loops
-             :refer [defloop metro on-next-bar
-                     defphrase]]))
+        [overtone.inst.piano]
+        [overtone-loops.loops]))
 
 ;; Define some samples from Freesound.org
-(def kick (freesound 171104))
-(def snare0 (freesound 151689))
-(def hat (freesound 404890))
-
-;;(snare0)
-;;(snare)
-
-(definst snare
-  [amp 1]
-  (let [env     (env-gen (perc 0.01 1.1) :action FREE)
-        snd     (play-buf 1 snare0)]
-    (* amp env snd)))
-
-(comment
-  (kick)
-  )
+(def kick (freesound2 171104))
+(def snare (freesound2 151689))
+(def hat (freesound2 404890))
 
 (defloop ticks 4
   0 (hat :amp 0.8)
@@ -91,7 +75,7 @@
   (kicks (on-next-bar 8))
 
   (melody-phrase1 (on-next-bar 8 2))
-  (melody-phrase2 (on-next-bar 8 4))
+  (melody-phrase2 (on-next-bar 8 5))
   )
 
 ;;(stop)

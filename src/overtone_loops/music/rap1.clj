@@ -1,10 +1,6 @@
 (ns overtone-loops.music.rap1
   (:use [overtone.live]
-        [overtone.inst.piano])
-  (:require [clojure.pprint :refer [pp pprint]]
-            [overtone-loops.loops :refer [defloop metro
-                                          on-next-bar
-                                          freesound2]]))
+        [overtone-loops.loops]))
 
 ;; Define some samples from Freesound.org
 (def kick (freesound2 171104))

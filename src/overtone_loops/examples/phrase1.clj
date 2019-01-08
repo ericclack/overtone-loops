@@ -1,11 +1,8 @@
 (ns overtone-loops.examples.phrase1
   "Playing a phrase rather than loops, first 8 bars of Weidmann's Largo 1737"
   (:use [overtone.live]
-        [overtone.inst.piano])
-  (:require [overtone-loops.loops
-             :refer [defphrase metro
-                     on-next-bar]]))
-
+        [overtone.inst.piano]
+        [overtone-loops.loops]))
 
 (defn p
   "Piano player that takes note symbols such as :c

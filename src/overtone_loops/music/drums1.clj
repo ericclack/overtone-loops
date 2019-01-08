@@ -1,16 +1,12 @@
 (ns overtone-loops.music.drums1
   (:use [overtone.live]
-        [overtone.inst.piano])
-  (:require [clojure.pprint :refer [pp pprint]]
-            [overtone-loops.loops
-             :refer [defloop on-next-bar metro]]))
-
+        [overtone-loops.loops]))
+  
 ;; Define some samples from Freesound.org
-(def kick (freesound 171104))
-(def snare (freesound 270156))
-(def hat (freesound 404890))
-(def crash (freesound 439789))
-;; (crash)
+(def kick (freesound2 171104))
+(def snare (freesound2 270156))
+(def hat (freesound2 404890))
+(def crash (freesound2 439789))
 
 (defloop ticks 4
   0 (hat :amp 0.4)
@@ -28,7 +24,7 @@
   )
 ;;(defloop hats1 4)
 
-(defloop crashes1 4
+(defloop crashes1 8
   3 (crash :amp 0.4)
   )
 

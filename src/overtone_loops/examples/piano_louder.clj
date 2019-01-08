@@ -1,8 +1,8 @@
 (ns overtone-loops.examples.piano-louder
   "Example of piano volume variation"
   (:use [overtone.live]
-        [overtone.inst.piano])
-  (:require [overtone-loops.loops :refer [defloop metro on-next-bar]]))
+        [overtone.inst.piano]
+        [overtone-loops.loops]))
 
 ;; Our loops
 (defloop piano-notes 6

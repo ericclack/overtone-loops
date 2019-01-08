@@ -1,12 +1,11 @@
 (ns overtone-loops.examples.timing
   "Timing tests"
-  (:use [overtone.live])
-  (:require [overtone-loops.loops
-             :refer [defloop bpm on-next-bar]]))
+  (:use [overtone.live]
+        [overtone-loops.loops]))
 
 ;; Define some samples from Freesound.org
-(def kick (freesound 250547))
-(def hat (freesound 96140))
+(def kick (freesound2 250547))
+(def hat (freesound2 96140))
 
 (defloop hats 4
   0    (hat)
@@ -24,13 +23,13 @@
 
 (defloop double-kicks 4
   0    (kick)
-  0.3    (kick)
+  0.3  (kick)
   1    (kick)
-  1.3    (kick)
+  1.3  (kick)
   2    (kick)
-  2.3    (kick)
+  2.3  (kick)
   3    (kick)
-  3.3    (kick)  
+  3.3  (kick)  
   )
 
 (bpm 90)

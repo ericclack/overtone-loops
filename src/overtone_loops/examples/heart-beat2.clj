@@ -1,11 +1,11 @@
 (ns overtone-loops.examples.heart-beat2
   "Heart beat pattern using defloop, giving us more control"
-  (:use [overtone.live])
-  (:require [overtone-loops.loops :refer [defloop metro]]))
+  (:use [overtone.live]
+        [overtone-loops.loops]))
 
 ;; Define some samples from Freesound.org
-(def kick (freesound 250547))
-(def hat (freesound 96140))
+(def kick (freesound2 250547))
+(def hat (freesound2 96140))
 
 ;; Our loops - both 4 beats to the bar
 (defloop heart 4
