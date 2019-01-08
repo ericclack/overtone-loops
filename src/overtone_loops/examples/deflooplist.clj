@@ -9,6 +9,7 @@
 (def crash (freesound2 439789))
 (def clap (freesound2 24787))
 
+;; Lists of name, beats, instrument and amplitudes, 0=mute
 (deflooplist hats   4 hat   [0    0.5  0    0.5  ])
 (deflooplist kicks  4 kick  [0.7  0    0.2  0    ])
 (deflooplist claps  4 clap  [0    0    1    0    ])
