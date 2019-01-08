@@ -42,7 +42,7 @@
 
 ;; ---------------------------------------------
 
-(metro-bpm metro 240)
+(bpm 220)
 
 ;; Eval these with Ctrl-X Ctrl-E
 

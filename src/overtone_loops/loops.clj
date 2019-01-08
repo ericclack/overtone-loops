@@ -154,21 +154,17 @@
   "Load and return a player for this freesound sample
   which takes arguments: amp rate release.
 
-  A simpler form of the freesound function, without 
+  A simpler form of the overtone freesound function, without 
   clicks and loops."
   [id]
   (let [sample-buf (load-sample (freesound-path id))
+        buf-id     (:id sample-buf)
+        dur        (:duration sample-buf)
         channels   (:n-channels sample-buf)]
     (fn [ & args ]
       (cond
-        (= 1 channels) (apply my-mono-sample-player
-                              (:id sample-buf)
-                              (:duration sample-buf)
-                              args)
-        (= 2 channels) (apply my-stereo-sample-player
-                              (:id sample-buf)
-                              (:duration sample-buf)
-                              args)))))
+        (= 1 channels) (apply my-mono-sample-player buf-id dur args)
+        (= 2 channels) (apply my-stereo-sample-player buf-id dur args)))))
 
 ;; (def f (freesound2 213904))
 ;; (f)
