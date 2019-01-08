@@ -109,6 +109,16 @@
 ;; then:
 ;; (hats (metro))
 
+(defmacro deflooplist
+  [name beats-in-bar instr amps-list]
+  (defn- make-instr-thunk [amp]
+    `(thunk (~instr :amp ~amp)))
+  (let [beats-amps (flatten (map-indexed #(list %1 %2) amps-list))
+        thunked-pairs (map-evens make-instr-thunk beats-amps)]
+    `(defloop0 ~name ~beats-in-bar ~@thunked-pairs)))
+
+;; Example
+
 (defmacro defphrase
   "Define a phrase with pairs of beats and s-exps, like defloop but with no looping"
   [name & beats-and-sexps]
@@ -124,16 +134,6 @@
 ;; then to play a repeat:
 ;; (part1 (metro))
 ;; (part1 (on-next-bar 4 2))
-
-(defmacro deflistloop
-  [name beats-in-bar instr amps-list]
-  ;; Generate beat / playable pairs
-  (defn- make-instr-pair [i amp]
-    (list i `(thunk (~instr :amp ~amp))))
-  (let [pairs (map-indexed make-instr-pair
-                           amps-list)
-        flat-list (flatten pairs)]
-    `(defloop0 ~name ~beats-in-bar ~@flat-list)))
 
 ;; ---------------------------------------------------------------
 
