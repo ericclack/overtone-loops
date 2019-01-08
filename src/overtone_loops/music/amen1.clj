@@ -9,39 +9,36 @@
 (def openhat (freesound2 317094))
 (def crash (freesound2 439789))
 
-(defloop hats1 8
-  0 (openhat :amp 0.5)
-  1 (openhat :amp 0.6)
-  2 (openhat :amp 0.7)
+(defloop hats1 4
+  0 (hat :amp 0.2)
+  0 (openhat :amp 0.3 :rate 0.6)
+  
+  1 (hat :amp 0.2)
+  1 (openhat :amp 0.3 :rate 0.6)
 
-  4 (openhat :amp 0.5)
-  5 (openhat :amp 0.6)
-  6 (openhat :amp 0.7)
-  7 (openhat :amp 0.4)  
+  2 (hat :amp 0.2)
+  2 (openhat :amp 0.3 :rate 0.6)
+
+  3 (hat :amp 0.2)
   )
 
 (defloop kicks1 8
   0 (kick :amp 0.7)
-  1 (kick :amp 0.8)
+  1 (kick :amp 0.7)
 
-  5 (kick :amp 0.4)
-  6 (kick :amp 0.9)
+  5 (kick :amp 0.3)
+  5.5 (kick :amp 0.4)
   ) 
 
-(defloop extra-kicks 8
-  )
-
 (defloop snares1 8
-  2 (snare :amp 0.7)
+  2 (snare :amp 0.7 :rate 0.8)
 
-  5.5 (snare :amp 0.7)
-  6.5 (snare :amp 0.7)
-  7.5 (snare :amp 0.5)
+  3.5   (snare :amp 0.3 :rate 0.8)
+  4.5   (snare :amp 0.3 :rate 0.8)
+
+  6     (snare :amp 0.3 :rate 0.8)
+  7.5   (snare :amp 0.7 :rate 0.8)
   )
-
-(defloop extra-snares 8
-  )
-
 
 ;; ---------------------------------------------
 
@@ -53,11 +50,6 @@
   (hats1 (on-next-bar 8))
   (kicks1 (on-next-bar 8))
   (snares1 (on-next-bar 8))
-  )
-
-(comment
-  (extra-kicks (on-next-bar 8))
-  (extra-snares (on-next-bar 8))
   )
 
 ;;(stop)
