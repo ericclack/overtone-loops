@@ -125,4 +125,28 @@
 ;; (part1 (metro))
 ;; (part1 (on-next-bar 4 2))
 
+
+(defsynth my-sample-player
+  [buf-id 0 duration 1 channels 1 amp 1 rate 1 release 0.01]
+  (let [dur    (/ duration rate)
+        env    (env-gen (lin 0.01
+                             (- dur release 0.01)
+                             release)
+                        :action FREE)
+        snd    (play-buf channels buf-id rate)]
+    (* amp env snd)))
+
+
+(defn freesound2
+  "Load and return a player for this freesound sample"
+  [id]
+  (let [sample-buf (load-sample (freesound-path id))]
+    (fn [ & args ]
+      (apply my-sample-player
+             (:id sample-buf)
+             (:duration sample-buf)
+             (:n-channels sample-buf)
+             args))))
+
+
 ;;(stop)
