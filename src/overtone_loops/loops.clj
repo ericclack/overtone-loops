@@ -125,17 +125,29 @@
 ;; (part1 (metro))
 ;; (part1 (on-next-bar 4 2))
 
-(defsynth my-sample-player
-  [buf-id 0 duration 1 channels 1 amp 1 rate 1 release 0.01]
+(defsynth my-mono-sample-player
+  "Play a mono sample"
+  [buf-id 0 duration 1 amp 1 rate 1 release 0.01]
   (let [dur    (/ duration rate)
         env    (env-gen (lin 0.01
                              (- dur release 0.01)
                              release)
                         :action FREE)
         rate2  (* (buf-rate-scale buf-id) rate)
-        snd    (cond
-                 (= 1 channels) (play-buf 1 buf-id rate2)
-                 (= 2 channels) (play-buf 2 buf-id rate2))]
+        snd    (play-buf 1 buf-id rate2)]
+    (out 0 (* amp env snd))))
+
+(defsynth my-stereo-sample-player
+  "Play a stereo sample, a separate synth because of
+  limitations of passing ints through to play-buf"
+  [buf-id 0 duration 1 amp 1 rate 1 release 0.01]
+  (let [dur    (/ duration rate)
+        env    (env-gen (lin 0.01
+                             (- dur release 0.01)
+                             release)
+                        :action FREE)
+        rate2  (* (buf-rate-scale buf-id) rate)
+        snd    (play-buf 2 buf-id rate2)]
     (out 0 (* amp env snd))))
 
 (defn freesound2
@@ -145,13 +157,18 @@
   A simpler form of the freesound function, without 
   clicks and loops."
   [id]
-  (let [sample-buf (load-sample (freesound-path id))]
+  (let [sample-buf (load-sample (freesound-path id))
+        channels   (:n-channels sample-buf)]
     (fn [ & args ]
-      (apply my-sample-player
-             (:id sample-buf)
-             (:duration sample-buf)
-             (:n-channels sample-buf)
-             args))))
+      (cond
+        (= 1 channels) (apply my-mono-sample-player
+                              (:id sample-buf)
+                              (:duration sample-buf)
+                              args)
+        (= 2 channels) (apply my-stereo-sample-player
+                              (:id sample-buf)
+                              (:duration sample-buf)
+                              args)))))
 
 ;; (def f (freesound2 213904))
 ;; (f)

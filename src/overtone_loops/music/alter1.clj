@@ -2,15 +2,15 @@
   (:use [overtone.live]
         [overtone.inst.piano])
   (:require [clojure.pprint :refer [pp pprint]]
-            [overtone-loops.loops :refer [defloop metro
+            [overtone-loops.loops :refer [freesound2 defloop metro
                                           on-next-bar]]))
 
 ;; Define some samples from Freesound.org
-(def kick (freesound 171104))
-(def snare (freesound 270156))
-(def hat (freesound 404890))
-(def crash (freesound 439789))
-(def clap (freesound 24787))
+(def kick (freesound2 171104))
+(def snare (freesound2 270156))
+(def hat (freesound2 404890))
+(def crash (freesound2 439789))
+(def clap (freesound2 24787))
 
 (defloop hats1 1
   1 (hat :amp 0.5)

@@ -3,23 +3,15 @@
         [overtone.inst.piano])
   (:require [clojure.pprint :refer [pp pprint]]
             [overtone-loops.loops :refer [defloop metro
-                                          on-next-bar]]))
+                                          on-next-bar
+                                          freesound2]]))
 
 ;; Define some samples from Freesound.org
-(def kick (freesound 171104))
-(def snare0 (freesound 404859))
-(def hat (freesound 404891))
-(def hat2 (freesound 404893))
-(def clap (freesound 24787))
-
-(definst snare
-  [amp 0.7]
-  (let [env     (env-gen (perc 0.01 1) :action FREE)
-        snd     (play-buf 1 snare0)]
-    (* amp env snd)))
-
-;; Original (snare0)
-;; Improved (snare)
+(def kick (freesound2 171104))
+(def snare (freesound2 404859))
+(def hat (freesound2 404891))
+(def hat2 (freesound2 404893))
+(def clap (freesound2 24787))
 
 (defloop ticks 8
   0 (hat :amp 0.7)
