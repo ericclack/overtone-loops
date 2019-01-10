@@ -1,5 +1,6 @@
 (ns overtone-loops.loops
-  "Simpler music loop syntax for Overtone, the programmable music toolkit"
+  "Simpler music loop syntax for Overtone, the programmable 
+  music toolkit."
   (:use [overtone.live])
   (:require [clojure.pprint :refer [pp pprint]]))
 
@@ -16,7 +17,6 @@
     (+ bars
        (quot (metro) beats-per-bar))
     beats-per-bar)))
-
 
 (defmacro thunk
   "Wrap the body in a function, thereby delaying execution"
@@ -42,7 +42,11 @@
                  (map-evens fn (rest (rest seq))))))
 
 (defn- pairer
-  "Pair up items from a sequence, e.g. beat playable pairs"
+  "Pair up items from a sequence, e.g. beat playable pairs
+
+  (pairer '(1 2 3 4 5 6 7 8))
+  => ((1 2) (3 4) (5 6) (7 8))
+  "
   [seq]
   (cond
     (empty? seq) '()
@@ -50,38 +54,50 @@
                 (pairer (rest (rest seq))))
     ))
 
-;;(pairer '(1 2 3 4 5 6 7 8))
-;; => ((1 2) (3 4) (5 6) (7 8))
-
 (defn- play-bar-pairs
-  "Play this bar on beat, given a list of pairs (offset playable)"
+  "Play this bar on beat, given a list of pairs (offset playable)
+
+  (play-bar-pairs (metro) (pairer (list 0 kick 1 kick 2 snare)))
+  (play-bar-pairs (metro) (pairer (list 0.5 hat 1.5 hat)))
+  "
   [beat beat-playable-pairs]
   (defn- player [[in-beats playable]]
     (at (metro (+ beat in-beats)) (playable)))
   (doall (map player beat-playable-pairs)))
 
-;; (play-bar-pairs (metro) (pairer (list 0 kick 1 kick 2 snare)))
-;; (play-bar-pairs (metro) (pairer (list 0.5 hat 1.5 hat)))
-
 (defn play-bar 
-  "Play this bar on beat, given: offset playable offset playable ..."
+  "Play this bar on beat, given: offset playable offset playable ...
+
+  (play-bar (metro) 0 kick 1 kick 1 snare 2 kick 3 kick 3 snare)
+  "
   [beat & beats-and-playables]
   (play-bar-pairs beat (pairer beats-and-playables)))
-
-;; (play-bar (metro) 0 kick 1 kick 1 snare 2 kick 3 kick 3 snare)
 
 (defn next-loop-iter
   "Schedule fn for beat with specified bars left"
   [fn beat bars-left]
   (apply-by (metro beat) fn beat bars-left []))
 
+;; ----------------------------------------------------------------
+
 (defmacro defloop0 
-  "Wrap pairs of beats and playables into a loop"
+  "Wrap pairs of beats and playables into a loop
+  
+  ;; Examples
+  (def hat (freesound2 404890))
+  (defloop0 hats 4
+     0.5 hat 1.5 hat 2.5 hat 3.5 hat)
+  ;; then:
+  (hats (metro))
+  ;; play for 16 bars:
+  (hats (metro) 16)
+  "
   [name beats-in-bar & beats-and-playables]
   (let* [beat-sym (gensym "beat")
          bars-left-sym (gensym "bars-left-sym")]
     `(defn ~name
-       "Play this loop, starting at beat, optionally for a number of bars"
+       "Play this loop, starting at beat, optionally 
+       for a number of bars"
        ([~beat-sym] (~name ~beat-sym -1))
        ([~beat-sym ~bars-left-sym]
         (play-bar ~beat-sym ~@beats-and-playables)
@@ -90,26 +106,32 @@
                     (+ ~beats-in-bar ~beat-sym)
                     (dec ~bars-left-sym)))))))
 
-;; (defloop0 hats 4
-;;           0.5 hat 1.5 hat 2.5 hat 3.5 hat)
-;; then:
-;; (hats (metro))
-;; play for 16 bars:
-;; (hats (metro) 16)
+(defmacro defloop1
+  "Like defloop0 but pairs are beats and s-exps, enabling 
+  you to pass in parameters such as :amp. We wrap these 
+  s-exps in a thunk so they don't all play immediately.
 
-(defmacro defloop
-  "Like defloop0 but pairs are beats and s-exps, which we wrap in a thunk so they don't all play immediately"
+  ;; Examples
+  (def hat (freesound2 404890))
+  (defloop hats 4 
+     0.5 (hat :amp 1) 1.5 (hat :amp 0.8))
+  ;; then:
+  (hats (metro))
+  "
   [name beats-in-bar & beats-and-sexps]
   (defn- make-thunk [s-exp]
     `(thunk ~s-exp))
   (let [thunked-pairs (map-evens make-thunk beats-and-sexps)]
     `(defloop0 ~name ~beats-in-bar ~@thunked-pairs)))
 
-;; (defloop hats 4 0.5 (hat :amp 1) 1.5 (hat :amp 0.8))
-;; then:
-;; (hats (metro))
-
 (defmacro deflooplist
+  "Define a loop for a single instrument with amps-list
+  defining amplitudes on each beat.
+
+  ;; Example
+  (defloop hats   4 hat   [0    0.5  0    0.5  ])
+  (defloop kicks  4 kick  [0.7  0    0.2  0    ])
+  "
   [name beats-in-bar instr amps-list]
   (defn- make-instr-thunk [amp]
     `(thunk (~instr :amp ~amp)))
@@ -117,10 +139,32 @@
         thunked-pairs (map-evens make-instr-thunk beats-amps)]
     `(defloop0 ~name ~beats-in-bar ~@thunked-pairs)))
 
-;; Example
+(defmacro defloop
+  "Uber defloop, picks the right macro based on parameters,
+  see defloop1 and deflooplist for options."
+  [name beats-in-bar & rest]
+  (cond
+    ;; We assume a symbol represents an instrument function
+    (symbol? (first rest)) `(deflooplist ~name ~beats-in-bar ~@rest)
+    ;; A number followed by an s-exp
+    (and
+     (number? (first rest))
+     (list? (second rest))) `(defloop1 ~name ~beats-in-bar ~@rest)
+    ;; Something else
+    :else (throw (Exception. (str "Invalid parameters, got: name, beats and " rest)))))
+
+;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 (defmacro defphrase
-  "Define a phrase with pairs of beats and s-exps, like defloop but with no looping"
+  "Define a phrase with pairs of beats and s-exps, like 
+   defloop but with no looping.
+
+  (defphrase part1 
+     0 (piano :c3) 2 (piano :e3) 3 (piano :g3))
+  ;; then to play a repeat:
+  (part1 (metro))
+  (part1 (on-next-bar 4 2))
+  "
   [name & beats-and-sexps]
   (defn- make-thunk [s-exp]
     `(thunk ~s-exp))
@@ -130,12 +174,8 @@
        [~beat-sym]
        (play-bar ~beat-sym ~@thunked-pairs))))
 
-;; (defphrase part1 0 (hat) 2 (hat) 3 (hat))
-;; then to play a repeat:
-;; (part1 (metro))
-;; (part1 (on-next-bar 4 2))
-
 ;; ---------------------------------------------------------------
+;; Click-free sample players
 
 (defsynth my-mono-sample-player
   "Play a mono sample"
