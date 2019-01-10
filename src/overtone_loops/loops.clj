@@ -140,8 +140,12 @@
     `(defloop0 ~name ~beats-in-bar ~@thunked-pairs)))
 
 (defmacro defloop
-  "Uber defloop, picks the right macro based on parameters,
-  see defloop1 and deflooplist for options."
+  "Uber defloop, picks the the macro based on parameters, 
+  one of defloop1 or deflooplist:
+
+  (defloop name beats-in-bar   beat (instr)  beat (instr)  ...)
+  (defloop name beats-in-bar   intsr [amp amp amp ...])
+  "
   [name beats-in-bar & rest]
   (cond
     ;; We assume a symbol represents an instrument function
