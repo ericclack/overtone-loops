@@ -1,4 +1,4 @@
-(ns overtone-loops.examples.deflooplist
+(ns overtone-loops.examples.list-loops
   (:use [overtone.live]
         [overtone-loops.loops]))
 
@@ -16,8 +16,8 @@
 
 (defloop other-stuff 8
   0 (crash)
-  5 (crash :rate 1.1)
-  6 (crash :rate 1.2)
+  5 (crash :rate 0.9)
+  6 (crash)
   )
 
 ;; ---------------------------------------------
@@ -32,9 +32,3 @@
   )
 
 ;;(stop)
-
-;; Variations
-;;              name beats-in-bar         beat fn          beat fn
-;; (defloop     hats 4                    0.5 (hat :amp 1) 1.5 (hat :amp 0.8))
-;;
-;; (deflooplist hats 4             instr  list)
