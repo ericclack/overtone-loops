@@ -23,7 +23,7 @@
   [& body]
   `(fn [] ~@body))
 
-(defn- map-odds
+(defn map-odds
   "Apply fn to odd items only: 1st, 3rd, ..."
   [fn seq]
   (cond
@@ -32,7 +32,7 @@
                  (second seq)
                  (map-odds fn (rest (rest seq))))))
 
-(defn- map-evens
+(defn map-evens
   "Apply fn to even items only: 2nd, 4th, ..."
   [fn seq]
   (cond
@@ -41,7 +41,7 @@
                  (fn (second seq))
                  (map-evens fn (rest (rest seq))))))
 
-(defn- pairer
+(defn pairer
   "Pair up items from a sequence, e.g. beat playable pairs
 
   (pairer '(1 2 3 4 5 6 7 8))
@@ -124,6 +124,16 @@
   (let [thunked-pairs (map-evens make-thunk beats-and-sexps)]
     `(defloop0 ~name ~beats-in-bar ~@thunked-pairs)))
 
+(defn make-beat-amp-pairs
+  "If amp is a single value return pair (beat/fraction amp), otherwise
+  if it's a list return a pair for each element, e.g. 
+  if amp is (0.5 0.6 0.7)
+  and beat is then generate (..."
+  [beat amp]
+  (if (list? amp)
+    (map-indexed #(list (+ beat (/ %1 (count amp))) %2) amp)
+    (list beat amp)))
+      
 (defmacro deflooplist
   "Define a loop for a single instrument with amps-list
   defining amplitudes on each beat.
@@ -135,7 +145,7 @@
   [name beats-in-bar instr amps-list]
   (defn- make-instr-thunk [amp]
     `(thunk (~instr :amp ~amp)))
-  (let [beats-amps (flatten (map-indexed #(list %1 %2) amps-list))
+  (let [beats-amps (flatten (map-indexed make-beat-amp-pairs amps-list))
         thunked-pairs (map-evens make-instr-thunk beats-amps)]
     `(defloop0 ~name ~beats-in-bar ~@thunked-pairs)))
 

@@ -29,3 +29,11 @@
 
     ))
   
+
+(deftest make-beat-amp-pairs-tests
+  (testing "basic cases"
+    (is (= '(5 0.8)
+           (make-beat-amp-pairs 5 0.8))))
+  (testing "nested amps"
+    (is (= '((5 0.1) (11/2 0.8))
+           (make-beat-amp-pairs 5 '(0.1 0.8))))))
