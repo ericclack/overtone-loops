@@ -9,20 +9,18 @@
 (def crash (freesound2 439789))
 (def clap (freesound2 24787))
 
-(defloop hats1   2 hat    [0    0.5 ])
-(defloop kicks   4 kick   [0.7  0   0.2   0 ])
-(defloop snares1 4 clap   [0    0.6 0     0.8])
+;;                                1         2         3         4          5         6         7         8
+(defloop hats     2       hat    [0         0.5 ])
+(defloop kicks   (4 1/2) kick    [0.7  0.0  0.0  0.0  0.2  0.0  0.0  0.0  ])
+(defloop claps    4      clap    [0.0       0.6       0.0       0.8       ])
+
+(defloop exkicks (8 1/2) kick    [0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0   0.0  0.4  0.0  0.4  0.0  0.0  0.0])
 
 (defloop crashes1 8
   2.2 (hat :amp 0.3)
   2.6 (hat :amp 0.5)
   2.8 (hat :amp 0.7)
   3 (crash :amp 0.4)
-  )
-
-(defloop extra-kicks 8
-  4.5 (kick :amp 0.4)
-  5.5 (kick :amp 0.4)
   )
 
 (defloop extra-snares 16
@@ -48,15 +46,15 @@
 (metro-bpm metro 130)
   
 (do
-  (hats1 (on-next-bar 4))
+  (hats (on-next-bar 4))
+  (claps (on-next-bar 4))
+  (kicks (on-next-bar 4))
   (crashes1 (on-next-bar 4))
-  (snares1 (on-next-bar 4))
-  (kicks1 (on-next-bar 4))
   )
 
 (comment ; all play for only a few phrases
   ;; Play these with Ctrl-X Ctrl-E
-  (extra-kicks (on-next-bar 8) 4)
+  (exkicks (on-next-bar 8) 4)
   (extra-snares (on-next-bar 8) 8)
   )
 
