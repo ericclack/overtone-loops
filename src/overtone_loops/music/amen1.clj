@@ -5,6 +5,7 @@
 ;; Define some samples from Freesound.org
 (def kick (freesound2 171104))
 (def snare (freesound2 270156))
+(def tom (freesound2 86331))    ;; (tom)
 (def hat (freesound2 404890))
 (def openhat (freesound2 317094))
 (def crash (freesound2 439789))
@@ -30,14 +31,14 @@
   5.5 (kick :amp 0.4)
   ) 
 
-(defloop snares1 8
-  2 (snare :amp 0.7 :rate 0.8)
+(defloop toms1 8
+  2 (tom :amp 0.9 )
 
-  3.5   (snare :amp 0.3 :rate 0.8)
-  4.5   (snare :amp 0.3 :rate 0.8)
+  3.5   (tom :amp 0.5 )
+  4.5   (tom :amp 0.5 )
 
-  6     (snare :amp 0.3 :rate 0.8)
-  7.5   (snare :amp 0.7 :rate 0.8)
+  6     (tom :amp 0.5 )
+  7.5   (tom :amp 0.9 )
   )
 
 ;; ---------------------------------------------
@@ -49,7 +50,7 @@
 (do
   (hats1 (on-next-bar 8))
   (kicks1 (on-next-bar 8))
-  (snares1 (on-next-bar 8))
+  (toms1 (on-next-bar 8))
   )
 
 ;;(stop)
