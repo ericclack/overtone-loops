@@ -10,8 +10,8 @@
 (def bell (freesound2 382806))
 
 ;; Lists of name, beat-pattern, instrument and amplitudes, 0=mute
-;; amps are either single values of a list 
-;; of a pair of (beats-in-bar beat-value)
+;; And amp is either a single value, and is played on the beat,
+;; or a list of values that are played as fractions of that beat.
 
 ;;                           1        2          3               4
 (defloop hats    4  hat    [(0.0 0.5)  (0.0 0.5)    (0.0 0.5)   (0.0 0.5)]) ;; off beats
