@@ -11,7 +11,7 @@
 
 ;; Lists of name, beat-pattern, instrument and amplitudes, 0=mute
 ;; beat-pattern is either an int = number of beats in a bar
-;; of a pair of (beats-in-bar beat-value)
+;; or a pair of (beats-in-bar beat-value)
 (defloop hats   (4 1/2) hat    [0     0.5   0     0.5   0       0.5     0    0.5])
 (defloop kicks  (4 1/2) kick   [0.7   0     0.2   0     0.7     0.6     0.2  0  ])
 (defloop claps   4      clap   [0           0           0.7             0       ])
