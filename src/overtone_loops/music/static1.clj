@@ -9,23 +9,23 @@
 (def finger (freesound2 177495))
 (def clap (freesound2 24787))
 
-;; All half beats
-(defloop hats    8 hat     [0.2  0.7   0.2   0.7   0   0.7   0.2   0.7 ])
-(defloop fingers 8 finger  [1    0     0     0     1   0     0     0   ])
+;;                                1          2           3         4
+(defloop hats    (4 1/2) hat     [0.2  0.7   0.2   0.7   0   0.7   0.2   0.7 ])
+(defloop fingers 4       finger  [1          0           1         0         ])
   
-(defloop kicks   8 kick    [1    0     1     0     1   0     1     0   ])
-(defloop claps   8 clap    [0    0.6   0     0     0   0.6   0.7   0.8 ])
+(defloop kicks   4       kick    [1          1           1         1         ])
+(defloop claps   (4 1/2) clap    [0    0.6   0     0     0   0.6   0.7   0.8 ])
 
 ;; ---------------------------------------------
 
-(bpm 220) ;; half beats
+(bpm 110) ;; half beats
   
 (do
-  (hats (on-next-bar 8))
-  (fingers (on-next-bar 8 5))
+  (hats (on-next-bar 4))
+  (fingers (on-next-bar 4 5))
 
-  (kicks (on-next-bar 8 9))   
-  (claps (on-next-bar 8 13) 4)   
+  (kicks (on-next-bar 4 9))   
+  (claps (on-next-bar 4 13) 4)   
   )
 
 (comment ; all play for only a few phrases
