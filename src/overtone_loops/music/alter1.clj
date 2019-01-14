@@ -10,7 +10,7 @@
 (def clap (freesound2 24787))
 
 (defloop hats1   2 hat    [0    0.5 ])
-(defloop kicks   4 kick   [0.7  0   0.2   0 ])
+(defloop kicks1  4 kick   [0.7  0   0.2   0 ])
 (defloop snares1 4 clap   [0    0.6 0     0.8])
 
 (defloop crashes1 8
