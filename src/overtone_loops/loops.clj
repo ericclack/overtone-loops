@@ -96,13 +96,17 @@
   ;; Example
   (defloop hats   4 hat   [0    0.5  0    0.5  ])
   (defloop kicks  4 kick  [0.7  0    0.2  0    ])
+  ;; Or with fractional beats
+  (defloop hats   (4 1/2) hat [0 0.5 0 0.5 0 0.5 0 0.5])
   "
-  [name beats-in-bar instr amps-list]
-  (defn- make-instr-thunk [amp]
-    `(thunk (~instr :amp ~amp)))
-  (let [beats-amps (flatten (map-indexed #(list %1 %2) amps-list))
-        thunked-pairs (map-evens make-instr-thunk beats-amps)]
-    `(defloop0 ~name ~beats-in-bar ~@thunked-pairs)))
+  [name beat-pattern instr amps-list]
+  (let [beats-in-bar (if (list? beat-pattern) (first beat-pattern) beat-pattern)
+        fraction (if (list? beat-pattern) (second beat-pattern) 1)]
+    (defn- make-instr-thunk [amp]
+      `(thunk (~instr :amp ~amp)))
+    (let [beats-amps (flatten (map-indexed #(list (* %1 fraction) %2) amps-list))
+          thunked-pairs (map-evens make-instr-thunk beats-amps)]
+      `(defloop0 ~name ~beats-in-bar ~@thunked-pairs))))
 
 (defmacro defloop
   "Uber defloop, picks the the macro based on parameters, 
