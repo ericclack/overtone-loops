@@ -63,6 +63,16 @@ There's one more `defloop` form that's super useful for drum patterns, you can p
 
 Here the parameters to `defloop` are `loop-name`, `beats-in-a-phrase` the instrument to play, and a list of amplitudes to pass to the instrument on each beat, where `0` is a muted beat.
 
+A variation of this list form is to supply a pair of `(beats  fraction)` so that you can, for example, make a loop with 4 beats to the bar and amplitudes for each 1/2 beat, like this:
+
+```
+;;                         beat 1           2           3               4
+(defloop hats   (4 1/2) hat    [0     0.5   0     0.5   0       0.5     0    0.5  ]) ;; half beats
+(defloop kicks  (4 1/2) kick   [0.7   0     0.2   0     0.7     0.6     0.2  0    ]) ;; half beats
+(defloop claps   4      clap   [0           0           0.7             0         ]) ;; regular beats
+(defloop bells  (4 1/3) bell   [0.4 0 0     0 0 0.4     0 0.6 0         0 0.5 0.7 ]) ;; triplets
+```
+
 ## Usage
 
 See code in [examples](src/overtone_loops/examples) or [music](src/overtone_loops/music).
