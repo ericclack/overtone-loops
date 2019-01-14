@@ -66,6 +66,7 @@ Here the parameters to `defloop` are `loop-name`, `beats-in-a-phrase` the instru
 A variation of this list form is to supply a pair of `(beats  fraction)` so that you can, for example, make a loop with 4 beats to the bar and amplitudes for each 1/2 beat, like this:
 
 ```
+;;                         beat 1           2           3               4
 (defloop hats   (4 1/2) hat    [0     0.5   0     0.5   0       0.5     0    0.5  ]) ;; half beats
 (defloop kicks  (4 1/2) kick   [0.7   0     0.2   0     0.7     0.6     0.2  0    ]) ;; half beats
 (defloop claps   4      clap   [0           0           0.7             0         ]) ;; regular beats
