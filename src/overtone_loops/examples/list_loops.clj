@@ -10,9 +10,10 @@
 (def clap (freesound2 24787))
 
 ;; Lists of name, num-beats, instrument and amplitudes, 0=mute
-(defloop hats   8 hat   [0    0.5  0    0.5  0    0.5   0    0.5])
-(defloop kicks  8 kick  [0.7  0    0.2  0    0.7  0.6   0.2  0  ])
-(defloop claps  4 clap  [0    0    1    0    ])
+;;                             1         2         3          4
+(defloop hats   (4 1/2) hat   [0    0.5  0    0.5  0    0.5   0    0.5])
+(defloop kicks  (4 1/2) kick  [0.7  0    0.2  0    0.7  0.6   0.2  0  ])
+(defloop claps  4       clap  [0         1         0          1       ])
 
 (defloop other-stuff 8
   0 (crash)
@@ -22,7 +23,7 @@
 
 ;; ---------------------------------------------
 
-(bpm 190)
+(bpm 110)
   
 (do
   (hats (on-next-bar 4))

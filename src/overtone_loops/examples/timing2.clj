@@ -7,26 +7,10 @@
 (def kick (freesound2 250547))
 (def hat (freesound2 96140))
 
-(defloop hats 3
-  0    (hat :amp 1)
-  1    (hat :amp 0.7)
-  2    (hat :amp 0.7)
-  )
+(defloop hats  3 hat  [1 0.7 0.7])
+(defloop kicks 3 kick [1 0.7 0.7])
 
-(defloop kicks 3
-  0    (kick)
-  1    (kick)
-  2    (kick)
-  )
-
-(defloop double-kicks 3
-  0    (kick)
-  0.3  (kick)
-  1    (kick)
-  1.3  (kick)
-  2    (kick)
-  2.3  (kick)
-  )
+(defloop double-kicks (3 1/3) kick [1 1 0  1 1 0  1 1 0])
 
 (bpm 90)
 

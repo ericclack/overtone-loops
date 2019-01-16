@@ -7,31 +7,10 @@
 (def kick (freesound2 250547))
 (def hat (freesound2 96140))
 
-(defloop hats 4
-  0    (hat)
-  1    (hat)
-  2    (hat)
-  3    (hat)
-  )
+(defloop hats  4 hat  [1 1 1 1])
+(defloop kicks 4 kick [1 1 1 1])
 
-(defloop kicks 4
-  0    (kick)
-  1    (kick)
-  2    (kick)
-  3    (kick)
-  )
-
-(defloop double-kicks 4
-  0    (kick)
-  0.3  (kick)
-  1    (kick)
-  1.3  (kick)
-  2    (kick)
-  2.3  (kick)
-  3    (kick)
-  3.3  (kick)  
-  )
-
+(defloop double-kicks (4 1/3) kick [1 1 0  1 1 0  1 1 0  1 1 0])
 (bpm 90)
 
 ;; bar 1
