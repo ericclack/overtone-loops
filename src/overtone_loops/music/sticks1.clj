@@ -26,7 +26,7 @@
   )
 
 (defloop bass-line 4
-  ;;0 (overpad (note :c3))
+  0 (overpad (note :f2))
   )
 
 ;; (ctl vintage-bass :gate 0)

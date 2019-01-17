@@ -55,13 +55,13 @@
 (bpm 110) ;; half beats
   
 (do
-  (hats (on-next-bar 4))
-  (bass1 (on-next-bar 4 5) 6)
+  (hats    (on-next-bar 4))
+  (bass1   (on-next-bar 4 5) 6)
   (fingers (on-next-bar 4 7))
 
-  (kicks (on-next-bar 4 11))   
-  (claps (on-next-bar 4 15) 4)
-  (bass2 (on-next-bar 4 15) 4)
+  (kicks   (on-next-bar 4 9))   
+  (claps   (on-next-bar 4 13) 4)
+  (bass2   (on-next-bar 4 15) 4)
   )
 
 (comment ; all play for only a few phrases
