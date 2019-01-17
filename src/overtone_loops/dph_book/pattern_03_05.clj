@@ -1,4 +1,4 @@
-(ns overtone-loops.dph-book.pattern-03-03
+(ns overtone-loops.dph-book.pattern-03-05
   (:use [overtone.live]
         [overtone-loops.loops]))
 
@@ -15,17 +15,13 @@
 (defloop closed-hhs
   (4 1/2) closed-hh [7 7 7 7 7 7 7 7 ])
 (defloop sds
-  (4 1/2) snare     [- - 8 - - - 8 - ])
+  (16 1/2) snare    [- - 8 - - 8 - 8    - - 8 - 8 - 8 -    - 8 - - - - 8 -    - 8 - - 8 - 8 - ]) 
 
 (defloop kicks
-  (32 1/2) kick     [8 - - - 8 - - -    8 - - - 8 8 - -    8 8 - - - 8 - -    8 8 - 8 - 8 - 8
+  (16 1/2) kick     [8 - - 8 8 - - -    8 - - 8 - 8 - -    8 - - 8 8 - - 8    8 - 8 8 - 8 - - ])
 
-                     - - 8 - - 4 8 -    8 8 8 - - 8 - -    8 - - - 8 8 - -    8 4 8 4 8 4 8 4])
-  
-;; ---------------------------------------------
+(bpm 96)
 
-(bpm 120)
-  
 (do
   (closed-hhs (on-next-bar 4))
   (sds        (on-next-bar 4))
