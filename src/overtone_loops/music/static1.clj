@@ -41,14 +41,14 @@
   )
 
 ;; Patterns ------------------------------------------------------------
-;;                                 1         2         3         4
-(defloop hats    (4 1/2) hat      [0.2 0.7   0.2 0.7   0   0.7   0.2 0.7 ])
-(defloop bass1   (4 1/2) tone-low [0.4 0.2   0.4 0.2   0.4 0.2   0.4 0.2 ])
-(defloop fingers 4       finger   [1         0         1         0       ])
+;;                                 1 & 2 & 3 & 4 &   1 & 2 & 3 & 4 &   1 & 2 & 3 & 4 &   1 & 2 & 3 & 4 &   
+(defloop hats    (4 1/2) hat      [2 7 2 7 - 7 2 7 ])
+(defloop bass1   (4 1/2) tone-low [4 2 4 2 4 2 4 2 ])
+(defloop fingers  4      finger   [9   -   9   -   ])
 
-(defloop kicks   4       kick     [1         1         1         1       ])
-(defloop claps   (4 1/2) clap     [0   0.6   0   0     0   0.3   0.7 0.3 ])
-(defloop bass2   (4 1/2) tone-mid [0.4 0.2   0.0 0.2   0.4 0.2   0.4 0.2 ])
+(defloop kicks    4      kick     [9   9   9   9   ])
+(defloop claps   (8 1/2) clap     [- 6 - - - 6 - -   - 6 - - - 3 7 3 ])
+(defloop bass2   (4 1/2) tone-mid [4 2 - 2 4 2 4 2 ])
 
 ;; ---------------------------------------------
 
@@ -60,7 +60,7 @@
   (fingers (on-next-bar 4 7))
 
   (kicks   (on-next-bar 4 9))   
-  (claps   (on-next-bar 4 13) 4)
+  (claps   (on-next-bar 4 13) 2)
   (bass2   (on-next-bar 4 15) 4)
   )
 

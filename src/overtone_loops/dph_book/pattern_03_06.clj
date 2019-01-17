@@ -1,4 +1,4 @@
-(ns overtone-loops.dph-book.pattern-03-05
+(ns overtone-loops.dph-book.pattern-03-06
   (:use [overtone.live]
         [overtone-loops.loops]))
 
