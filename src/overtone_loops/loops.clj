@@ -93,18 +93,24 @@
   "Define a loop for a single instrument with amps-list
   defining amplitudes on each beat.
 
+  Amps are numbers 0 to 9, where 0 is silence and 9 is full volume.
+  You can use - instead of 0.
+
   ;; Example
-  (defloop hats   4 hat   [0    0.5  0    0.5  ])
-  (defloop kicks  4 kick  [0.7  0    0.2  0    ])
+  (defloop hats   4 hat   [- 5 - 5 ])
+  (defloop kicks  4 kick  [7 - 2 - ])
   ;; Or with fractional beats
-  (defloop hats   (4 1/2) hat [0 0.5 0 0.5 0 0.5 0 0.5])
+  (defloop hats   (4 1/2) hat [- 5 - 5 - 5 - 5])
   "
   [name beat-pattern instr amps-list]
   (let [beats-in-bar (if (list? beat-pattern) (first beat-pattern) beat-pattern)
-        fraction (if (list? beat-pattern) (second beat-pattern) 1)]
+        fraction (if (list? beat-pattern) (second beat-pattern) 1)
+        true-amps-list (->> amps-list
+                            (replace {'- 0} ,,,)
+                            (map #(/ % 9) ,,,))]
     (defn- make-instr-thunk [amp]
       `(thunk (~instr :amp ~amp)))
-    (let [beats-amps (flatten (map-indexed #(list (* %1 fraction) %2) amps-list))
+    (let [beats-amps (flatten (map-indexed #(list (* %1 fraction) %2) true-amps-list))
           thunked-pairs (map-evens make-instr-thunk beats-amps)]
       `(defloop0 ~name ~beats-in-bar ~@thunked-pairs))))
 
