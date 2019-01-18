@@ -9,11 +9,11 @@
 (def hat2 (freesound2 404893))
 (def clap (freesound2 24787))
 
-(defloop ticks  8 hat   [0.7 0.5 0.6 0.5 0.7 0.5 0.0 0.3])
-(defloop hats   8 hat2  [0.0 0.0 0.0 0.0 0.0 0.0 0.6 0.0])
+(defloop ticks  8 hat   [7 5 6 5 7 5 0 3])
+(defloop hats   8 hat2  [0 0 0 0 0 0 6 0])
 
-(defloop kicks  8 kick  [0.6  0   0   0  0.6  0   0   0 ])
-(defloop snares 8 snare [0    0   0.7 0   0   0  0.9  0 ])
+(defloop kicks  8 kick  [6 0 0 0 6 0 0 0 ])
+(defloop snares 8 snare [0 0 7 0 0 0 9 0 ])
 
 (defloop off-kicks 8
   1.7 (kick :amp 0.6)
