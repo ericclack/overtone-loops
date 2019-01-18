@@ -16,7 +16,7 @@
 ;;                   BAR1               BAR2               BAR3               BAR4                        
 
 ;;                                     1 & 2 & 3 & 4 & // 1 & 2 & 3 & 4 & // 1 & 2 & 3 & 4 & // 1 & 2 & 3 & 4 & 
-(defloop closed-hhs (4 1/2) closed-hh [7 4 7 4 7 4 7 6 ])
+(defloop closed-hhs (4 1/2) closed-hh [7 3 7 3 7 3 7 6 ])
 (defloop sds        (4 1/2) snare     [- - 7 - - - 7 - ])
 (defloop kicks      (4 1/2) kick      [7 7 - - - 7 - - ])
 
