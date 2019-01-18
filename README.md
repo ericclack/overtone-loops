@@ -61,7 +61,7 @@ There's one more `defloop` form that's super useful for drum patterns, you can p
 (defloop claps  4 clap  [- - 1 -])
 ```
 
-Here the parameters to `defloop` are `loop-name`, `beats-in-a-phrase` the instrument to play, and a list of amplitudes to pass to the instrument on each beat, where `0` is a muted beat.
+Here the parameters to `defloop` are `loop-name`, `beats-in-a-phrase` the instrument to play, and a list of amplitudes to pass to the instrument on each beat, where `-` is equivalent to `0` and is a muted beat. For ease of typing the scale of amplitudes are 0 (silence) - 9 (full), these are converted to a number between 0 and 1, which is what the instrument expects. 
 
 A variation of this list form is to supply a pair of `(beats  fraction)` so that you can, for example, make a loop with 4 beats to the bar and amplitudes for each 1/2 beat, like this:
 
