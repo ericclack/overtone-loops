@@ -7,4 +7,5 @@
                  [overtone "0.10.3"]
                  ;;Try at some point...
                  ;;[leipzig "0.10.0"]
-                 ])
+                 ]
+  :jvm-opts ^:replace [])
