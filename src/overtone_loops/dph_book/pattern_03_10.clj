@@ -11,12 +11,13 @@
 (amp-scale 1/9)
 
 ;; Quarter beats                       1 e & a 2 e & a 3 e & a 4 e & a  1 e & a 2 e & a 3 e & a 4 e & a 
-(defloop closed-hhs (4 1/4) closed-hh [7 - 5 - 7 - 5 - 7 - 5 - 7 - 6 - ])
+(defloop closed-hhs (4 1/4) closed-hh [7 - 5 - 7 - 4 - 8 - 5 - 8 - 6 - ])
 (defloop sds        (4 1/4) snare     [- - - - 7 - - - - - - - 7 - - - ])
 
-(defloop kicks      (12 1/4) kick     [6 - - 6 - - - 6 - - - 7 - - - -
+(defloop kicks      (16 1/4) kick     [6 - - 6 - - - 6 - - - 7 - - - -
                                        7 - - - - - - 6 7 - 7 - - - 6 -
-                                       7 - 6 7 - - - 6 - - 7 - - 6 - -])
+                                       7 - 6 7 - - - 6 - - 7 - - 6 - -
+                                       7 - 6 - - 6 - 6 7 - 7 8 - 7 - 7])
 ;; Quarter beats                       1 e & a 2 e & a 3 e & a 4 e & a  1 e & a 2 e & a 3 e & a 4 e & a
 
 (bpm 100)
@@ -28,3 +29,4 @@
   )
 
 ;;(stop)
+
