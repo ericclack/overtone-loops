@@ -7,6 +7,9 @@
 (def kick (freesound2 250547))
 (def hat (freesound2 96140))
 
+;; We want to use amps between 0 and 1 in our lists
+(amp-scale 1)
+
 (defloop hats  4 hat  [1 1 1 1])
 (defloop kicks 4 kick [1 1 1 1])
 

@@ -8,39 +8,16 @@
 (def hat (freesound2 404890))
 (def crash (freesound2 439789))
 
-(defloop ticks 4
-  0 (hat :amp 0.4)
-  1 (hat :amp 0.3)
-  2 (hat :amp 0.4)
-  3 (hat :amp 0.3)
-  )
-;;(defloop ticks 4)
+;; We want to use amps between 0 and 9 in our lists
+(amp-scale 1/9)
 
-(defloop hats1 4
-  0.5 (hat :amp 0.7)
-  1.5 (hat :amp 0.9)
-  2.5 (hat :amp 0.9)
-  3.5 (hat :amp 0.9)
-  )
-;;(defloop hats1 4)
+;;                               1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 
+(defloop ticks     4      hat   [4   3   4   3  ])
+(defloop hats1    (4 1/2) hat   [- 7 - 9 - 9 - 9])
+(defloop crashes1  8      crash [-   -   4   -   -   -   -   -])
 
-(defloop crashes1 8
-  3 (crash :amp 0.4)
-  )
-
-(defloop kicks1 4
-  0 (kick :amp 0.6)
-  1 (kick :amp 0.4)
-  ;; 2 (kick :amp 0.4)
-  3 (kick :amp 0.4)
-  ) 
-
-(defloop snares1 8
-  2 (snare :amp 0.8)
-  3.5 (snare :amp 0.4)
-  6 (snare :amp 0.8)
-  7.5 (snare :amp 0.4)
-  )
+(defloop kicks1   (8 1/2) kick  [6 - 4 - - - 4 - 6 - 4 - - - 4 -])
+(defloop snares1  (8 1/2) snare [- - - - 6 - - 3 - - - 1 6 1 - 3])
 
 (defloop extra-kicks 8
   4.75 (kick :amp 0.4)
@@ -56,12 +33,12 @@
 (metro-bpm metro 130)
   
 (do
-  (ticks (metro))
-  (hats1 (metro))
-  (kicks1 (metro))
+  (ticks (on-next-bar 8))
+  (hats1 (on-next-bar 8))
+  (crashes1 (on-next-bar 8 1))
 
-  (crashes1 (on-next-bar 4 2))
-  (snares1 (on-next-bar 8 4))
+  (kicks1 (on-next-bar 8))
+  (snares1 (on-next-bar 8 3))
   )
 
 (comment

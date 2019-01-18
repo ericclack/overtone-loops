@@ -26,7 +26,7 @@
   )
 
 (defloop bass-line 4
-  0 (overpad (note :f2))
+  0 (overpad (note :f2) :amp 0.3)
   )
 
 ;; (ctl vintage-bass :gate 0)
@@ -42,7 +42,7 @@
 (do
   (sticks (on-next-bar 4))
   (kicks (on-next-bar 4))
-  (bass-line (on-next-bar 4 2))
+  ;;(bass-line (on-next-bar 4 2))
   )
 
 (comment ; all play for only a few phrases

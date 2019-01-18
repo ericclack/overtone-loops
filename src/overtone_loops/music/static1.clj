@@ -41,6 +41,10 @@
   )
 
 ;; Patterns ------------------------------------------------------------
+
+;; We want to use amps between 0 and 9 in our lists
+(amp-scale 1/9)
+
 ;;                                 1 & 2 & 3 & 4 &   1 & 2 & 3 & 4 &   1 & 2 & 3 & 4 &   1 & 2 & 3 & 4 &   
 (defloop hats    (4 1/2) hat      [2 7 2 7 - 7 2 7 ])
 (defloop bass1   (4 1/2) tone-low [4 2 4 2 4 2 4 2 ])

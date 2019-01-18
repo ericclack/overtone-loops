@@ -6,9 +6,13 @@
             [clojure.pprint :refer [pp pprint]]))
 
 (def metro (metronome 128))
+(def the-amp-scale (atom 1/9))
 
 (defn bpm [b]
   (metro-bpm metro b))
+
+(defn amp-scale [a]
+  (reset! the-amp-scale a))
 
 (defn on-next-bar
   "Metro marker for the next bar, or n bars ahead"
@@ -107,7 +111,7 @@
         fraction (if (list? beat-pattern) (second beat-pattern) 1)
         true-amps-list (->> amps-list
                             (replace {'- 0} ,,,)
-                            (map #(/ % 9) ,,,))]
+                            (map #(* % @the-amp-scale) ,,,))]
     (defn- make-instr-thunk [amp]
       `(thunk (~instr :amp ~amp)))
     (let [beats-amps (flatten (map-indexed #(list (* %1 fraction) %2) true-amps-list))

@@ -9,6 +9,9 @@
 (def crash (freesound2 439789))
 (def clap (freesound2 24787))
 
+;; We want to use amps between 0 and 1 in our lists
+(amp-scale 1)
+
 ;;                                1         2         3         4          5         6         7         8
 (defloop hats     2       hat    [0         0.5 ])
 (defloop kicks   (4 1/2) kick    [0.7  0.0  0.0  0.0  0.2  0.0  0.0  0.0  ])

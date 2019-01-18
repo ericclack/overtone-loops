@@ -9,6 +9,9 @@
 (def hat2 (freesound2 404893))
 (def clap (freesound2 24787))
 
+;; We want to use amps between 0 and 9 in our lists
+(amp-scale 1/9)
+
 (defloop ticks  8 hat   [7 5 6 5 7 5 0 3])
 (defloop hats   8 hat2  [0 0 0 0 0 0 6 0])
 
