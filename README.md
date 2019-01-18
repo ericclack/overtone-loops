@@ -79,6 +79,9 @@ See code in [examples](src/overtone_loops/examples) or [music](src/overtone_loop
 
 TBC
 
+## The Drum Programming Handbook
+
+I'm working through the exercises in The Drum Programming Handbook and you can see them in the [dph_book folder](src/overtone_loops/dph_book).
 
 ## License
 
