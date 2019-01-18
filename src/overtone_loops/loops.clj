@@ -113,7 +113,9 @@
                             (replace {'- 0} ,,,)
                             (map #(* % @the-amp-scale) ,,,))]
     (defn- make-instr-thunk [amp]
-      `(thunk (~instr :amp ~amp)))
+      (if (zero? amp)
+        `(thunk) ;; do nothing
+        `(thunk (~instr :amp ~amp))))
     (let [beats-amps (flatten (map-indexed #(list (* %1 fraction) %2) true-amps-list))
           thunked-pairs (map-evens make-instr-thunk beats-amps)]
       `(defloop0 ~name ~beats-in-bar ~@thunked-pairs))))
