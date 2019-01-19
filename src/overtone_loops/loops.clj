@@ -7,12 +7,18 @@
 
 (def metro (metronome 128))
 (def the-amp-scale (atom 1/9))
+(def the-beats-in-bar (atom 4))
 
 (defn bpm [b]
   (metro-bpm metro b))
 
 (defn amp-scale [a]
   (reset! the-amp-scale a))
+
+(defn beats-in-bar [b]
+  (reset! the-beats-in-bar b))
+
+;; -
 
 (defn on-next-bar
   "Metro marker for the next bar, or n bars ahead"
@@ -158,6 +164,29 @@
     `(defn ~name
        [~beat-sym]
        (play-bar ~beat-sym ~@thunked-pairs))))
+
+;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+(defmacro at-bar
+  "Play all the loop functions on this bar by inserting the 
+  correct metro marker as the first argument to each function.
+
+  E.g. 
+  (at-bar 11
+          (snares 2)
+          (kicks  2))
+  Results in:
+  (snares (on-next-bar @the-beats-in-bar 11) 2)
+  (kicks (on-next-bar @the-beats-in-bar 11) 2)
+  "
+  [bar & loop-fns]
+  (let [metro-marker (on-next-bar @the-beats-in-bar bar)]
+    (defn- insert-metro [loop-s-exp]
+      (let [fn (first loop-s-exp)
+            rest (rest loop-s-exp)]
+        `(~fn ~metro-marker ~@rest)))
+    (let [timed-loop-fns (map insert-metro loop-fns)]
+      `(do ~@timed-loop-fns))))
 
 ;; ---------------------------------------------------------------
 ;; Click-free sample players
