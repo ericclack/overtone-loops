@@ -104,7 +104,8 @@
   defining amplitudes on each beat.
 
   Amps are numbers 0 to 9, where 0 is silence and 9 is full volume.
-  You can use - instead of 0.
+  You can use - instead of 0. You can change this scale with the
+  amp-scale function, e.g. if you prefer to use 0.0 to 1.0
 
   ;; Example
   (defloop hats   4 hat   [- 5 - 5 ])
@@ -168,8 +169,8 @@
 ;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 (defmacro at-bar
-  "Play all the loop functions on this bar by inserting the 
-  correct metro marker as the first argument to each function.
+  "Schedule a list of loops to start on this bar by inserting the 
+  correct metro marker as the first argument to each loop function.
 
   E.g. 
   (at-bar 11

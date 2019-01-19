@@ -21,11 +21,12 @@
 ;; Quarter beats                       1 e & a 2 e & a 3 e & a 4 e & a  1 e & a 2 e & a 3 e & a 4 e & a
 
 (bpm 100)
+(beats-in-bar 4)
 
-(do
-  (closed-hhs (on-next-bar 4))
-  (sds        (on-next-bar 4))
-  (kicks      (on-next-bar 4))
+(at-bar 1
+  (closed-hhs)
+  (sds)
+  (kicks)
   )
 
 ;;(stop)

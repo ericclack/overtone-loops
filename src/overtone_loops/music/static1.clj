@@ -57,16 +57,25 @@
 ;; ---------------------------------------------
 
 (bpm 110) ;; half beats
-  
-(do
-  (hats    (on-next-bar 4))
-  (bass1   (on-next-bar 4 5) 6)
-  (fingers (on-next-bar 4 7))
+(beats-in-bar 4)
 
-  (kicks   (on-next-bar 4 9))   
-  (claps   (on-next-bar 4 13) 2)
-  (bass2   (on-next-bar 4 15) 4)
-  )
+(at-bar 1
+        (hats))
+
+(at-bar 5
+        (bass1 6))
+
+(at-bar 7
+        (fingers)) ;; forever
+
+(at-bar 9
+        (kicks)) ;; forever
+
+(at-bar 13
+        (claps 2))
+
+(at-bar 15        
+        (bass2 4))
 
 (comment ; all play for only a few phrases
   ;; Play these with Ctrl-X Ctrl-E
