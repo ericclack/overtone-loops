@@ -22,12 +22,12 @@
 
 (defn on-next-bar
   "Metro marker for the next bar, or n bars ahead"
-  ([beats-per-bar] (on-next-bar beats-per-bar 1))
-  ([beats-per-bar bars]
+  ([] (on-next-bar 1))
+  ([bars]
    (*
     (+ bars
-       (quot (metro) beats-per-bar))
-    beats-per-bar)))
+       (quot (metro) @the-beats-in-bar))
+    @the-beats-in-bar)))
 
 (defn- play-bar-pairs
   "Play this bar on beat, given a list of pairs (offset playable)

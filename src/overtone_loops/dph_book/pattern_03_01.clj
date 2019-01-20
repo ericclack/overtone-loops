@@ -21,11 +21,12 @@
 ;; ---------------------------------------------
 
 (bpm 120)
+(beats-in-bar 4)
   
 (do
-  (closed-hhs (on-next-bar 4))
-  (sds        (on-next-bar 4))
-  (kicks      (on-next-bar 4))
+  (closed-hhs (on-next-bar))
+  (sds        (on-next-bar))
+  (kicks      (on-next-bar))
   )
 
 ;;(stop)
