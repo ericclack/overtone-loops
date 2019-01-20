@@ -29,12 +29,13 @@
 ;; ---------------------------------------------
 
 (bpm 105)
-  
-(do
-  (ticks (on-next-bar 4))
-  (hats (on-next-bar 4))
-  (kicks (on-next-bar 4))
-  (snares (on-next-bar 4))
+(beats-in-bar 4)
+
+(at-bar 1
+        (ticks )
+        (hats )
+        (kicks )
+        (snares )
   )
 
 ;;(stop)

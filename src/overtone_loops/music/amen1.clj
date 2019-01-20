@@ -43,13 +43,14 @@
 ;; ---------------------------------------------
 
 (bpm 220)
+(beats-in-bar 8)
 
 ;; Eval these with Ctrl-X Ctrl-E
 
-(do
-  (hats1 (on-next-bar 8))
-  (kicks1 (on-next-bar 8))
-  (snares1 (on-next-bar 8))
+(at-bar 1
+  (hats1 )
+  (kicks1 )
+  (snares1 )
   )
 
 ;;(stop)

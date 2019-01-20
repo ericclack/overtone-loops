@@ -14,7 +14,8 @@
 ;; (p :c4 :vel 50)
 ;; (p :d4 :decay 1)
 
-(metro-bpm metro 60)
+(bpm 60)
+(beats-in-bar 3)
 
 (defphrase part1
   0 (p :b3 :vel 100)
@@ -57,7 +58,7 @@
 
 ;; Repeat part 1
 (part1 (metro))
-(part1 (on-next-bar 3 8))
+(part1 (on-next-bar 8))
 
 ;; Part 2
 ;; TBC

@@ -30,20 +30,26 @@
 
 ;; ---------------------------------------------
 
-(metro-bpm metro 130)
+(bpm 130)
+(beats-in-bar 4)
   
-(do
-  (ticks (on-next-bar 8))
-  (hats1 (on-next-bar 8))
-  (crashes1 (on-next-bar 8 1))
+(at-bar 1
+  (ticks)
+  (hats1)
+  (kicks1)
+  )
 
-  (kicks1 (on-next-bar 8))
-  (snares1 (on-next-bar 8 3))
+(at-bar 1
+  (crashes1)
+)
+
+(at-bar 3
+  (snares1)
   )
 
 (comment
-  (extra-kicks (on-next-bar 4))
-  (extra-snares (on-next-bar 4))
+  (extra-kicks (on-next-bar))
+  (extra-snares (on-next-bar))
   )
 
 ;;(stop)

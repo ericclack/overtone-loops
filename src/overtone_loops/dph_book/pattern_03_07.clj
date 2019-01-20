@@ -21,11 +21,12 @@
 (defloop kicks      (4 1/2) kick      [7 7 - - - 7 - - ])
 
 (bpm 110)
+(beats-in-bar 4)
 
-(do
-  (closed-hhs (on-next-bar 4))
-  (sds        (on-next-bar 4))
-  (kicks      (on-next-bar 4))
+(at-bar 1
+  (closed-hhs )
+  (sds        )
+  (kicks      )
   )
 
 ;;(stop)

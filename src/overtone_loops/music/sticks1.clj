@@ -37,17 +37,18 @@
 
 ;; ---------------------------------------------
 
-(metro-bpm metro 85)
-  
-(do
-  (sticks (on-next-bar 4))
-  (kicks (on-next-bar 4))
-  ;;(bass-line (on-next-bar 4 2))
+(bpm 85)
+(beats-in-bar 4)
+
+(at-bar 1
+        (sticks )
+        (kicks )
+        ;;(bass-line )
   )
 
 (comment ; all play for only a few phrases
   ;; Play these with Ctrl-X Ctrl-E
-  (extra-sticks (on-next-bar 4) 8)
+  (extra-sticks (on-next-bar) 8)
   )
 
 ;;(stop)

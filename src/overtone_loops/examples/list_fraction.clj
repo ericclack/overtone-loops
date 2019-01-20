@@ -23,11 +23,11 @@
 
 (bpm 110)
   
-(do
-  (hats (on-next-bar 4))
-  (kicks (on-next-bar 4))
-  (claps (on-next-bar 4))
-  (bells (on-next-bar 4))
+(at-bar 1
+  (hats )
+  (kicks )
+  (claps )
+  (bells )
   )
 
 ;;(stop)

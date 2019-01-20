@@ -19,8 +19,11 @@
   4 (piano :vel 100)
 )
 
+(bpm 90)
+(beats-in-bar 8)
+
 (piano-louder (metro) 4)
-(piano-notes (on-next-bar 4 2) 2)
+(piano-notes (on-next-bar 2) 2)
 
 ;;
 ;;(stop)

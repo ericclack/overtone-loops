@@ -12,16 +12,17 @@
 ;;                                1 & 2 & 3 & 4 &  5 & 6 & 7 & 8 &         
 (defloop hats    (8 1/2) hat     [- 5 - 5 - 5 - 5  5 - - 5 5 - - 5])
 (defloop snares  (8 1/2) snare   [- - - - 9 - - -  - - - - 6 3 9 -])
-(defloop kicks   (8 1/2) kick    [9 - 9 - - - - -  9 5 9 5 - - - -])
+(defloop kicks   (8 1/2) kick    [9 - 9 - - - - -  9 1 9 5 - - - -])
 
 ;; ---------------------------------------------
 
 (bpm 140)
-  
-(do
-  (kicks (on-next-bar 4))
-  (snares (on-next-bar 4))
-  (hats (on-next-bar 4))
+(beats-in-bar 4)
+
+(at-bar 1
+  (kicks )
+  (snares )
+  (hats )
   )
 
 (comment ; all play for only a few phrases

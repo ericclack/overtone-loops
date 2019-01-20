@@ -67,16 +67,22 @@
 
 ;; ---------------------------------------------
 
-(metro-bpm metro 120)
+(bpm 120)
+(beats-in-bar 8)
 
-(do
-  (ticks (metro))
-  (snares1 (metro))
-  (kicks (on-next-bar 8))
-
-  (melody-phrase1 (on-next-bar 8 2))
-  (melody-phrase2 (on-next-bar 8 5))
+(at-bar 1
+        (ticks)
+        (snares1)
+        (kicks)
   )
+
+(at-bar 3
+        (melody-phrase1)
+        )
+
+(at-bar 5
+        (melody-phrase2)
+        )
 
 ;;(stop)
 

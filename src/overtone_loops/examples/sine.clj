@@ -78,17 +78,18 @@
   3.5 (ctl tone :gate 0)
   )
 
-(metro-bpm metro 110)
+(bpm 110)
+(beats-in-bar 4)
 
-(do
-  (bass (metro))
-  (hats (metro))
+(at-bar 1
+  (bass)
+  (hats)
   )
 
 ;; Add these in when you like 
 (comment
-  (tones (on-next-bar 4) 8)
-  (low-tones (on-next-bar 4) 8)
+  (tones (on-next-bar) 8)
+  (low-tones (on-next-bar) 8)
   )
 
 ;;

@@ -79,9 +79,9 @@
 
 (comment ; all play for only a few phrases
   ;; Play these with Ctrl-X Ctrl-E
-  (bass1 (on-next-bar 4) 6)
-  (claps (on-next-bar 4) 4)
-  (bass2 (on-next-bar 4) 4)
+  (bass1 (on-next-bar) 6)
+  (claps (on-next-bar) 4)
+  (bass2 (on-next-bar) 4)
   )
 
 ;;(stop)

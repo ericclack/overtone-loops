@@ -27,10 +27,10 @@
 (bpm 120)
 (beats-in-bar 4)
   
-(do
-  (closed-hhs (on-next-bar))
-  (sds        (on-next-bar))
-  (kicks      (on-next-bar))
+(at-bar 1
+  (closed-hhs )
+  (sds        )
+  (kicks      )
   )
 
 ;;(stop)

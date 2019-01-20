@@ -39,17 +39,17 @@
 
 (bpm 210)
   
-(do
-  (ticks (on-next-bar 8))
-  (hats (on-next-bar 8))
-  (kicks (on-next-bar 8))
-  (off-kicks (on-next-bar 8))
-  (snares (on-next-bar 8))
+(at-bar 1
+        (ticks )
+        (hats )
+        (kicks )
+        (off-kicks )
+        (snares )
   )
 
 (comment ; all play for only 2-3 phrases
-  (extra-kicks (on-next-bar 8) 2)
-  (extra-snares (on-next-bar 8) 3)
+  (extra-kicks (on-next-bar) 2)
+  (extra-snares (on-next-bar) 3)
   )
 
 ;;(stop)

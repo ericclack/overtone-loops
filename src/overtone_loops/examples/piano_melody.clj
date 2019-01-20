@@ -27,13 +27,14 @@
 )  
 
 (bpm 90)
+(beats-in-bar 8)
 
 (comment
   ;; Execute each of these when you like, with
   ;; Ctrl-X Ctrl-E in emacs
-  (p (on-next-bar 4) 8)
-  (p-high (on-next-bar 4))
-  (p-low (on-next-bar 4) 8)
+  (p (on-next-bar) 8)
+  (p-high (on-next-bar))
+  (p-low (on-next-bar) 8)
   )
 
 ;;

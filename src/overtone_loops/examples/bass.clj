@@ -1,7 +1,8 @@
 (ns overtone-loops.examples.bass
   "Example of defloop0 and thunks -- use defloop instead!"
   (:use [overtone.live]
-        [overtone-loops.loops]))
+        [overtone-loops.loops]
+        [overtone-loops.utils]))
 
 ;; Define some instruments
 (definst kick [freq 100 dur 0.3 width 0.5]
@@ -47,4 +48,3 @@
 
 ;;
 ;;(stop)
-

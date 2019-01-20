@@ -46,19 +46,20 @@
 
 ;; ---------------------------------------------
 
-(metro-bpm metro 130)
-  
-(do
-  (hats (on-next-bar 4))
-  (claps (on-next-bar 4))
-  (kicks (on-next-bar 4))
-  (crashes1 (on-next-bar 4))
+(bpm 130)
+(beats-in-bar 4)
+
+(at-bar 1
+  (hats )
+  (claps )
+  (kicks )
+  (crashes1 )
   )
 
 (comment ; all play for only a few phrases
   ;; Play these with Ctrl-X Ctrl-E
-  (exkicks (on-next-bar 8) 4)
-  (extra-snares (on-next-bar 8) 8)
+  (exkicks (on-next-bar) 4)
+  (extra-snares (on-next-bar) 8)
   )
 
 ;;(stop)

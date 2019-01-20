@@ -15,20 +15,23 @@
 
 (defloop double-kicks (4 1/3) kick [1 1 0  1 1 0  1 1 0  1 1 0])
 (bpm 90)
+(beats-in-bar 4)
 
-;; bar 1
-(hats (on-next-bar 4) 9)
-;; bar 2
-(kicks (on-next-bar 4 2) 1)
-;; bar 3
-;; bar 4
-(double-kicks (on-next-bar 4 4) 1)
-;; bar 5
-;; bar 6
-(kicks (on-next-bar 4 6) 1)
-;; bar 7
-;; bar 8
-(double-kicks (on-next-bar 4 8) 1)
+(at-bar 1
+        (hats 9))
+
+(at-bar 2
+        (kicks 1))
+
+(at-bar 4
+        (double-kicks 1))
+
+(at-bar 6
+        (kicks 1))
+
+(at-bar 8
+        (double-kicks 1))
+
 ;; bar 9
 ;; end
 

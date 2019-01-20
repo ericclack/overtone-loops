@@ -155,7 +155,7 @@
      0 (piano :c3) 2 (piano :e3) 3 (piano :g3))
   ;; then to play a repeat:
   (part1 (metro))
-  (part1 (on-next-bar 4 2))
+  (part1 (on-next-bar 2))
   "
   [name & beats-and-sexps]
   (defn- make-thunk [s-exp]
@@ -177,11 +177,11 @@
           (snares 2)
           (kicks  2))
   Results in:
-  (snares (on-next-bar @the-beats-in-bar 11) 2)
-  (kicks (on-next-bar @the-beats-in-bar 11) 2)
+  (snares (on-next-bar 11) 2)
+  (kicks (on-next-bar 11) 2)
   "
   [bar & loop-fns]
-  (let [metro-marker (on-next-bar @the-beats-in-bar bar)]
+  (let [metro-marker (on-next-bar bar)]
     (defn- insert-metro [loop-s-exp]
       (let [fn (first loop-s-exp)
             rest (rest loop-s-exp)]
