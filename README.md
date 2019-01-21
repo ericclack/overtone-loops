@@ -24,18 +24,20 @@ Then create loops with a list of beats. Each value in the list is an amplitude.
 (defloop claps  4 clap  [- - 1 -])
 ```
 
-The parameters to `defloop` are `loop-name`, `beats-in-a-phrase` the instrument to play, and a list of amplitudes to pass to the instrument on each beat, where `-` is equivalent to `0`, a muted beat. For ease of coding the scale of amplitudes are 0 (silence) - 9 (full), these are converted to a number between 0 and 1, which is what the instrument expects. 
+The parameters to `defloop` are `loop-name`, `beats-in-a-phrase`, the instrument to play, and a list of amplitudes to pass to the instrument on each beat, where `-` is equivalent to `0`, a muted beat. For ease of coding the scale of amplitudes are 0 (silence) - 9 (full), these are converted to a number between 0 and 1, which is what the instrument expects. 
 
-To play these loops just call the loop-name function, do set the `bpm` first to ensure the correct playback speed.
+To play these loops just call the loop-name function with a timer from `(metro)`, do set the `bpm` first to ensure the correct playback speed.
 
 ```
 (bpm 100)
-(hats)
-(kicks)
-(claps)
+(hats (metro))
+(kicks (metro))
+(claps (metro))
+;; To stop
+(stop)
 ```
 
-Usually you'll want some sort of scheduling:
+Usually you'll want some sort of scheduling, use `at-bar` to set the appropriate time:
 
 ```
 (beats-in-bar 4)
