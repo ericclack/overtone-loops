@@ -14,6 +14,7 @@
 (amp-scale 1/9)
 
 ;; Quarter beats                       1 e & a 2 e & a 3 e & a 4 e & a  1 e & a 2 e & a 3 e & a 4 e & a 
+;;                                     |       |       |       |        |       |       |       |        |       |       |       |        |       |       |       |
 (defloop rides      (8 1/4) ride-bell [- - 5 - - - 5 - - - 5 - - - 5 -  - - 5 - - 1 5 - - - 5 1 3 - 5 - ])
 (defloop hats       (8 1/4) pedal-hh  [7 - - - 7 - - - 7 - - - 7 - - -  7 1 - - 7 - 5 - 7 1 - - 7 - - - ])
 

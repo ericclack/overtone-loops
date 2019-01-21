@@ -11,6 +11,7 @@
 (amp-scale 1/9)
 
 ;; Quarter beats                       1 e & a 2 e & a 3 e & a 4 e & a  1 e & a 2 e & a 3 e & a 4 e & a 
+;;                                     |       |       |       |        |       |       |       |        |       |       |       |        |       |       |       |
 (defloop closed-hhs (4 1/4) closed-hh [7 - 5 - 7 - 4 - 8 - 5 - 8 - 6 - ])
 
 (defloop sds        (16 1/4) snare    [- - - - 7 - - - - 5 - - 7 - - -  - - - - 7 - - - - - - - 7 - - 5  - 5 - - 7 - 6 - - - - - 7 - - -  - - - - 7 - - - - 5 - - 7 - - - ])
