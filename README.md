@@ -11,7 +11,7 @@ How do you program loops? First define some samples:
 (def hat (freesound2 404890))
 ```
 
-Now to define your loop. The simplest method uses `defloop0` to combine beat numbers and samples. The parameters to `defloop0` are `loop-name`, `beats-in-a-phrase` and then pairs of `beat` and `sample` (or any function):
+Now to define your loop. The most basic method uses `defloop0` to combine beat numbers and samples. The parameters to `defloop0` are `loop-name`, `beats-in-a-phrase` and then pairs of `beat` and `sample` (or any function):
 
 ```
 (defloop0 heart 4
@@ -63,7 +63,7 @@ There's one more `defloop` form that's super useful for drum patterns, you can p
 
 Here the parameters to `defloop` are `loop-name`, `beats-in-a-phrase` the instrument to play, and a list of amplitudes to pass to the instrument on each beat, where `-` is equivalent to `0` and is a muted beat. For ease of typing the scale of amplitudes are 0 (silence) - 9 (full), these are converted to a number between 0 and 1, which is what the instrument expects. 
 
-A variation of this list form is to supply a pair of `(beats  fraction)` so that you can, for example, make a loop with 4 beats to the bar and amplitudes for each 1/2 beat, like this:
+A variation of this list form is to supply a pair of `(beats fraction)` so that you can, for example, make a loop with 4 beats to the bar and amplitudes for each 1/2 beat, like this:
 
 ```
 ;;                         beat 1  &   2  &   3  &   4  &
@@ -76,8 +76,6 @@ A variation of this list form is to supply a pair of `(beats  fraction)` so that
 ## Usage
 
 See code in [examples](src/overtone_loops/examples) or [music](src/overtone_loops/music).
-
-TBC
 
 ## The Drum Programming Handbook
 
