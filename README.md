@@ -1,12 +1,15 @@
-# overtone-loops
+# Overtone Loops
 
-An attempt to make a really simple loop syntax for Overtone, to help make drum patterns or other repeating phrases.
+A simple, yet flexible, loop syntax for Overtone, to make drum patterns or other repeating phrases.
 
 Currently this work is highly experimental. Feel free to leave suggestions on the Issues page. I should point out that I'm not a talented drummer!
 
-How do you program loops? First define some samples:
+How do you program loops? First define some samples, these are loaded from http://Freesound.org
 
 ```
+(:use [overtone.live]
+      [overtone-loops.loops])
+        
 (def kick (freesound2 171104))
 (def hat (freesound2 404890))
 ```
