@@ -5,7 +5,7 @@
         [overtone-loops.utils]))
 
 ;; Define some instruments
-(definst kick [freq 100 dur 0.3 width 0.5]
+(definst kick [freq 100 dur 0.5 width 0.5]
   (let [freq-env (* freq (env-gen (perc 0 (* 0.99 dur))))
         env (env-gen (perc 0.01 dur) 1 1 0 1 FREE)
         sqr (* (env-gen (perc 0 0.01)) (pulse (* 2 freq) width))
@@ -46,5 +46,17 @@
   (hats)
   )
 
-;;
+(comment
+  ;; Change panning
+  (inst-pan! kick -0.5)
+  (inst-pan! hat 0.5)
+
+  ;; Change other params
+  (inst-volume! kick 0.5)
+
+  ;; These don't work - because they only apply
+  ;; to currently running synths?
+  (ctl kick :freq 200)
+  )
+
 ;;(stop)

@@ -21,7 +21,7 @@
 
 (definst tone
   "Simple sine tone that runs until stopped by gate 0"
-  [freq 440 amp 0.7 gate 1]
+  [freq 440 amp 0.5 gate 1]
   (let [env (env-gen (asr 0.2 1 1) :gate gate :action FREE)
         src (sin-osc freq)]
     (* amp env src)))
@@ -30,7 +30,7 @@
 ;;(ctl tone :gate 0)
 ;;(stop)
 
-(definst tone2 [freq 440 amp 0.7 sustain 1]
+(definst tone2 [freq 440 amp 0.5 sustain 1]
   "Sine tone that lasts about a second"
   (let [env (env-gen (lin :sustain sustain :release 0.5) :action FREE)
         src (sin-osc freq)]
@@ -63,7 +63,7 @@
   2 (tone :freq 440)
   3 (ctl tone :gate 0)
   
-  3 (tone2 :freq 220 :amp 0.9)
+  3 (tone2 :freq 220 :amp 0.6)
   3.33 (tone2 :freq 250)
   3.66 (tone2 :freq 290)
   3.99 (tone2 :freq 220)
@@ -78,18 +78,59 @@
   3.5 (ctl tone :gate 0)
   )
 
+;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+(defphrase fade-out
+  0  (inst-volume! kick 0.8)
+  0  (inst-volume! hat 0.8)
+  
+  1  (inst-volume! kick 0.6)
+  1  (inst-volume! hat 0.6)
+
+  2  (inst-volume! kick 0.4)
+  2  (inst-volume! hat 0.4)
+
+  3  (inst-volume! kick 0.2)
+  3  (inst-volume! hat 0.2)
+
+  4  (inst-volume! kick 0)
+  4  (inst-volume! hat 0)
+  )
+
+
+;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
 (bpm 110)
 (beats-in-bar 4)
+
+(inst-volume! kick 1)
+(inst-volume! hat 1)
+(inst-pan! tone -0.5)
+(inst-pan! tone2 0.5)
 
 (at-bar 1
   (bass)
   (hats)
   )
 
+(at-bar 3
+  (tones 8)
+  (low-tones 8)
+  )
+
 ;; Add these in when you like 
 (comment
-  (tones (on-next-bar) 8)
-  (low-tones (on-next-bar) 8)
+  ;; Control
+  (inst-volume! kick 0.6)
+  (inst-volume! hat 0.6)
+
+  (inst-volume! tone 0.5)
+  (inst-volume! tone2 0.5)
+
+  ;; Fade out
+  (fade-out (metro))
   )
 
 ;;
