@@ -192,7 +192,7 @@
 ;; ---------------------------------------------------------------
 ;; Click-free sample players
 
-(defsynth my-mono-sample-player
+(definst my-mono-sample-player
   "Play a mono sample"
   [buf-id 0 duration 1 amp 1 rate 1 release 0.01]
   (let [dur    (/ duration rate)
@@ -202,9 +202,9 @@
                         :action FREE)
         rate2  (* (buf-rate-scale buf-id) rate)
         snd    (play-buf 1 buf-id rate2)]
-    (out 0 (* amp env snd))))
+    (* amp env snd)))
 
-(defsynth my-stereo-sample-player
+(definst my-stereo-sample-player
   "Play a stereo sample, a separate synth because of
   limitations of passing ints through to play-buf"
   [buf-id 0 duration 1 amp 1 rate 1 release 0.01]
@@ -215,7 +215,7 @@
                         :action FREE)
         rate2  (* (buf-rate-scale buf-id) rate)
         snd    (play-buf 2 buf-id rate2)]
-    (out 0 (* amp env snd))))
+    (* amp env snd)))
 
 (defn freesound2
   "Load and return a player for this freesound sample
