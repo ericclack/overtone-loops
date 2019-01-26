@@ -25,7 +25,7 @@
 ;; ---------------------------------------------
 
 (bpm 115)
-(beats-in-bar 3)
+(beats-in-bar 4)
   
 (at-bar 1
   (closed-hhs )
