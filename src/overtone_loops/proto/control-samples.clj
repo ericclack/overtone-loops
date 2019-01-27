@@ -40,11 +40,11 @@
 
 (comment
   ;; All samples in this file use stereo player
-  (inst-pan! my-mono-sample-player -0.7)
-  (inst-pan! my-stereo-sample-player 0.5)
+  (inst-pan! mono-sample-player -0.7)
+  (inst-pan! stereo-sample-player 0)
   
-  (inst-volume! my-mono-sample-player 1)
-  (inst-volume! my-stereo-sample-player 0.5)
+  (inst-volume! mono-sample-player 1)
+  (inst-volume! stereo-sample-player 0.5)
   
   )
 
