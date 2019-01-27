@@ -4,7 +4,7 @@
 
 ;; Define some samples from Freesound.org
 (def closed-hh (freesound2 404890))
-(def snare (freesound2 270156))
+(def snare (freesound2 404859))
 (def kick (freesound2 171104))
 (def ride-bell (freesound2 171482))
 (def crash (freesound2 439789))
@@ -18,7 +18,7 @@
 (defloop closed-hhs
   (16 1/3) closed-hh  [8 - 4 8 - 4 8 - 3 8 - 4   8 - 3 8 - 4 8 - 6 8 - 2   8 - 4 8 - 4 8 - 3 8 - 4   8 - 3 8 - 4 8 - 6 8 2 8 ])
 (defloop rides
-  (4 1/3) ride-bell   [4 - - 4 - - 4 - - 4 - - ])
+  (4 1/3) ride-bell   [4 - - 3 - - 4 - - 3 - 1 ])
 (defloop sds
   (16 1/3) snare      [- - - 6 - - - - - 6 - -   - - - 6 - - - - - 6 - -   - - - 6 - - - - - 6 - -   - - 6 - - - - - - 6 - 5 ])
 (defloop kicks
