@@ -25,16 +25,33 @@
 (defloop kicks
   (32 1/6) kick       [8 - - - - - - - - - - - 8 - - 4 6 - - - - 5 - -   8 - - - - - - - - - 6 - 8 - - 7 - - - - - - - -   8 - - - 7 - - - - 4 5 - 8 - 7 8 - - - - - - - -   8 - - 5 6 - - - - - 5 - 7 - - - - - - - - - - -
                        8 - - - - - - - - 6 8 - - - - - 7 8 - - - - 6 -   8 - - - 7 - - - - - 6 - - - - - 7 - - - - 5 - -   8 - - - 7 - - - 7 - - - 8 - - 7 - 8 - - - - 8 -   8 - 7 - - - - 3 5 - 8 - - - - 6 - 8 - - - - - - ]) 
-  
+
+(defphrase fade-out
+  0  (inst-volume! stereo-sample-player 0.8)
+  1  (inst-volume! stereo-sample-player 0.7)
+  2  (inst-volume! stereo-sample-player 0.6)
+  3  (inst-volume! stereo-sample-player 0.5)
+  4  (inst-volume! stereo-sample-player 0.4)
+  5  (inst-volume! stereo-sample-player 0.3)
+  6  (inst-volume! stereo-sample-player 0.1)
+  7  (inst-volume! stereo-sample-player 0)
+  8  (stop)
+  )
+
 ;; ---------------------------------------------
 
 (bpm 98)
 (beats-in-bar 4)
-  
+(inst-volume! stereo-sample-player 1)
+
 (at-bar 1
         (closed-hhs)
         (sds)
         (kicks)
+  )
+
+(comment
+  (fade-out (metro))
   )
 
 ;;(stop)
