@@ -60,6 +60,10 @@ A variation of this list form is to supply a pair of `(beats fraction)` so that 
 
 Check out the documentation for `at-bar` and `on-next-bar` to find out more about scheduling. E.g. `(odoc at-bar)`.
 
+## Beat adjustment
+
+When playing loops you can adjust the timing of certain beats to create a more interesting sound. For example you can play half-beats late to create a shuffle, or add a bit of randomness to make it sound more human. See `examples/beat-adjust.clj` or `music/walk.clj`.
+
 ## Alternative loop syntax
 
 There are two other ways to program loops. The most basic method uses `defloop0` to combine beat numbers and samples. The parameters to `defloop0` are `loop-name`, `beats-in-a-phrase` and then pairs of `beat` and `sample` (or any function):
