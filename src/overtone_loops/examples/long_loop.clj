@@ -8,6 +8,9 @@
 (def snare (freesound2 270156))
 (def hat (freesound2 96140))
 
+;; We want to use amps between 0 and 1 in our lists
+(amp-scale 1)
+
 ;; Our loops - all 4 beats to the bar
 (defloop hats (4 1/2) hat   [0 1 0 1 0 1 0 1])
 
