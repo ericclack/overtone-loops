@@ -174,7 +174,7 @@
         beat-sym (gensym "beat")]
     `(defn ~name
        [~beat-sym]
-       (play-bar ~beat-sym ~@thunked-pairs))))
+       (play-bar ~beat-sym nil ~@thunked-pairs))))
 
 ;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
