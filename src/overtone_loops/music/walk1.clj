@@ -19,6 +19,9 @@
                                      - - 2 - - - 2 - - - 3 1 - - 3 4
                                      ])
 
+(defn wonky-beat [b]
+  (+ b (/ (rand) 10)))
+
 (bpm 110)
 (beats-in-bar 4)
 (at-bar 1
@@ -27,7 +30,7 @@
         )
 
 (at-bar 5 
-        (rides 2)
+        (rides 2 :beat-adjust wonky-beat)
         )
 
 (at-bar 13

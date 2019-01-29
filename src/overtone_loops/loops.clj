@@ -50,8 +50,8 @@
 
 (defn next-loop-iter
   "Schedule fn for beat with specified bars left"
-  [fn beat bars-left]
-  (apply-by (metro beat) fn beat bars-left []))
+  [fn beat bars-left & rest]
+  (apply-by (metro beat) fn beat bars-left rest))
 
 ;; ----------------------------------------------------------------
 
@@ -69,17 +69,23 @@
   "
   [name beats-in-bar & beats-and-playables]
   (let* [beat-sym (gensym "beat")
-         bars-left-sym (gensym "bars-left-sym")]
+         bars-left-sym (gensym "bars-left-sym")
+         beat-adjust-sym (gensym "beat-adjust-sym")
+         adjusted-bp (gensym "adjusted-bp")]
     `(defn ~name
        "Play this loop, starting at beat, optionally 
        for a number of bars"
        ([~beat-sym] (~name ~beat-sym -1))
-       ([~beat-sym ~bars-left-sym]
-        (play-bar ~beat-sym ~@beats-and-playables)
+       ([~beat-sym ~bars-left-sym & {:keys [~beat-adjust-sym]
+                                     :or [~beat-adjust-sym
+                                          (fn [b] b)]}]
+        (play-bar ~beat-sym ~@(map-odds ~beat-adjust-sym
+                                        ~beats-and-playables))
         (when (not (= 1 ~bars-left-sym)) 
           (next-loop-iter ~name
-                    (+ ~beats-in-bar ~beat-sym)
-                    (dec ~bars-left-sym)))))))
+                          (+ ~beats-in-bar ~beat-sym)
+                          (dec ~bars-left-sym)
+                          :beat-adjust ~beat-adjust-sym))))))
 
 (defmacro defloop1
   "Like defloop0 but pairs are beats and s-exps, enabling 
