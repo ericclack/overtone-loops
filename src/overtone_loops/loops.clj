@@ -45,13 +45,16 @@
 
   (play-bar (metro) 0 kick 1 kick 1 snare 2 kick 3 kick 3 snare)
   "
-  [beat & beats-and-playables]
-  (play-bar-pairs beat (pairer beats-and-playables)))
+  [beat beat-adjust & beats-and-playables]
+  (if (nil? beat-adjust)
+    (play-bar-pairs beat (pairer beats-and-playables))
+    (play-bar-pairs beat (pairer (map-odds beat-adjust
+                                           beats-and-playables)))))
 
 (defn next-loop-iter
   "Schedule fn for beat with specified bars left"
-  [fn beat bars-left & rest]
-  (apply-by (metro beat) fn beat bars-left rest))
+  [fn beat & rest]
+  (apply-by (metro beat) fn beat rest))
 
 ;; ----------------------------------------------------------------
 
@@ -70,22 +73,19 @@
   [name beats-in-bar & beats-and-playables]
   (let* [beat-sym (gensym "beat")
          bars-left-sym (gensym "bars-left-sym")
-         beat-adjust-sym (gensym "beat-adjust-sym")
-         adjusted-bp (gensym "adjusted-bp")]
+         beat-adjust-sym (gensym "beat-adjust-sym")]
     `(defn ~name
        "Play this loop, starting at beat, optionally 
        for a number of bars"
-       ([~beat-sym] (~name ~beat-sym -1))
-       ([~beat-sym ~bars-left-sym & {:keys [~beat-adjust-sym]
-                                     :or [~beat-adjust-sym
-                                          (fn [b] b)]}]
-        (play-bar ~beat-sym ~@(map-odds ~beat-adjust-sym
-                                        ~beats-and-playables))
+       ([~beat-sym] (~name ~beat-sym -1 nil))
+       ([~beat-sym ~bars-left-sym] (~name ~beat-sym ~bars-left-sym nil))
+       ([~beat-sym ~bars-left-sym ~beat-adjust-sym]
+        (play-bar ~beat-sym ~beat-adjust-sym ~@beats-and-playables)
         (when (not (= 1 ~bars-left-sym)) 
           (next-loop-iter ~name
                           (+ ~beats-in-bar ~beat-sym)
                           (dec ~bars-left-sym)
-                          :beat-adjust ~beat-adjust-sym))))))
+                          ~beat-adjust-sym))))))
 
 (defmacro defloop1
   "Like defloop0 but pairs are beats and s-exps, enabling 

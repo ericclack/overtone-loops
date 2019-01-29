@@ -19,18 +19,21 @@
                                      - - 2 - - - 2 - - - 3 1 - - 3 4
                                      ])
 
-(defn wonky-beat [b]
-  (+ b (/ (rand) 10)))
+(defn late-beats [b]
+  (+ b (/ (rand) 20)))
+
+(defn early-beats [b]
+  (- b (/ (rand) 10)))
 
 (bpm 110)
 (beats-in-bar 4)
 (at-bar 1
-        (kicks 4)
+        (kicks 4 early-beats)
         (hats 16)
         )
 
 (at-bar 5 
-        (rides 2 :beat-adjust wonky-beat)
+        (rides 2 late-beats)
         )
 
 (at-bar 13
