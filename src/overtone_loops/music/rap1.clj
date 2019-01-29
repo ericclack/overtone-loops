@@ -12,43 +12,43 @@
 ;; We want to use amps between 0 and 9 in our lists
 (amp-scale 1/9)
 
-(defloop ticks  8 hat   [7 5 6 5 7 5 0 3])
-(defloop hats   8 hat2  [0 0 0 0 0 0 6 0])
+;;                                  0 1 2 3 4 5 6 7
+;;                                  1 & 2 & 3 & 4 &
+(defloop ticks       (4 1/2) hat   [7 5 6 5 7 5 - 3 ])
+(defloop hats        (4 1/2) hat2  [- - - - - - 6 - ])
 
-(defloop kicks  8 kick  [6 0 0 0 6 0 0 0 ])
-(defloop snares 8 snare [0 0 7 0 0 0 9 0 ])
+(defloop kicks       (4 1/2) kick  [6 6 - - 6 - - - ])
+(defloop snares      (4 1/2) snare [- - 7 - - - 9 - ])
 
-(defloop off-kicks 8
-  1.7 (kick :amp 0.6)
-  )
+(defloop extra-kicks (4 1/2) kick  [- - - - - 5 - 6 ])
+(defloop extra-sds   (4 1/2) snare [- 5 - 7 - 5 - 1 ])
 
-(defloop extra-kicks 8
-  6 (kick :amp 0.5)
-  6.7 (kick :amp 0.6)
-  7 (kick :amp 0.9)
-  )
+;;
 
-(defloop extra-snares 8
-  0.5 (snare :amp 0.5)
-  3 (snare :amp 0.7)
-  7.5 (snare :amp 0.5)
-  )
-;; (defloop2 snares 8) ; empty loop - silence
+(defn half-beat? [b]
+  (and (ratio? b)
+       (= (denominator b) 2)))
+
+(defn late-halves
+  "Play half beats a bit late"
+  [b]
+  (if (half-beat? b) (+ b 1/3)
+      b))
 
 ;; ---------------------------------------------
 
-(bpm 210)
-  
+(bpm 105)
+(beats-in-bar 4)
+
 (at-bar 1
-        (ticks )
+        (ticks)
         (hats )
-        (kicks )
-        (off-kicks )
+        (kicks late-halves)
         (snares )
   )
 
 (comment ; all play for only 2-3 phrases
-  (extra-kicks (on-next-bar) 2)
+  (extra-kicks (on-next-bar) 2 late-halfs)
   (extra-snares (on-next-bar) 3)
   )
 
