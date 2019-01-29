@@ -46,10 +46,11 @@
   (play-bar (metro) 0 kick 1 kick 1 snare 2 kick 3 kick 3 snare)
   "
   [beat beat-adjust & beats-and-playables]
-  (if (nil? beat-adjust)
-    (play-bar-pairs beat (pairer beats-and-playables))
-    (play-bar-pairs beat (pairer (map-odds beat-adjust
-                                           beats-and-playables)))))
+  (play-bar-pairs beat (pairer
+                        (if (nil? beat-adjust)
+                          beats-and-playables
+                          (map-odds beat-adjust
+                                    beats-and-playables)))))
 
 (defn next-loop-iter
   "Schedule fn for beat with specified bars left"
