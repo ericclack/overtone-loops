@@ -73,20 +73,23 @@
   "
   [name beats-in-bar & beats-and-playables]
   (let* [beat-sym (gensym "beat")
+         rest-sym (gensym "rest")
          bars-left-sym (gensym "bars-left-sym")
          beat-adjust-sym (gensym "beat-adjust-sym")]
     `(defn ~name
        "Play this loop, starting at beat, optionally 
-       for a number of bars"
-       ([~beat-sym] (~name ~beat-sym -1 nil))
-       ([~beat-sym ~bars-left-sym] (~name ~beat-sym ~bars-left-sym nil))
-       ([~beat-sym ~bars-left-sym ~beat-adjust-sym]
-        (play-bar ~beat-sym ~beat-adjust-sym ~@beats-and-playables)
-        (when (not (= 1 ~bars-left-sym)) 
-          (next-loop-iter ~name
-                          (+ ~beats-in-bar ~beat-sym)
-                          (dec ~bars-left-sym)
-                          ~beat-adjust-sym))))))
+       for a number of bars and optionally with a beat-adjust fn."
+       [~beat-sym & ~rest-sym]
+       (let [~bars-left-sym (if (number? (first ~rest-sym))
+                              (first ~rest-sym) -1)
+             ~beat-adjust-sym (first (filter fn? ~rest-sym))]
+
+         (play-bar ~beat-sym ~beat-adjust-sym ~@beats-and-playables)
+         (when (not (= 1 ~bars-left-sym)) 
+           (next-loop-iter ~name
+                           (+ ~beats-in-bar ~beat-sym)
+                           (dec ~bars-left-sym)
+                           ~beat-adjust-sym))))))
 
 (defmacro defloop1
   "Like defloop0 but pairs are beats and s-exps, enabling 

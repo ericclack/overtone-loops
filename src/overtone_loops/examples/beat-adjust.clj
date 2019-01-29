@@ -24,13 +24,19 @@
   (if (half-beat? b) (+ b 1/6)
       b))
 
+(defn early-halfs
+  "Play half beats a 1/6 beat early"
+  [b]
+  (if (half-beat? b) (- b 1/6)
+      b))
+
 (bpm 110)
 (beats-in-bar 4)
 
 (at-bar 1
-        (kicks 10 late-halfs)
+        (kicks late-halfs)
         (snares)
-        (hats 10 late-halfs)
+        (hats late-halfs)
         )
 
 ;;(stop)
