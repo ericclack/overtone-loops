@@ -18,13 +18,13 @@
   (and (ratio? b)
        (= (denominator b) 2)))
 
-(defn late-halfs
+(defn late-halves
   "Play half beats a 1/6 beat late"
   [b]
   (if (half-beat? b) (+ b 1/6)
       b))
 
-(defn early-halfs
+(defn early-halves
   "Play half beats a 1/6 beat early"
   [b]
   (if (half-beat? b) (- b 1/6)
@@ -34,9 +34,9 @@
 (beats-in-bar 4)
 
 (at-bar 1
-        (kicks late-halfs)
+        (kicks late-halves)
         (snares)
-        (hats late-halfs)
+        (hats late-halves)
         )
 
 ;;(stop)
