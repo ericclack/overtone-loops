@@ -21,7 +21,7 @@
 (defloop snares      (4 1/2) snare [- - 7 - - - 9 - ])
 
 (defloop extra-kicks (4 1/2) kick  [- - - - - 5 - 6 ])
-(defloop extra-sds   (4 1/2) snare [- 5 - 7 - 5 - 1 ])
+(defloop extra-sds   (4 1/2) snare [- 5 - 7 - 5 4 - ])
 
 ;;
 
@@ -48,7 +48,7 @@
   )
 
 (comment ; all play for only 2-3 phrases
-  (extra-kicks (on-next-bar) 2 late-halfs)
+  (extra-kicks (on-next-bar) 2 late-halves)
   (extra-snares (on-next-bar) 3)
   )
 
