@@ -8,28 +8,17 @@
 (def stick (freesound2 82280))
 (def rim (freesound2 34831))
 
-(defloop sticks 4
-  0 (stick 0.8)
-  1 (stick 0.6)  
-  1.8 (stick 0.6)
-  2.5 (stick 0.6)
-  3.2 (stick 0.6)
-  )
+;;                             1 e & a 2 e & a 3 e & a 4 e & a 
+(defloop sticks (4 1/4) stick [8 - - - 6 - - 6 - - 6 - - 6 - - ]) 
+(defloop kicks  4       kick  [8       8       8       8       ])
 
-;; (sticks (metro))
-
-(defloop kicks 4
-  0 (kick :amp 1)
-  1 (kick :amp 1)
-  2 (kick :amp 1)
-  3 (kick :amp 1)
-  )
 
 (defloop bass-line 4
   0 (overpad (note :f2) :amp 0.3)
   )
 
 ;; (ctl vintage-bass :gate 0)
+
 (defloop extra-sticks 1
   0 (rim :amp 0.5)
   0.7 (rim)
