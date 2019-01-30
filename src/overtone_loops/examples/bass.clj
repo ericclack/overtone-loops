@@ -21,25 +21,23 @@
     (* amp env filt)))
 
 ;; Our loops - both 4 beats to the bar
-(def kicks
-  (makeloop 4
-            0 kick
-            0.7 kick
-            1 (thunk (kick 200))
-            2 kick
-            2.7 kick
-            3 (thunk (kick 300))
-            ))
+(defloop0 kicks 4
+  0 kick
+  0.7 kick
+  1 (thunk (kick 200))
+  2 kick
+  2.7 kick
+  3 (thunk (kick 300))
+  )
 
-(def hats
-  (makeloop 4
-            0 (thunk (hat 0.4))
-            0.5 hat
-            1 (thunk (hat 0.4))
-            2 (thunk (hat 0.4))
-            3 (thunk (hat 0.4))
-            3.7 hat
-            ))
+(defloop0 hats 4
+  0 (thunk (hat 0.4))
+  0.5 hat
+  1 (thunk (hat 0.4))
+  2 (thunk (hat 0.4))
+  3 (thunk (hat 0.4))
+  3.7 hat
+  )
 
 (bpm 110)
 

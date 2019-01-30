@@ -85,6 +85,11 @@
                         (dec bars-left)
                         beat-adjust)))))
 
+(defmacro defloop0
+  [name & rest]
+  `(def ~name
+     (makeloop ~@rest)))
+
 (defmacro defloop1
   "Like defloop0 but pairs are beats and s-exps, enabling 
   you to pass in parameters such as :amp. We wrap these 
