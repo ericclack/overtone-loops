@@ -59,27 +59,25 @@
 
 ;; ----------------------------------------------------------------
 
-(defmacro defloop0 
+(defn makeloop 
   "Wrap pairs of beats and playables into a loop
   
   ;; Examples
   (def hat (freesound2 404890))
-  (def hats (oloop 4
-                   0.5 hat 1.5 hat 2.5 hat 3.5 hat)
+  (def hats (makeloop 4
+                      0.5 hat 1.5 hat 2.5 hat 3.5 hat)
   ;; then:
   (hats (metro))
   ;; play for 16 bars:
   (hats (metro) 16)
   "
-  [name beats-in-bar & beats-and-playables]
+  [beats-in-bar & beats-and-playables]
   (fn aloop  
-    "Play this loop, starting at beat, optionally 
-    for a number of bars and optionally with a beat-adjust fn."
     [beat & rest]
     (let [bars-left (if (number? (first rest))
                       (first rest) -1)
           beat-adjust (first (filter fn? rest))]
-
+      (print beats-and-playables)
       (apply play-bar beat beat-adjust beats-and-playables)
       (when (not (= 1 bars-left)) 
         (next-loop-iter aloop
