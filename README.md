@@ -19,6 +19,7 @@ First define some samples, these are loaded from http://Freesound.org
 Then create loops with a list of beats. Each value in the list is an amplitude.
 
 ```
+;;                       1 2 3 4 5 6 7 8
 (defloop hats   8 hat   [- 5 - 5 - 5 - 5])
 (defloop kicks  8 kick  [7 - 2 - 7 6 2 -])
 (defloop claps  4 clap  [- - 1 -])
