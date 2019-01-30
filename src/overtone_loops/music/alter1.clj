@@ -9,22 +9,15 @@
 (def crash (freesound2 439789))
 (def clap (freesound2 24787))
 
-;; We want to use amps between 0 and 1 in our lists
-(amp-scale 1)
+(amp-scale 1/9)
 
-;;                                1         2         3         4          5         6         7         8
-(defloop hats     2       hat    [0         0.5 ])
-(defloop kicks   (4 1/2) kick    [0.7  0.0  0.0  0.0  0.2  0.0  0.0  0.0  ])
-(defloop claps    4      clap    [0.0       0.6       0.0       0.8       ])
+;;                                1 & 2 & 3 & 4 &  5 & 6 & 7 & 8 &
+(defloop hats    (8 1/2) hat     [- 5 - 5 - 5 - 5  - - - - 5 9 5 9 ])
+(defloop crashes (8 1/2) crash   [- - - - 4                        ])
+(defloop claps    4      clap    [-   6   -   8    -   6   -   8   ])
+(defloop kicks   (4 1/2) kick    [7 - - - 2 - - -  7 - - - 2 - - - ])
 
-(defloop exkicks (8 1/2) kick    [0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0   0.0  0.4  0.0  0.4  0.0  0.0  0.0])
-
-(defloop crashes1 8
-  2.2 (hat :amp 0.3)
-  2.6 (hat :amp 0.5)
-  2.8 (hat :amp 0.7)
-  3 (crash :amp 0.4)
-  )
+(defloop exkicks (8 1/2) kick    [- - - - - - - -  - 4 - 4 - - - - ])
 
 (defloop extra-snares 16
   2.5 (snare :amp 0.8)
@@ -50,11 +43,14 @@
 (beats-in-bar 4)
 
 (at-bar 1
-  (hats )
-  (claps )
-  (kicks )
-  (crashes1 )
+        (hats )
+        (claps )
+        (kicks )
+        (crashes )
   )
+
+(at-bar 3
+        (exkicks 4))
 
 (comment ; all play for only a few phrases
   ;; Play these with Ctrl-X Ctrl-E
