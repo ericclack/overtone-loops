@@ -1,4 +1,4 @@
-(ns overtone-loops.dph-book.pattern-04-16
+(ns overtone-loops.dph-book.pattern-04-16-swing
   (:use [overtone.live]
         [overtone-loops.loops]))
 
@@ -28,11 +28,15 @@
 (bpm 86)
 (beats-in-bar 4)
 
+(defn swing [b]
+  (if (quarter-beat? b) (+ b 1/16)
+      b))
+
 (at-bar 1
-        (sds)
-        (kicks)
-        (closed-hhs)
-        (open-hhs)
+        (sds swing)
+        (kicks swing)
+        (closed-hhs swing)
+        (open-hhs swing)
         )
 
 ;;(stop)
