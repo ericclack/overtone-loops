@@ -28,19 +28,11 @@
 (bpm 86)
 (beats-in-bar 4)
 
-(defn half-beat? [b]
-  (and (ratio? b)
-       (= (denominator b) 2)))
-
-(defn quarter-beat? [b]
-  (and (ratio? b)
-       (= (denominator b) 4)))
-
 (defn bit-early [b]
   (- b 1/40))
 
 (defn swing [b]
-  (if (quarter-beat? b) (- b 1/14)
+  (if (quarter-beat? b) (+ b 1/16)
       b))
 
 (at-bar 1
