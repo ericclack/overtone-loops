@@ -12,6 +12,14 @@
 (defn bpm [b]
   (metro-bpm metro b))
 
+(defn half-beat? [b]
+  (and (ratio? b)
+       (= (denominator b) 2)))
+
+(defn quarter-beat? [b]
+  (and (ratio? b)
+       (= (denominator b) 4)))
+
 (defn amp-scale [a]
   (reset! the-amp-scale a))
 
