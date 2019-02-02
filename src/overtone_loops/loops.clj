@@ -77,7 +77,6 @@
     (let [bars-left (if (number? (first rest))
                       (first rest) -1)
           beat-adjust (first (filter fn? rest))]
-      (print beats-and-playables)
       (apply play-bar beat beat-adjust beats-and-playables)
       (when (not (= 1 bars-left)) 
         (next-loop-iter aloop
