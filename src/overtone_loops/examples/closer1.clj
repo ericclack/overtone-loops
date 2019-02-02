@@ -29,7 +29,7 @@
 (defn close_beat [b]
   (if (half-beat? b)
     b
-    (- b 3/7)))
+    (- b 1/3)))
 
 (at-bar 1
         (hats)
