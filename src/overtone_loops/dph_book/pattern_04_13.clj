@@ -4,7 +4,7 @@
 
 ;; Define some samples from Freesound.org
 (def closed-hh (freesound2 404890))
-(def ride-bell (freesound2 171482))
+(def ride-bell (freesound2 171482)) ;; (ride-bell)
 (def ride (freesound2 162311))
 (def snare (freesound2 404859))
 (def kick (freesound2 171104))
