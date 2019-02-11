@@ -18,9 +18,9 @@
 (def bass-hard (sample2 "resources/samples/drum_bass_hard.wav")) ;; (bass-hard)
 (def bass-soft (sample2 "resources/samples/drum_bass_soft.wav")) ;; (bass-soft)
 
-(def ride (freesound2 162311)) ;; (ride)
-(def ride-bell (freesound2 171482)) ;; (ride-bell)
-(def rim (freesound2 34831)) ;; (rim)
+(def ride (sample2 "resources/samples/drum_ride.wav")) ;; (ride)
+(def ride-bell (sample2 "resources/samples/drum_ride_bell.wav")) ;; (ride-bell)
+(def rim (sample2 "resources/samples/drum_rim.wav")) ;; (rim)
 
 (def snare-hard (sample2 "resources/samples/drum_snare_hard.wav")) ;; (snare-hard :amp 0.2)
 (def snare-soft (sample2 "resources/samples/drum_snare_soft.wav")) ;; (snare-soft)

@@ -1,26 +1,19 @@
 (ns overtone-loops.dph-book.pattern-03-02
   (:use [overtone.live]
-        [overtone-loops.loops]))
-
-;; Define some samples from Freesound.org
-(def closed-hh (freesound2 404890))
-(def snare (freesound2 270156))
-(def kick (freesound2 171104))
-
-(def crash (freesound2 439789))
-(def clap (freesound2 24787))
+        [overtone-loops.loops]
+        [overtone-loops.samples]))
 
 ;; We want to use amps between 0 and 9 in our lists
 (amp-scale 1/9)
 
-;;                   BAR1               BAR2               BAR3               BAR4                        
-;;                   1 & 2 & 3 & 4 & // 1 & 2 & 3 & 4 & // 1 & 2 & 3 & 4 & // 1 & 2 & 3 & 4 & 
+;;                       BAR1               BAR2               BAR3               BAR4                        
+;;                       1 & 2 & 3 & 4 & // 1 & 2 & 3 & 4 & // 1 & 2 & 3 & 4 & // 1 & 2 & 3 & 4 & 
 (defloop closed-hhs
-  (4 1/2) closed-hh [7 7 7 7 7 7 7 7 ])
+  (4 1/2) cymbal-closed [7 7 7 7 7 7 7 7 ])
 (defloop sds
-  (4 1/2) snare     [- - 8 - - - 8 - ])
+  (4 1/2) snare-hard    [- - 8 - - - 8 - ])
 (defloop kicks
-  (16 1/2) kick     [8 - - - 8 - - -    8 - - - 8 8 - -    8 8 - - - 8 - -    8 8 - 8 - 8 - 8])
+  (16 1/2) bass-hard    [8 - - - 8 - - -    8 - - - 8 8 - -    8 8 - - - 8 - -    8 8 - 8 - 8 - 8])
   
 ;; ---------------------------------------------
 
