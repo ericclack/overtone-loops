@@ -6,23 +6,21 @@ Currently this work is highly experimental. Feel free to leave suggestions on th
 
 ## How do you program loops?
 
-First define some samples, these are loaded from http://Freesound.org
+First load in Overtone Live and Loops namespaces `loops` and `samples`:
 
 ```
-(:use [overtone.live]
-      [overtone-loops.loops])
-        
-(def kick (freesound2 171104))
-(def hat (freesound2 404890))
+(use 'overtone.live
+     'overtone-loops.loops
+     'overtone-loops.samples)
 ```
 
 Then create loops with a list of beats. Each value in the list is an amplitude.
 
 ```
-;;                       1 2 3 4 5 6 7 8
-(defloop hats   8 hat   [- 5 - 5 - 5 - 5])
-(defloop kicks  8 kick  [7 - 2 - 7 6 2 -])
-(defloop claps  4 clap  [- - 1 -])
+;;                                1 2 3 4 5 6 7 8
+(defloop hats   8 cymbal-closed  [- 5 - 5 - 5 - 5])
+(defloop kicks  8 bass-hard      [7 - 2 - 7 6 2 -])
+(defloop claps  4 clap           [- - 4 -])
 ```
 
 The parameters to `defloop` are `loop-name`, `beats-in-a-phrase`, the instrument to play, and a list of amplitudes to pass to the instrument on each beat, where `-` is equivalent to `0`, a muted beat. For ease of coding the scale of amplitudes are 0 (silence) - 9 (full), these are converted to a number between 0 and 1, which is what the instrument expects. 
@@ -30,10 +28,10 @@ The parameters to `defloop` are `loop-name`, `beats-in-a-phrase`, the instrument
 To play these loops just call the loop-name function with a timer from `(metro)`, do set the `bpm` first to ensure the correct playback speed.
 
 ```
-(bpm 100)
+(bpm 200)
 (hats (metro))
 (kicks (metro))
-(claps (metro))
+(crashes (metro))
 ;; To stop
 (stop)
 ```
@@ -52,11 +50,18 @@ Usually you'll want some sort of scheduling, use `at-bar` to set the appropriate
 A variation of this list form is to supply a pair of `(beats fraction)` so that you can, for example, make a loop with 4 beats to the bar and amplitudes for each 1/2 beat, like this:
 
 ```
-;;                         beat 1  &   2  &   3  &   4  &
-(defloop hats   (4 1/2) hat    [-  5   -  5   -  5   -  5 ]) ;; half beats
-(defloop kicks  (4 1/2) kick   [7  -   2  -   7  6   2  - ]) ;; half beats
-(defloop claps   4      clap   [-      -      7      -    ]) ;; regular beats
-(defloop bells  (4 1/3) bell   [4 - -  - - 4  - 6 -  - 5 7]) ;; triplets
+;;                                beat 1  &   2  &   3  &   4  &
+(defloop hats   (4 1/2) cymbal-closed [-  5   -  5   -  5   -  5 ]) ;; half beats
+(defloop kicks  (4 1/2) bass-hard     [7  -   2  -   7  6   2  - ]) ;; half beats
+(defloop claps   4      clap          [-      -      7      -    ]) ;; regular beats
+(defloop bells  (4 1/3) cowbell       [- - -  5 - 1  5 1 -  - 1 5]) ;; triplets
+```
+
+Then run with:
+
+```
+(bpm 120)
+(at-bar 1 (hats) (kicks) (claps) (bells))
 ```
 
 Check out the documentation for `at-bar` and `on-next-bar` to find out more about scheduling. E.g. `(odoc at-bar)`.
@@ -71,14 +76,14 @@ There are two other ways to program loops. The most basic method uses `defloop0`
 
 ```
 (defloop0 heart 4
-  0 kick
-  1 kick)
+  0 bass-soft
+  1 bass-soft)
 
 (defloop0 ticks 4
-  0 hat
-  1 hat
-  2 hat
-  3 hat)
+  0 cymbal-closed
+  1 cymbal-closed
+  2 cymbal-closed
+  3 cymbal-closed)
 
 (bpm 240)
 (beats-in-bar 4)
@@ -90,6 +95,8 @@ There are two other ways to program loops. The most basic method uses `defloop0`
 Almost always you'll want to pass options to each intrument, e.g. the note to play, or the amplitude or velocity, in which case use `defloop1`:
 
 ```
+(use 'overtone.inst.piano)
+
 (defloop1 piano-notes 6
   0 (piano (note :c3))
   2 (piano (note :e3))

@@ -5,7 +5,7 @@
 ;; we replace them with local ones
 
 (def cowbell (sample2 "resources/samples/drum_cowbell.wav")) ;; (cowbell)
-(def clap (freesound2 24787)) ;; (clap)
+(def clap (sample2 "resources/samples/perc_clap.wav")) ;; (clap)
 (def crash (freesound2 439789)) ;; (crash)
 
 (def cymbal-open (sample2 "resources/samples/drum_cymbal_open.wav")) ;; (cymbal-open)
