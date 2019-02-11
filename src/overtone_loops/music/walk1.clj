@@ -3,8 +3,7 @@
         [overtone-loops.loops]))
 
 ;; Define some samples from Freesound.org
-(def kick (freesound2 171104))
-(def snare (freesound2 404859))
+(def kick (sample2 "resources/samples/drum_bass_hard.wav"))
 (def hat (freesound2 404891))
 (def hat2 (freesound2 404893))
 (def ride-bell (freesound2 171482))

@@ -1,19 +1,20 @@
-(ns overtone-loops.instr
+(ns overtone-loops.samples
   (:use [overtone-loops.loops]))
 
-;; Define some samples from Freesound.org
+;; Define local samples & some freesound placeholders -- until
+;; we replace them with local ones
 
 (def bell (freesound2 382806)) ;; (bell)
 (def clap (freesound2 24787)) ;; (clap)
 (def crash (freesound2 439789)) ;; (crash)
 
-(def hatopen (freesound2 404893)) ;; (hatopen)
-(def hatc (freesound2 404891))  ;; closed ;; (hatc)
+(def cymbal-open (sample2 "resources/samples/drum_cymbal_open.wav")) ;; (cymbal-open)
+(def cymbal-closed (sample2 "resources/samples/drum_cymbal_closed.wav"))  ;; (hatc)
 (def hatc2 (freesound2 404890)) ;; closed ;; (hatc2)
 (def hatc3 (freesound2 96140))  ;; (hat3)
-(def hatp (freesound2 93910))  ;; pedal ;; (hatp)
+(def cymbal-pedal (sample2 "resources/samples/drum_cymbal_pedal.wav")) ;; (cymbal-pedal)
 
-(def kick (freesound2 171104)) ;; (kick)
+(def bass-hard (sample2 "resources/samples/drum_bass_hard.wav")) ;; (bass-hard)
 (def kickelec (freesound2 250547)) ;; (kickelec)
 (def kicksoft (freesound2 56430)) ;; (kicksoft)
 
@@ -25,7 +26,7 @@
 (def ride-bell (freesound2 171482)) ;; (ride-bell)
 (def rim (freesound2 34831)) ;; (rim)
 
-(def snare (freesound2 151689)) ;; (snare)
+(def snare-hard (sample2 "resources/samples/drum_snare_hard.wav")) ;; (snare-hard)
 (def snare2 (freesound2 404859)) ;; (snare2)
 
 ;; Snaps etc

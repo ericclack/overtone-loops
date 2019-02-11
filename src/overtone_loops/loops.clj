@@ -254,4 +254,17 @@
 ;; (f :amp 0.5)
 ;; (f :rate 2)
 
+(defn sample2
+  "Load and return a player for the sample in a local file. 
+  Plays click free."
+  [path]
+  (let [sample-buf (load-sample path)
+        buf-id     (:id sample-buf)
+        dur        (:duration sample-buf)
+        channels   (:n-channels sample-buf)]
+    (fn [ & args ]
+      (cond
+        (= 1 channels) (apply mono-sample-player buf-id dur args)
+        (= 2 channels) (apply stereo-sample-player buf-id dur args)))))
+
 ;;(stop)
