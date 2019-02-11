@@ -17,7 +17,7 @@ First load in Overtone Live and Loops namespaces `loops` and `samples`:
 Then create loops with a list of beats. Each value in the list is an amplitude.
 
 ```
-;;                                1 2 3 4 5 6 7 8
+;;                         beat   1 2 3 4 5 6 7 8
 (defloop hats   8 cymbal-closed  [- 5 - 5 - 5 - 5])
 (defloop kicks  8 bass-hard      [7 - 2 - 7 6 2 -])
 (defloop claps  4 clap           [- - 4 -])
@@ -40,11 +40,8 @@ Usually you'll want some sort of scheduling, use `at-bar` to set the appropriate
 
 ```
 (beats-in-bar 4)
-(at-bar 1
-        (hats)
-        (claps))
-(at-bar 3
-        (claps))
+(at-bar 1 (hats) (kicks))
+(at-bar 3 (claps))
 ```
 
 A variation of this list form is to supply a pair of `(beats fraction)` so that you can, for example, make a loop with 4 beats to the bar and amplitudes for each 1/2 beat, like this:
