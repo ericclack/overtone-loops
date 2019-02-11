@@ -22,10 +22,6 @@
 
 (bpm 110)
 
-(defn half-beat? [b]
-  (and (ratio? b)
-       (= (denominator b) 2)))
-
 (defn close_beat [b]
   (if (half-beat? b)
     b

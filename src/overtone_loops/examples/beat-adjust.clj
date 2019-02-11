@@ -14,10 +14,6 @@
 (defloop snares (4 1/2) snare      [- - 6 - - - 6 -   ])
 (defloop hats   (4 1/2) hat        [- 6 - 6 4 6 - 6 ])
 
-(defn half-beat? [b]
-  (and (ratio? b)
-       (= (denominator b) 2)))
-
 (defn late-halves
   "Play half beats a 1/6 beat late"
   [b]
