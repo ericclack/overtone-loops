@@ -1,23 +1,17 @@
 (ns overtone-loops.music.alter1
   (:use [overtone.live]
-        [overtone-loops.loops]))
-
-;; Define some samples from Freesound.org
-(def kick (freesound2 171104))
-(def snare (freesound2 270156))
-(def hat (freesound2 404890))
-(def crash (freesound2 439789))
-(def clap (freesound2 24787))
+        [overtone-loops.loops]
+        [overtone-loops.samples]))
 
 (amp-scale 1/9)
 
 ;;                                1 & 2 & 3 & 4 &  5 & 6 & 7 & 8 &
-(defloop hats    (8 1/2) hat     [- 5 - 5 - 5 - 5  - - - - 5 9 5 9 ])
-(defloop crashes (8 1/2) crash   [- - - - 4                        ])
-(defloop claps    4      clap    [-   6   -   8    -   6   -   8   ])
-(defloop kicks   (4 1/2) kick    [7 - - - 2 - - -  7 - - - 2 - - - ])
+(defloop hats    (8 1/2) hat           [- 5 - 5 - 5 - 5  - - - - 5 9 5 9 ])
+(defloop crashes (8 1/2) cymbal-open   [- - - - 4                        ])
+(defloop claps    4      clap          [-   6   -   8    -   6   -   8   ])
+(defloop kicks   (4 1/2) bass-soft     [7 - - - 2 - - -  7 - - - 2 - - - ])
 
-(defloop exkicks (8 1/2) kick    [- - - - - - - -  - 4 - 4 - - - - ])
+(defloop exkicks (8 1/2) bass-hard     [- - - - - - - -  - 4 - 4 - - - - ])
 
 (defloop extra-snares 16
   2.5 (snare :amp 0.8)
