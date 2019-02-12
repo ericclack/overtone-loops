@@ -8,7 +8,8 @@
 
 (defloop hats1  (4 1/4) cymbal-closed [- - 9 - - - 9 - - - 9 - - - 9 - ])
 (defloop hats2  (4 1/4) cymbal-pedal  [- - - - - 3 - - - - - - - 3 - - ])
-(defloop hats3  (4 1/4) hatc2         [- - - - - - - 5 - - - - - - - 8 ])
+(defloop hats3  (8 1/4) cymbal-open   [- - - - - - - 2 - - - - - - - 3
+                                       - - - - - - - - 3 - 5 - 3 - 5 2 ])
 
 (defloop snares (8 1/4) snare-hard    [- - - - - - 7 -
                                        - - - - - - 7 -
