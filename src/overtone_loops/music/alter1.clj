@@ -5,8 +5,8 @@
 
 (amp-scale 1/9)
 
-;;                                1 & 2 & 3 & 4 &  5 & 6 & 7 & 8 &
-(defloop hats    (8 1/2) hat           [- 5 - 5 - 5 - 5  - - - - 5 9 5 9 ])
+;;                                      1 & 2 & 3 & 4 &  5 & 6 & 7 & 8 &
+(defloop hats    (8 1/2) cymbal-closed [- 5 - 5 - 5 - 5  - - - - 5 9 5 9 ])
 (defloop crashes (8 1/2) cymbal-open   [- - - - 4                        ])
 (defloop claps    4      clap          [-   6   -   8    -   6   -   8   ])
 (defloop kicks   (4 1/2) bass-soft     [7 - - - 2 - - -  7 - - - 2 - - - ])
