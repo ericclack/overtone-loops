@@ -93,10 +93,28 @@
                         beat-adjust)))))
 
 (defmacro defloop0
-  [name & rest]
-  `(def ~name
-     (makeloop ~@rest)))
-
+  "A macro version of makeloop, but with the added
+  advantage that you can redefine the loop while it is
+  playing and hear the changes in real time."
+  
+  [name beats-in-bar & beats-and-playables]
+  (let* [beat-sym (gensym "beat")
+         rest-sym (gensym "rest")
+         bars-left-sym (gensym "bars-left-sym")
+         beat-adjust-sym (gensym "beat-adjust-sym")]
+    `(defn ~name
+       [~beat-sym & ~rest-sym]
+       
+       (let [~bars-left-sym (if (number? (first ~rest-sym))
+                              (first ~rest-sym) -1)
+             ~beat-adjust-sym (first (filter fn? ~rest-sym))]
+         
+         (play-bar ~beat-sym ~beat-adjust-sym ~@beats-and-playables)
+         (when (not (= 1 ~bars-left-sym)) 
+           (next-loop-iter ~name
+                           (+ ~beats-in-bar ~beat-sym)
+                           (dec ~bars-left-sym)
+                           ~beat-adjust-sym))))))
 (defmacro defloop1
   "Like defloop0 but pairs are beats and s-exps, enabling 
   you to pass in parameters such as :amp. We wrap these 
