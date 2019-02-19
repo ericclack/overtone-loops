@@ -61,9 +61,15 @@
                                     beats-and-playables)))))
 
 (defn next-loop-iter
-  "Schedule fn for beat with specified bars left"
-  [fn beat & rest]
-  (apply-by (metro beat) fn beat rest))
+  "Schedule fn for beat any extra args. We actually 
+  schedule a wrapper function to make it easier
+  to redefine active loops. "
+  [fun beat & rest]
+  (println "scheduling next on " beat ", currently" (metro))
+  (apply-by (metro beat) (fn []
+                           (println "inner" beat (metro))
+                           (apply-by (metro beat)
+                                     fun beat rest))))
 
 ;; ----------------------------------------------------------------
 
