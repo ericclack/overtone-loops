@@ -25,6 +25,10 @@
 (def snare-hard (sample2 "resources/samples/drum_snare_hard.wav")) ;; (snare-hard :amp 0.2)
 (def snare-soft (sample2 "resources/samples/drum_snare_soft.wav")) ;; (snare-soft)
 
+(def tom-hi-hard (sample2 "resources/samples/drum_tom_hi_hard.wav")) ;; (tom-hi-hard)
+(def tom-mid-hard (sample2 "resources/samples/drum_tom_mid_hard.wav")) ;; (tom-mid-hard)
+(def tom-lo-hard (sample2 "resources/samples/drum_tom_lo_hard.wav")) ;; (tom-lo-hard)
+  
 ;; Snaps etc
 (def finger (freesound2 177495)) ;; (finger)
 (def stick (freesound2 82280)) ;; (stick)

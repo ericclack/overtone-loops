@@ -95,7 +95,8 @@
 (defmacro defloop0
   "A macro version of makeloop, but with the added
   advantage that you can redefine the loop while it is
-  playing and hear the changes in real time."
+  playing and hear the changes in real time. You do need
+  to wait for a couple of repeats though..."
   
   [name beats-in-bar & beats-and-playables]
   (let* [beat-sym (gensym "beat")
