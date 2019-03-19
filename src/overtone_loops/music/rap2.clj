@@ -8,13 +8,13 @@
 (defloop hats   (4 1/2) cymbal-pedal  [-   -   -   -   -   -   6   - ])
 
 ;; Quarter beats                       1 e & a 2 e & a 3 e & a 4 e & a 
-(defloop snares (16 1/4) snare-hard   [- - - - 7 - - - - - - - 9 - - -
+(defloop snares (16 1/4) snare-soft   [- - - - 7 - - - - - - - 9 - - -
                                        - - 5 - 7 - - - 7 - - - 9 - - 5
                                        - - - - 7 - - 1 - 1 - - 9 - - -
                                        - - 5 - 7 - - - 7 - - - 9 1 - 5
                                        ])
 
-(defloop kicks  (16 1/4) bass-hard    [6 - - 6 - - - - 6 - - - - - - -
+(defloop kicks  (16 1/4) bass-elec    [6 - - 6 - - - - 6 - - - - - - -
                                        6 - - 6 - - - - 6 - - - - - - -
                                        6 - - 6 - - - - 6 - 5 - 4 6 - -
                                        6 - 1 6 - 1 - 1 6 - 5 1 4 6 1 1                               

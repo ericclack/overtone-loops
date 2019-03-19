@@ -25,20 +25,14 @@
 (bpm 110) 
 (beats-in-bar 4)
 
-(defn shuffle [beat]
-  (cond
-    (half-beat? beat) (+ beat 1/16)
-    (quarter-beat? beat) (+ beat 1/20)
-    :else beat))
-
 (at-bar 1
-        (ticks 4 shuffle)
+        (ticks 4)
         (kicks 20) 
         ) 
 
 (at-bar 5
-        (hats1 12 shuffle)
-        (pedals1 12 shuffle)
+        (hats1 12)
+        (pedals1 12)
         )
 
 (at-bar 13
@@ -46,8 +40,8 @@
         )
 
 (at-bar 17
-        (hats2 shuffle)
-        (pedals2 shuffle)
+        (hats2)
+        (pedals2)
         )
 
 (at-bar 25
@@ -56,9 +50,9 @@
 
 (comment ; all play for only a few phrases
   ;; Play these with Ctrl-X Ctrl-E
-  (ticks (on-next-bar) shuffle)
-  (hats (on-next-bar) shuffle)
-  (rides1 (on-next-bar) 4 shuffle)
+  (ticks (on-next-bar))
+  (hats (on-next-bar))
+  (rides1 (on-next-bar) 4)
 
   ;; To stop any loop, redefine it as empty
   (emptyloop clicks 4)

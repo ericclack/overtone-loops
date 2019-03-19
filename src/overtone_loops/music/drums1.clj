@@ -38,13 +38,16 @@
   (crashes1)
 )
 
-(at-bar 3
+(at-bar 5
   (snares1)
   )
 
 (comment
   (extra-kicks (on-next-bar))
   (extra-snares (on-next-bar))
+
+  (emptyloop extra-kicks 8)
+  (emptyloop extra-snares 8)
   )
 
 ;;(stop)
