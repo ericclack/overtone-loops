@@ -30,12 +30,16 @@
   
 ;; ---------------------------------------------
 
-(bpm 100)
+(bpm 105)
 (beats-in-bar 4)
+
+(defn swing [b]
+  (if (quarter-beat? b) (+ b 1/16)
+      b))
   
 (at-bar 1
-        (ride-bells)
-        (rides)
+        (ride-bells swing)
+        (rides swing)
         (sds)
         (kicks)
   )
