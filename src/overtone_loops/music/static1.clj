@@ -5,7 +5,7 @@
 ;; Aiming for something like Eat Static - Shadow Locked
 
 ;; Define some samples from Freesound.org
-(def kick (freesound2 171104))
+(def kick (freesound2 171104)) ;; (kick)
 (def snare (freesound2 270156))
 (def hat (freesound2 404890))
 (def finger (freesound2 177495))
@@ -60,7 +60,7 @@
 (beats-in-bar 4)
 
 (at-bar 1
-        (hats))
+        (hats)) ;; forever
 
 (at-bar 5
         (bass1 6))

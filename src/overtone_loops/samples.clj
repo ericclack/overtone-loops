@@ -17,6 +17,7 @@
 
 (def bass-hard (sample2 "resources/samples/drum_bass_hard.wav")) ;; (bass-hard)
 (def bass-soft (sample2 "resources/samples/drum_bass_soft.wav")) ;; (bass-soft)
+(def bass-elec (sample2 "resources/samples/kick_171104.wav")) ;; (bass-elec)
 
 (def ride (sample2 "resources/samples/drum_ride.wav")) ;; (ride)
 (def ride-bell (sample2 "resources/samples/drum_ride_bell.wav")) ;; (ride-bell)
@@ -30,5 +31,5 @@
 (def tom-lo-hard (sample2 "resources/samples/drum_tom_lo_hard.wav")) ;; (tom-lo-hard)
   
 ;; Snaps etc
-(def finger (freesound2 177495)) ;; (finger)
+(def finger (sample2 "resources/samples/finger_177495.wav")) ;; (finger)
 (def stick (freesound2 82280)) ;; (stick)
