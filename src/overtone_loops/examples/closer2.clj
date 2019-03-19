@@ -1,14 +1,7 @@
 (ns overtone-loops.examples.closer2
   (:use [overtone.live]
-        [overtone-loops.loops]))
-
-;; Define some samples from Freesound.org
-(def hat (freesound2 404890))
-(def ride-bell (freesound2 171482))
-(def snare (freesound2 404859))
-(def kick (freesound2 171104))
-
-(def bell (freesound2 382806))
+        [overtone-loops.loops]
+        [overtone-loops.samples]))
 
 ;;                                 1 & 2 & 3 & 4 & 
 (defloop hats   (4 1/2) hat       [- 5 - 5 - 5 - 5 ])
