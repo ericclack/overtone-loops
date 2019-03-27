@@ -153,7 +153,15 @@
   (defloop kicks  4 kick  [7 - 2 - ])
   ;; Or with fractional beats
   (defloop hats   (4 1/2) hat [- 5 - 5 - 5 - 5])
+
+  Or params can be vectors or lists to pass to your instrument.
+
+  (defn k [anote amp]
+    (ks1 (note anote) :amp (/ amp 9)))
+
+  (deflooplist melody1 8 k [[:g4 8] [:a4 8] [:b4 8] [:c5 8]])
   "
+  
   [name beat-pattern instr params-list]
   (let [beats-in-bar (if (list? beat-pattern) (first beat-pattern) beat-pattern)
         fraction (if (list? beat-pattern) (second beat-pattern) 1)
