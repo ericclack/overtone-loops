@@ -14,10 +14,12 @@
 (def hatc3 (freesound2 96140))  ;; (hat3)
 (def cymbal-pedal (sample2 "resources/samples/drum_cymbal_pedal.wav")) ;; (cymbal-pedal)
 (def cymbal-soft (sample2 "resources/samples/drum_cymbal_soft.wav")) ;; (cymbal-soft)
+(def hat cymbal-closed)
 
 (def bass-hard (sample2 "resources/samples/drum_bass_hard.wav")) ;; (bass-hard)
 (def bass-soft (sample2 "resources/samples/drum_bass_soft.wav")) ;; (bass-soft)
 (def bass-elec (sample2 "resources/samples/kick_171104.wav")) ;; (bass-elec)
+(def kick bass-hard)
 
 (def ride (sample2 "resources/samples/drum_ride.wav")) ;; (ride)
 (def ride-bell (sample2 "resources/samples/drum_ride_bell.wav")) ;; (ride-bell)
