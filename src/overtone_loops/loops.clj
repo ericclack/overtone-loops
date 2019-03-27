@@ -178,7 +178,6 @@
     (let [beats-params (apply concat (map-indexed #(list (* %1 fraction) %2)
                                                   true-params-list))
           thunked-pairs (map-evens make-instr-thunk beats-params)]
-      (print beats-params)
       `(defloop0 ~name ~beats-in-bar ~@thunked-pairs))))
 
 (defmacro defloop
