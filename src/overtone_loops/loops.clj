@@ -154,7 +154,8 @@
   ;; Or with fractional beats
   (defloop hats   (4 1/2) hat [- 5 - 5 - 5 - 5])
 
-  Or params can be vectors or lists to pass to your instrument.
+  To get more control, params can be vectors or lists to pass to your
+  instrument, e.g. you could pass a note and amplitude for each beat.
 
   (defn k [anote amp]
     (ks1 (note anote) :amp (/ amp 9)))

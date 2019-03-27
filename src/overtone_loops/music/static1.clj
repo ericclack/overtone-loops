@@ -23,22 +23,11 @@
 ;; (tone (note->hz :c3))
 ;; (tone :amp 0.1)
 
-(defn tone-low [& {:keys [amp] :or {amp 0.7}}]
-  (tone :freq (note->hz :f2)
-        :amp amp
+(defn atone [anote amp]
+  (tone :freq (note->hz anote)
+        :amp (/ amp 9)
         :sustain 0.1
-        :release 0.05)
-  )
-
-;; (tone-c3 :amp 0.3)
-;; (tone-c3 :amp 0.1)
-
-(defn tone-mid [& {:keys [amp] :or {amp 0.7}}]
-  (tone :freq (note->hz (rand-nth [:c3 :ab3 :f3]))
-        :amp amp
-        :sustain 0.1
-        :release 0.05)
-  )
+        :release 0.05))
 
 ;; Patterns ------------------------------------------------------------
 
@@ -47,12 +36,16 @@
 
 ;;                                 1 & 2 & 3 & 4 &   1 & 2 & 3 & 4 &   1 & 2 & 3 & 4 &   1 & 2 & 3 & 4 &   
 (defloop hats    (4 1/2) hat      [2 7 2 7 - 7 2 7 ])
-(defloop bass1   (4 1/2) tone-low [4 2 4 2 4 2 4 2 ])
 (defloop fingers  4      finger   [9   -   9   -   ])
 
 (defloop kicks    4      kick     [9   9   9   9   ])
 (defloop claps   (8 1/2) clap     [- 6 - - - 6 - -   - 6 - - - 3 7 3 ])
-(defloop bass2   (4 1/2) tone-mid [4 2 - 2 4 2 4 2 ])
+
+(defloop bass1   (4 1/2) atone [[:f2 4] [:f2 2] [:f2 4] [:d2 2]
+                                [:f2 4] [:d2 2] [:f2 4] [:g2 2]])
+
+(defloop bass2   (4 1/2) atone [[:c3 4]  [:f3 2]  -       [:c3 2]
+                                [:ab3 4] [:ab3 2] [:c3 4] [:f3 2]])
 
 ;; ---------------------------------------------
 

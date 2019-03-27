@@ -13,6 +13,7 @@
 
 (defloop exkicks (8 1/2) bass-hard     [- - - - - - - -  - 4 - 4 - - - - ])
 
+(def snare snare-hard)
 (defloop extra-snares 16
   2.5 (snare :amp 0.8)
   3 (snare :amp 0.5)
