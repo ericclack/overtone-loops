@@ -23,6 +23,12 @@
 (defn amp-scale [a]
   (reset! the-amp-scale a))
 
+(defn scale-amps [a]
+  "If a is just a number, scale it, otherwise preserve it."
+  (if (number? a)
+    (* a @the-amp-scale)
+    a))
+
 (defn beats-in-bar [b]
   (reset! the-beats-in-bar b))
 
@@ -135,8 +141,8 @@
     `(defloop0 ~name ~beats-in-bar ~@thunked-pairs)))
 
 (defmacro deflooplist
-  "Define a loop for a single instrument with amps-list
-  defining amplitudes on each beat.
+  "Define a loop for a single instrument with params list, in the 
+  simplest case defining amplitudes on each beat.
 
   Amps are numbers 0 to 9, where 0 is silence and 9 is full volume.
   You can use - instead of 0. You can change this scale with the
@@ -148,18 +154,23 @@
   ;; Or with fractional beats
   (defloop hats   (4 1/2) hat [- 5 - 5 - 5 - 5])
   "
-  [name beat-pattern instr amps-list]
+  [name beat-pattern instr params-list]
   (let [beats-in-bar (if (list? beat-pattern) (first beat-pattern) beat-pattern)
         fraction (if (list? beat-pattern) (second beat-pattern) 1)
-        true-amps-list (->> amps-list
+        true-params-list (->> params-list
                             (replace {'- 0} ,,,)
-                            (map #(* % @the-amp-scale) ,,,))]
-    (defn- make-instr-thunk [amp]
-      (if (zero? amp)
-        `(thunk) ;; do nothing
-        `(thunk (~instr :amp ~amp))))
-    (let [beats-amps (flatten (map-indexed #(list (* %1 fraction) %2) true-amps-list))
-          thunked-pairs (map-evens make-instr-thunk beats-amps)]
+                            (map scale-amps ,,,))]
+    (defn- make-instr-thunk [param]
+      (cond
+        (and (number? param) (zero? param))       `(thunk) ;; do nothing
+        (number? param)                           `(thunk (~instr :amp ~param))
+        (and (sequential? param) (empty? param))  `(thunk)
+        (sequential? param)                       `(thunk (apply ~instr ~param))))
+
+    (let [beats-params (apply concat (map-indexed #(list (* %1 fraction) %2)
+                                                  true-params-list))
+          thunked-pairs (map-evens make-instr-thunk beats-params)]
+      (print beats-params)
       `(defloop0 ~name ~beats-in-bar ~@thunked-pairs))))
 
 (defmacro defloop
