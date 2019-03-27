@@ -63,11 +63,24 @@ Then run with:
 
 Check out the documentation for `at-bar` and `on-next-bar` to find out more about scheduling. E.g. `(odoc at-bar)`.
 
+## More than amplitude
+
+If you want to send your instrument more than just an amplitude you can use a nested
+loop syntax. For example, here's how we can program a note and amplitude with a helper
+function:
+
+```
+(defn k [anote amp]
+  (ks1 (note anote) :amp (/ amp 9)))
+
+(deflooplist melody1 8 k [[:g4 8] [:a4 8] [:b4 8] [:c5 8]])
+```
+
 ## Beat adjustment
 
 When playing loops you can adjust the timing of certain beats to create a more interesting sound. For example you can play half-beats late to create a shuffle, or add a bit of randomness to make it sound more human. See `examples/beat-adjust.clj` or `music/walk.clj`.
 
-## Alternative loop syntax
+## Alternative loop macros
 
 There are two other ways to program loops. The most basic method uses `defloop0` to combine beat numbers and samples. The parameters to `defloop0` are `loop-name`, `beats-in-a-phrase` and then pairs of `beat` and `sample` (or any function):
 
@@ -128,5 +141,7 @@ I'm working through the exercises in The Drum Programming Handbook and you can s
 ## License
 
 Copyright © 2018-2019 Eric Clack
+
+Samples copyright various authors on freesound.org
 
 Distributed under the GNU General Public License v3.0
