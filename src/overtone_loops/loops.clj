@@ -69,11 +69,13 @@
                                     beats-and-playables)))))
 
 (defn play-pattern
-  [when beat-value instr amps-list]
-  (defn- player [beat amp]
-    (at (metro (+ when (* beat-value beat)))
-        (instr :amp (scale-amps amp))))
-  (doall (map-indexed player amps-list)))
+  ([beat-value instr amps-list]
+   (play-pattern (metro) beat-value instr amps-list))
+  ([when beat-value instr amps-list]
+   (defn- player [beat amp]
+     (at (metro (+ when (* beat-value beat)))
+         (instr :amp (scale-amps amp))))
+   (doall (map-indexed player amps-list))))
 
 (defn next-loop-iter
   "Schedule fn for beat any extra args."
@@ -261,6 +263,19 @@
         `(~fn ~metro-marker ~@rest)))
     (let [timed-loop-fns (map insert-metro loop-fns)]
       `(do ~@timed-loop-fns))))
+
+(defmacro bars-repeat
+  [times & pattern-fns]
+  (let [fn-sym (gensym "repeater")
+        bars-left-sym (gensym "bars-left")]
+    `((fn ~fn-sym [~bars-left-sym]
+        (print ~bars-left-sym)
+        ~@pattern-fns
+        (when (> ~bars-left-sym 1)
+          (apply-by (metro (on-next-bar 2))
+                    ~fn-sym (dec ~bars-left-sym) []))
+        ) ~times)
+  ))
 
 ;; ---------------------------------------------------------------
 ;; Click-free sample players
