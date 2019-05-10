@@ -70,7 +70,7 @@
 
 (defn play-pattern
   ([beat-value instr amps-list]
-   (play-pattern (metro) beat-value instr amps-list))
+   (play-pattern (on-next-bar) beat-value instr amps-list))
   ([when beat-value instr amps-list]
    (defn- player [beat amp]
      (at (metro (+ when (* beat-value beat)))
@@ -272,7 +272,7 @@
         (print ~bars-left-sym)
         ~@pattern-fns
         (when (> ~bars-left-sym 1)
-          (apply-by (metro (on-next-bar 2))
+          (apply-by (metro (on-next-bar))
                     ~fn-sym (dec ~bars-left-sym) []))
         ) ~times)
   ))
