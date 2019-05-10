@@ -9,6 +9,8 @@
 (def the-amp-scale (atom 1/9))
 (def the-beats-in-bar (atom 4))
 
+(def . 0) ; Handy in patterns
+
 (defn bpm [b]
   (metro-bpm metro b))
 
@@ -65,6 +67,13 @@
                           beats-and-playables
                           (map-odds beat-adjust
                                     beats-and-playables)))))
+
+(defn play-pattern
+  [when beat-value instr amps-list]
+  (defn- player [beat amp]
+    (at (metro (+ when (* beat-value beat)))
+        (instr :amp (scale-amps amp))))
+  (doall (map-indexed player amps-list)))
 
 (defn next-loop-iter
   "Schedule fn for beat any extra args."
