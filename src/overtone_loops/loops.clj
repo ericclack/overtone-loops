@@ -89,134 +89,6 @@
 
 ;; ----------------------------------------------------------------
 
-(defn makeloop 
-  "Wrap pairs of beats and playables into a loop
-  
-  ;; Examples
-  (def hat (freesound2 404890))
-  (def hats (makeloop 4
-                      0.5 hat 1.5 hat 2.5 hat 3.5 hat)
-  ;; then:
-  (hats (metro))
-  ;; play for 16 bars:
-  (hats (metro) 16)
-  "
-  [beats-in-bar & beats-and-playables]
-  (fn aloop  
-    [beat & rest]
-    (let [bars-left (if (number? (first rest))
-                      (first rest) -1)
-          beat-adjust (first (filter fn? rest))]
-      (apply play-bar beat beat-adjust beats-and-playables)
-      (when (not (= 1 bars-left)) 
-        (next-loop-iter aloop
-                        (+ beats-in-bar beat)
-                        (dec bars-left)
-                        beat-adjust)))))
-
-(defmacro defloop0
-  "A macro version of makeloop, but with the added
-  advantage that you can redefine the loop while it is
-  playing and hear the changes in real time. You do need
-  to wait for a couple of repeats though..."
-  
-  [name beats-in-bar & beats-and-playables]
-  (let* [beat-sym (gensym "beat")
-         rest-sym (gensym "rest")
-         bars-left-sym (gensym "bars-left-sym")
-         beat-adjust-sym (gensym "beat-adjust-sym")]
-    `(defn ~name
-       [~beat-sym & ~rest-sym]
-       
-       (let [~bars-left-sym (if (number? (first ~rest-sym))
-                              (first ~rest-sym) -1)
-             ~beat-adjust-sym (first (filter fn? ~rest-sym))]
-         
-         (play-bar ~beat-sym ~beat-adjust-sym ~@beats-and-playables)
-         (when (not (= 1 ~bars-left-sym)) 
-           (next-loop-iter ~name
-                           (+ ~beats-in-bar ~beat-sym)
-                           (dec ~bars-left-sym)
-                           ~beat-adjust-sym))))))
-(defmacro defloop1
-  "Like defloop0 but pairs are beats and s-exps, enabling 
-  you to pass in parameters such as :amp. We wrap these 
-  s-exps in a thunk so they don't all play immediately.
-
-  ;; Examples
-  (def hat (freesound2 404890))
-  (defloop hats 4 
-     0.5 (hat :amp 1) 1.5 (hat :amp 0.8))
-  ;; then:
-  (hats (metro))
-  "
-  [name beats-in-bar & beats-and-sexps]
-  (defn- make-thunk [s-exp]
-    `(thunk ~s-exp))
-  (let [thunked-pairs (map-evens make-thunk beats-and-sexps)]
-    `(defloop0 ~name ~beats-in-bar ~@thunked-pairs)))
-
-(defmacro deflooplist
-  "Define a loop for a single instrument with params list, in the 
-  simplest case defining amplitudes on each beat.
-
-  Amps are numbers 0 to 9, where 0 is silence and 9 is full volume.
-  You can use - instead of 0. You can change this scale with the
-  amp-scale function, e.g. if you prefer to use 0.0 to 1.0
-
-  ;; Example
-  (defloop hats   4 hat   [- 5 - 5 ])
-  (defloop kicks  4 kick  [7 - 2 - ])
-  ;; Or with fractional beats
-  (defloop hats   (4 1/2) hat [- 5 - 5 - 5 - 5])
-
-  To get more control, params can be vectors or lists to pass to your
-  instrument, e.g. you could pass a note and amplitude for each beat.
-
-  (defn k [anote amp]
-    (ks1 (note anote) :amp (/ amp 9)))
-
-  (deflooplist melody1 8 k [[:g4 8] [:a4 8] [:b4 8] [:c5 8]])
-  "
-  
-  [name beat-pattern instr params-list]
-  (let [beats-in-bar (if (list? beat-pattern) (first beat-pattern) beat-pattern)
-        fraction (if (list? beat-pattern) (second beat-pattern) 1)
-        true-params-list (->> params-list
-                            (replace {'- 0} ,,,)
-                            (map scale-amps ,,,))]
-    (defn- make-instr-thunk [param]
-      (cond
-        (and (number? param) (zero? param))       `(thunk) ;; do nothing
-        (number? param)                           `(thunk (~instr :amp ~param))
-        (and (sequential? param) (empty? param))  `(thunk)
-        (sequential? param)                       `(thunk (apply ~instr ~param))))
-
-    (let [beats-params (apply concat (map-indexed #(list (* %1 fraction) %2)
-                                                  true-params-list))
-          thunked-pairs (map-evens make-instr-thunk beats-params)]
-      `(defloop0 ~name ~beats-in-bar ~@thunked-pairs))))
-
-(defmacro defloop
-  "Uber defloop, picks the the macro based on parameters, 
-  one of defloop1 or deflooplist:
-
-  (defloop name beats-in-bar   beat (instr)  beat (instr)  ...)
-  (defloop name beats-in-bar   intsr [amp amp amp ...])
-  "
-  [name beats-in-bar & rest]
-  (cond
-    ;; We assume a symbol represents an instrument function
-    (symbol? (first rest)) `(deflooplist ~name ~beats-in-bar ~@rest)
-    ;; A number followed by an s-exp
-    (and
-     (number? (first rest))
-     (list? (second rest))) `(defloop1 ~name ~beats-in-bar ~@rest)
-    ;; Something else
-    :else (throw (Exception. (str "Invalid parameters, got: name, beats and " rest)))))
-
-;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
 (defn loop-player
   "Return a function to play this loop pattern. E.g.
 
@@ -232,18 +104,23 @@
         loop-fn-id (swap! loop-fn-counter inc)]
     (assoc! loop-patterns loop-fn-id pattern)
     
-    (fn player [beat & rest]
+    ;; Play this loop pattern on beat, or if specified change
+    ;; this pattern
+    (fn player
+      [beat & rest]
       (let [pattern (get loop-patterns loop-fn-id)]
         (if (some? rest)
-          (assoc! loop-patterns loop-fn-id (first rest))
+          (apply-by (metro beat)
+                    (fn []
+                      (print (str "reset pattern " loop-fn-id " "
+                                  pattern " -> " (first rest) "\n"))
+                      (assoc! loop-patterns loop-fn-id (first rest))))
           (do  
             (print (str "play pattern " loop-fn-id " "
-                        (get loop-patterns loop-fn-id)
-                        "\n"))
+                        (get loop-patterns loop-fn-id) "\n"))
             (play-bar-list beat fraction instrument pattern)
             (next-loop-iter player (+ beats-in-bar beat)))))))
   )
-
                       
 ;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
