@@ -1,7 +1,8 @@
 (ns overtone-loops.proto.loop_fns
   (:use [overtone.live]
         [overtone-loops.loops]
-        [overtone-loops.samples]))
+        [overtone-loops.samples])
+  (:require [clojure.pprint :refer [pp pprint]]))
 
 ;; We want to use amps between 0 and 9 in our lists
 (amp-scale 1/9)
@@ -37,3 +38,10 @@
 ;;(kicks)
 
 ;;(stop)
+
+(comment
+  (pprint *loop-patterns*)
+  alt-kicks
+  (kicks (metro) alt-kicks)
+  (snares (metro) alt-snares)
+  )

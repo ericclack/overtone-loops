@@ -8,6 +8,8 @@
 (def metro (metronome 128))
 (def the-amp-scale (atom 1/9))
 (def the-beats-in-bar (atom 4))
+(def *loop-fn-counter* (atom 0))
+(def *loop-patterns* (transient (hash-map)))
 
 ;; Make patterns easier to read
 (def _ 0)
@@ -223,14 +225,23 @@
   Then:
   (a (metro))
   "
-  [beat-pattern instrument params-list]
-
-  (let [beats-in-bar (if (vector? beat-pattern) (first beat-pattern) beat-pattern)
-        fraction (if (vector? beat-pattern) (second beat-pattern) 1)]
-
+  [beats instrument pattern]
+  
+  (let [beats-in-bar (if (vector? beats) (first beats) beats)
+        fraction (if (vector? beats) (second beats) 1)
+        loop-fn-id (swap! *loop-fn-counter* inc)]
+    (assoc! *loop-patterns* loop-fn-id pattern)
+    
     (fn player [beat & rest]
-      (play-bar-list beat fraction instrument params-list)
-      (next-loop-iter player (+ beats-in-bar beat)))))
+      (let [this-fn-id loop-fn-id
+            pattern (get *loop-patterns* this-fn-id)]
+        (if (some? rest)
+          (assoc! *loop-patterns* this-fn-id (first rest))
+          (do  
+            (play-bar-list beat fraction instrument pattern)
+            (next-loop-iter player (+ beats-in-bar beat)))))))
+  )
+
                       
 ;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
