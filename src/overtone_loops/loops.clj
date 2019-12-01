@@ -216,7 +216,13 @@
 ;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 (defn loop-player
-  "Return a function to play this loop"
+  "Return a function to play this loop pattern. E.g.
+
+  (def a (loop-player 4 snare [4 6 7 3]))
+
+  Then:
+  (a (metro))
+  "
   [beat-pattern instrument params-list]
 
   (let [beats-in-bar (if (vector? beat-pattern) (first beat-pattern) beat-pattern)
