@@ -27,6 +27,7 @@
 
 (def snare-hard (sample2 "resources/samples/drum_snare_hard.wav")) ;; (snare-hard :amp 0.2)
 (def snare-soft (sample2 "resources/samples/drum_snare_soft.wav")) ;; (snare-soft)
+(def snare snare-hard)
 
 (def tom-hi-hard (sample2 "resources/samples/drum_tom_hi_hard.wav")) ;; (tom-hi-hard)
 (def tom-mid-hard (sample2 "resources/samples/drum_tom_mid_hard.wav")) ;; (tom-mid-hard)

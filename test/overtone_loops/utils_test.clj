@@ -3,13 +3,13 @@
             [overtone-loops.utils :refer :all]))
 
 
-(deftest thunk-tests
+(deftest thunk-test
   (testing "Thunks"
     (is (fn? (thunk (+ 1 2))))
     (is (= 2 ((thunk (+ 1 1)))))))
 
 
-(deftest pairer-tests
+(deftest pairer-test
   (testing "pairer works on simple lists"
     (is (= '((1 2) (3 4) (5 6) (7 8))
            (pairer '(1 2 3 4 5 6 7 8)))))
@@ -18,7 +18,7 @@
            (pairer '(1 2 3 4 5)))))
 
 
-(deftest map-odds-evens-tests
+(deftest map-odds-evens-test
   (testing "a"
     (is (= '(2 2 4 4 6 6)
            (map-odds inc '(1 2 3 4 5 6))))

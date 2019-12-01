@@ -9,6 +9,9 @@
 (def the-amp-scale (atom 1/9))
 (def the-beats-in-bar (atom 4))
 
+;; Make patterns easier to read
+(def _ 0)
+
 (defn bpm [b]
   (metro-bpm metro b))
 
@@ -43,11 +46,11 @@
        (quot (metro) @the-beats-in-bar))
     @the-beats-in-bar)))
 
-(defn- play-bar-pairs
+(defn play-bar-pairs
   "Play this bar on beat, given a list of pairs (offset playable)
 
-  (play-bar-pairs (metro) (pairer (list 0 kick 1 kick 2 snare)))
-  (play-bar-pairs (metro) (pairer (list 0.5 hat 1.5 hat)))
+  (play-bar-pairs (metro) [[0 kick] [1 kick] [2 snare]])
+  (play-bar-pairs (metro) [[0.5 hat] [1.5 hat]])
   "
   [beat beat-playable-pairs]
   (defn- player [[in-beats playable]]
@@ -65,6 +68,17 @@
                           beats-and-playables
                           (map-odds beat-adjust
                                     beats-and-playables)))))
+
+(defn play-bar-list
+  "Examples:
+  (play-bar-list (metro) 1 kick   [6   1   5   6])
+  (play-bar-list (metro) 1/2 kick [6 _ 5 _ _ 4 6])
+  "
+  [beat beat-fraction instrument params-list]
+  (defn- player [in-beats amp]
+    (at (metro (+ beat (* in-beats beat-fraction)))
+        (instrument (scale-amps amp))))
+  (doall (map-indexed player params-list)))
 
 (defn next-loop-iter
   "Schedule fn for beat any extra args."
@@ -199,6 +213,19 @@
     ;; Something else
     :else (throw (Exception. (str "Invalid parameters, got: name, beats and " rest)))))
 
+;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+(defn loop-player
+  "Return a function to play this loop"
+  [beat-pattern instrument params-list]
+
+  (let [beats-in-bar (if (vector? beat-pattern) (first beat-pattern) beat-pattern)
+        fraction (if (vector? beat-pattern) (second beat-pattern) 1)]
+
+    (fn player [beat & rest]
+      (play-bar-list beat fraction instrument params-list)
+      (next-loop-iter player (+ beats-in-bar beat)))))
+                      
 ;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 (defmacro defphrase
