@@ -9,7 +9,7 @@
 (def the-amp-scale (atom 1/9))
 (def the-beats-in-bar (atom 4))
 (def loop-fn-counter (atom 0))
-(def loop-patterns (transient (hash-map)))
+(def loop-patterns (atom (hash-map)))
 
 ;; Make patterns easier to read
 (def _ 0)
@@ -102,22 +102,26 @@
   (let [beats-in-bar (if (vector? beats) (first beats) beats)
         fraction (if (vector? beats) (second beats) 1)
         loop-fn-id (swap! loop-fn-counter inc)]
-    (assoc! loop-patterns loop-fn-id pattern)
+    (print (str "Saving pattern for id " loop-fn-id pattern "\n"))
+    ;; This doesn't work, as loop-patterns is not always
+    ;; changed in place
+    (pprint loop-patterns)
+    (swap! loop-patterns #(assoc % loop-fn-id pattern))
+    (pprint loop-patterns)
     
     ;; Play this loop pattern on beat, or if specified change
     ;; this pattern
     (fn player
       [beat & rest]
-      (let [pattern (get loop-patterns loop-fn-id)]
+      (let [pattern (get @loop-patterns loop-fn-id)]
         (if (some? rest)
           (apply-by (metro beat)
                     (fn []
                       (print (str "reset pattern " loop-fn-id " "
                                   pattern " -> " (first rest) "\n"))
-                      (assoc! loop-patterns loop-fn-id (first rest))))
+                      (swap! loop-patterns assoc loop-fn-id (first rest))))
           (do  
-            (print (str "play pattern " loop-fn-id " "
-                        (get loop-patterns loop-fn-id) "\n"))
+            (print (str "play pattern " loop-fn-id " " pattern  "\n"))
             (play-bar-list beat fraction instrument pattern)
             (next-loop-iter player (+ beats-in-bar beat)))))))
   )
