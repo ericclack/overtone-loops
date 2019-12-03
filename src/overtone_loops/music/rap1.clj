@@ -6,15 +6,15 @@
 ;; We want to use amps between 0 and 9 in our lists
 (amp-scale 1/9)
 
-;;                                            1 & 2 & 3 & 4 &
-(defloop ticks        (4 1/2) cymbal-closed  [7 5 6 5 7 5 - 3 ])
-(defloop hats         (4 1/2) cymbal-pedal   [- - - - - - 6 - ])
+;;                                              1 & 2 & 3 & 4 &
+(def ticks (loop-player  [4 1/2] cymbal-closed  [7 5 6 5 7 5 _ 3 ]))
+(def hats  (loop-player  [4 1/2] cymbal-pedal   [_ _ _ _ _ _ 6 _ ]))
 
-(defloop kicks        (4 1/2) bass-hard      [6 6 - - 6 - - - ])
-(defloop snares       (4 1/2) snare-hard     [- - 7 - - - 9 - ])
+(def kicks (loop-player  [4 1/2] bass-hard      [6 6 _ _ 6 _ _ _ ]))
+(def snares (loop-player [4 1/2] snare-hard     [_ _ 7 _ _ _ 9 _ ]))
 
-(defloop extra-kicks  (4 1/2) bass-hard      [- - - - - 5 - 6 ])
-(defloop extra-snares (4 1/2) snare-hard     [- 2 - 7 - - - 3 ])
+(def extra-kicks  [6 6 _ _ 6 5 _ 6 ])
+(def extra-snares [_ 2 7 7 _ _ 9 3 ])
 
 ;;
 
@@ -32,13 +32,18 @@
 (at-bar 1
         (ticks)
         (hats )
-        (kicks late-halves)
+        (kicks)
         (snares )
   )
 
 (comment ; all play for only 2-3 phrases
-  (extra-kicks (on-next-bar) 3 late-halves)
-  (extra-snares (on-next-bar) 3)
+  (kicks (metro) extra-kicks)
+  (kicks (metro) [6 _ _ 3 6 _ _ 3 ])
+  ; the default...
+  (kicks (metro) [6 6 _ _ 6 _ _ _ ])
+  (snares (metro) extra-snares)
+  ; the default...
+  (snares (metro) [_ _ 7 _ _ _ 9 _ ])
   )
 
 ;;(stop)

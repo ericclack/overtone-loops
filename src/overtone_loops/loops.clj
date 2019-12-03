@@ -89,6 +89,10 @@
 
 ;; ----------------------------------------------------------------
 
+(defn set-up []
+  (stop)
+  (reset! loop-patterns (hash-map)))
+
 (defn loop-player
   "Return a function to play this loop pattern. E.g.
 

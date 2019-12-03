@@ -4,6 +4,9 @@
         [overtone-loops.samples])
   (:require [clojure.pprint :refer [pp pprint]]))
 
+;; Stop any currently playing music and clear any patterns
+(set-up)
+
 ;; We want to use amps between 0 and 9 in our lists
 (amp-scale 1/9)
 
