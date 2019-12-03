@@ -101,29 +101,34 @@
   Then:
   (a (metro))
   "
-  [beats instrument pattern]
+  [beats instrument start-pattern]
   
   (let [beats-in-bar (if (vector? beats) (first beats) beats)
         fraction (if (vector? beats) (second beats) 1)
         loop-fn-id (swap! loop-fn-counter inc)]
-    (print (str "Saving pattern for id " loop-fn-id pattern "\n"))
-    ;; This doesn't work, as loop-patterns is not always
-    ;; changed in place
-    (pprint loop-patterns)
-    (swap! loop-patterns #(assoc % loop-fn-id pattern))
-    (pprint loop-patterns)
+    
+    (print (str "Saving pattern for id " loop-fn-id start-pattern "\n"))
+    ;; Each function ID maps to a list of patterns, we always
+    ;; use the first one in the list
+    (swap! loop-patterns #(assoc % loop-fn-id [start-pattern]))
     
     ;; Play this loop pattern on beat, or if specified change
-    ;; this pattern
+    ;; this pattern on beat
     (fn player
       [beat & rest]
-      (let [pattern (get @loop-patterns loop-fn-id)]
-        (if (some? rest)
+      (let [patterns (get @loop-patterns loop-fn-id)
+            pattern (first patterns)
+            new-pattern (when (some? rest) (first rest))]
+        (if (some? new-pattern)
           (apply-by (metro beat)
                     (fn []
-                      (print (str "reset pattern " loop-fn-id " "
-                                  pattern " -> " (first rest) "\n"))
-                      (swap! loop-patterns assoc loop-fn-id (first rest))))
+                      (print (str "fn" loop-fn-id " add "
+                                  new-pattern " -> " patterns "\n"))
+                      ;; Put this new pattern at the head of the
+                      ;; pattern list
+                      (swap! loop-patterns
+                             assoc loop-fn-id
+                             (into [new-pattern] patterns))))
           (do  
             (print (str "play pattern " loop-fn-id " " pattern  "\n"))
             (play-bar-list beat fraction instrument pattern)

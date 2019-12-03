@@ -34,23 +34,32 @@
         (ticks)
         (hats))
 
-(at-bar 5
+(at-bar 3
         (kicks))
 
-(at-bar 7
+(at-bar 5
         (snares))
 
-(at-bar 9
+(at-bar 7
+        ;; switch to a new pattern
         (kicks alt-kicks))
 
-;;(hats)
-;;(kicks)
+;; at-bar often runs the commands immediately (on compile)
+;; but schedules playback. Switch to apply-by
+
+(at-bar 9
+        ;; switch back to original pattern - we have to
+        ;; repeat it here
+        (kicks [6 6 _ _ 6 _ _ _ ]))
 
 ;;(stop)
 
 (comment
-  alt-kicks
+  ;; Run these in Emacs with Ctrl-X Ctrl-E
+
   (kicks (metro) alt-kicks)
+  (kicks (metro) [6 6 _ _ 6 _ _ _ ])
+
   (snares (metro) alt-snares)
   (snares (metro) silence)
   )
