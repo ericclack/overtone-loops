@@ -108,31 +108,33 @@
         loop-fn-id (swap! loop-fn-counter inc)]
     
     (print (str "Saving pattern for id " loop-fn-id start-pattern "\n"))
-    ;; Each function ID maps to a list of patterns, we always
-    ;; use the first one in the list
-    (swap! loop-patterns #(assoc % loop-fn-id [start-pattern]))
+    ;; Each function ID maps to a pattern
+    (swap! loop-patterns #(assoc % loop-fn-id start-pattern))
     
     ;; Play this loop pattern on beat, or if specified change
     ;; this pattern on beat
     (fn player
       [beat & rest]
-      (let [patterns (get @loop-patterns loop-fn-id)
-            pattern (first patterns)
-            new-pattern (when (some? rest) (first rest))]
+      (let [new-pattern (when (some? rest) (first rest))]
         (if (some? new-pattern)
+          ;; On beat change the pattern
           (apply-by (metro beat)
                     (fn []
-                      (print (str "fn" loop-fn-id " add "
-                                  new-pattern " -> " patterns "\n"))
+                      (print (str "new pattern " loop-fn-id " = "
+                                  new-pattern "\n"))
                       ;; Put this new pattern at the head of the
                       ;; pattern list
                       (swap! loop-patterns
-                             assoc loop-fn-id
-                             (into [new-pattern] patterns))))
-          (do  
-            (print (str "play pattern " loop-fn-id " " pattern  "\n"))
-            (play-bar-list beat fraction instrument pattern)
-            (next-loop-iter player (+ beats-in-bar beat)))))))
+                             assoc loop-fn-id new-pattern)))
+          (do
+            ;; On beat get the pattern and play it
+            (apply-by (metro beat)
+                      (fn []
+                        (let [pattern (get @loop-patterns loop-fn-id)]
+                          (print (str "play pattern " loop-fn-id
+                                      " " pattern  "\n"))
+                          (play-bar-list beat fraction instrument pattern)
+                          (next-loop-iter player (+ beats-in-bar beat))))))))))
   )
                       
 ;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
