@@ -31,6 +31,22 @@
 (at-bar 3
         (snares))
 
+(at-bar 8
+        (snares [3 1 3 1 3 1 3 _ 3 _ 3 1 ]))
+
+(at-bar 9
+        (snares [3 1 3 1 3 1 3 _ 3 1 3 1 ]))
+
+(at-bar 10
+        (snares [3 1 3 1 3 1 3 _ 3 _ 3 1 ]))
+
+(at-bar 11
+        (snares [3 _ _ _ _ _ _ _ _ _ _ 3 ]))
+
+(at-bar 12
+        (snares [3 _ _ _ _ _ _ _ _ _ _ _ ]))
+
+        
 ;; at-bar often runs the commands immediately (on compile)
 ;; but schedules playback. Switch to apply-by
 
