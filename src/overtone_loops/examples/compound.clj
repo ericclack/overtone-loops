@@ -12,7 +12,7 @@
 
 ;; Define loop players with default patterns  1 . . 2 . . 3 . . 4 . . 
 (def ticks  (loop-player 12    bass-soft     [6 _ _ 6 _ _ 6 _ _ 6 _ _ ]))
-(def snares (loop-player 12    snare-hard    [3 _ 3 _ 3 _ 3 _ 3 _ 3 2 ]))
+(def snares (loop-player 12    snare-soft    [3 _ 3 _ 3 _ 3 _ 3 _ 3 2 ]))
 
 (def silence    [])
 
@@ -47,9 +47,6 @@
         (snares [3 _ _ _ _ _ _ _ _ _ _ _ ]))
 
         
-;; at-bar often runs the commands immediately (on compile)
-;; but schedules playback. Switch to apply-by
-
 ;;(stop)
 
 (comment

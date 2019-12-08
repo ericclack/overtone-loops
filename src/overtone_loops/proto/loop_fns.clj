@@ -44,9 +44,6 @@
         ;; switch to a new pattern
         (kicks alt-kicks))
 
-;; at-bar often runs the commands immediately (on compile)
-;; but schedules playback. Switch to apply-by
-
 (at-bar 9
         ;; switch back to original pattern - we have to
         ;; repeat it here
