@@ -21,9 +21,10 @@
   [anote]
   (tone :freq (note->hz anote)
         :amp 3/9 ; :amp (/ amp 9)
-        :sustain 0.1
-        :release 0.05))
-;; (atone :c4 3)
+        :sustain 0.2
+        :release 0.1))
+;; (atone :c4)
+;; (stop)
 
 ;; We want to use amps between 0 and 9 in our lists
 (amp-scale 1/9)
@@ -70,5 +71,7 @@
 ;;(stop)
 
 (comment
+  (music (metro) silence)
+  (ticks (metro) silence)
   (cymbal-closed)
   )
