@@ -110,7 +110,8 @@
     
     (print (str "Saving pattern for id " loop-fn-id start-pattern "\n"))
     ;; Each function ID maps to a pattern
-    (swap! loop-patterns #(assoc % loop-fn-id start-pattern))
+    (swap! loop-patterns
+           assoc loop-fn-id [start-pattern])
     
     ;; Play this loop pattern on beat, or if specified change
     ;; this pattern on beat
@@ -121,19 +122,19 @@
           ;; On beat change the pattern
           (apply-by (metro beat)
                     (fn []
-                      (print (str "new pattern " loop-fn-id " = "
-                                  new-pattern "\n"))
-                      ;; Put this new pattern at the head of the
-                      ;; pattern list
-                      (swap! loop-patterns
-                             assoc loop-fn-id new-pattern)))
+                      (if (= :pop new-pattern)
+                        ;; Drop the most recent pattern
+                        (swap! loop-patterns
+                               update-in [loop-fn-id] pop)
+                        ;; Put this new pattern at the head of the
+                        ;; pattern list
+                        (swap! loop-patterns
+                               update-in [loop-fn-id] conj new-pattern))))
           (do
             ;; On beat get the pattern and play it
             (apply-by (metro beat)
                       (fn []
-                        (let [pattern (get @loop-patterns loop-fn-id)]
-                          (print (str "play pattern " loop-fn-id
-                                      " " pattern  "\n"))
+                        (let [pattern (last (get @loop-patterns loop-fn-id))]
                           (play-bar-list beat fraction instrument pattern)
                           (next-loop-iter player (+ beats-in-bar beat))))))))))
   )
