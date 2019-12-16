@@ -122,12 +122,14 @@
           ;; On beat change the pattern
           (apply-by (metro beat)
                     (fn []
-                      (if (= :pop new-pattern)
+                      (condp = new-pattern
                         ;; Drop the most recent pattern
-                        (swap! loop-patterns
-                               update-in [loop-fn-id] pop)
-                        ;; Put this new pattern at the head of the
-                        ;; pattern list
+                        :pop (swap! loop-patterns
+                                    update-in [loop-fn-id] pop)
+                        ;; Back to the first pattern
+                        :first (swap! loop-patterns
+                                      update-in [loop-fn-id] #(vector (first %))) 
+                        ;; Put this new pattern at the head of the pattern list
                         (swap! loop-patterns
                                update-in [loop-fn-id] conj new-pattern))))
           (do

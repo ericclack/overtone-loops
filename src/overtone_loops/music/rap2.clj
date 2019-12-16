@@ -1,7 +1,8 @@
 (ns overtone-loops.music.rap2
   (:use [overtone.live]
         [overtone-loops.loops]
-        [overtone-loops.samples]))
+        [overtone-loops.samples])
+  (:require [clojure.pprint :refer [pp pprint]]))
 
 ;; Stop any currently playing music and clear any patterns
 (set-up)
@@ -51,15 +52,16 @@
   ;; regular offbeat
   (kicks (metro) (rep 4 [_ _ 6 _ _ _ 5 _ _ _ 6 _ _ _ 4 _]))
   ;; back to original pattern
-  (kicks (metro) :original)
+  (kicks (metro) :first)
   ;; tests
   (ticks (metro) [6 _ 6 _ 6 _ 6 _])
   (ticks (metro) [_ 6 _ 6 _ 6 _ 6])
   (ticks (metro) :pop)
 
   ;; snares
-  (snares (metro) (rep 8 [_ _ _ _ 6 _ _ _]))
+  (snares (metro) (rep 8 [_ 3 _ _ 6 _ _ 3]))
   (snares (metro) :pop)
+  (snares (metro) :first)
   )
 
 ;;(stop)
