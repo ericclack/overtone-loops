@@ -142,6 +142,11 @@
                       
 ;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+(defmacro defloop
+  [name fraction instrument amps-list]
+  `(def ~name
+     (loop-player ~fraction ~instrument ~amps-list)))
+
 (defmacro defphrase
   "Define a phrase with pairs of beats and s-exps, like 
    defloop but with no looping.
