@@ -7,12 +7,12 @@
 (amp-scale 1/9)
 
 ;;
-(defloop countin 4       cymbal-closed  [4   4   4   4   ])
-(defloop ticks   (4 1/2) cymbal-closed  [- 4 - 2 - 4 - 2 ])
-(defloop kicks   (8 1/2) bass-hard      [5 - 5 - 4 - 5 - 4 2 3 4 - 7 - 4 ])
-(defloop snares  (8 1/2) snare-hard     [- 1 - - - 4 - - - 1 - - - 6 - - ])
+(defloop countin 1   cymbal-closed  [4   4   4   4   ])
+(defloop ticks   1/2 cymbal-closed  [_ 4 _ 2 _ 4 _ 2 ])
+(defloop kicks   1/2 bass-hard      [5 _ 5 _ 4 _ 5 _ 4 2 3 4 _ 7 _ 4 ])
+(defloop snares  1/2 snare-hard     [_ 1 _ _ _ 4 _ _ _ 1 _ _ _ 6 _ _ ])
 
-(defloop claps   (8 1/2) clap           [- - - - - - - - - - - - 7 1 8 - ])
+(defloop claps   1/2 clap           [_ _ _ _ _ _ _ _ _ _ _ _ 7 1 8 _ ])
 
 
 ;; ---------------------------------------------
@@ -32,9 +32,9 @@
 
 (at-bar 2
         (ticks)
-        (kicks early)
+        (kicks)
         (snares)
-        (claps early)
+        (claps)
         )
 
 ;;(stop)

@@ -1,5 +1,5 @@
 (ns overtone-loops.examples.old-style-loop
-  "Using regular at notation to make loops"
+  "Using regular Overtone `at` notation to make loops"
   (:use [overtone.live]))
 
 ;; Define some samples from Freesound.org

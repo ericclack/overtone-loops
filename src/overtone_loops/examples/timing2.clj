@@ -4,30 +4,29 @@
         [overtone-loops.loops]
         [overtone-loops.samples]))
 
-(defloop hats  3 cymbal-closed          [9 7 7])
-(defloop kicks 3 bass-soft              [9 7 7])
+(defloop hats  1 cymbal-closed          [9 7 7])
+(defloop kicks 1 bass-soft              [9 7 7])
 
-(defloop double-kicks (3 1/3) bass-soft [9 9 -
-                                         9 9 -
-                                         9 9 -])
+(defloop double-kicks 1/3 bass-soft [9 9 _
+                                     9 9 _
+                                     9 9 _])
 
 (bpm 90)
 (beats-in-bar 3)
 
 (at-bar 1
-        (hats 9))
+        (hats))
 
 (at-bar 2
-        (kicks 1))
+        (kicks))
 
 (at-bar 4
-        (double-kicks 1))
+        (kicks [])
+        (double-kicks))
 
 (at-bar 6
-        (kicks 1))
-
-(at-bar 8
-        (double-kicks 1))
+        (kicks :first)
+        (double-kicks []))
 
 ;; bar 9
 ;; end

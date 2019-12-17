@@ -1,18 +1,21 @@
 (ns overtone-loops.examples.kick-kick-snare
   (:use [overtone.live]
-        [overtone-loops.loops]))
+        [overtone-loops.loops]
+        [overtone-loops.samples]))
 
-;; Define some samples from Freesound.org
-(def kick (freesound2 171104))
-(def snare (freesound2 270156))
-(def hat (freesound2 404890))
-(def finger (freesound2 177495))
-(def clap (freesound2 24787))
+(set-up)
 
 ;;                                1 & 2 & 3 & 4 &  5 & 6 & 7 & 8 &         
-(defloop hats    (8 1/2) hat     [- 5 - 5 - 5 - 5  5 - - 5 5 - - 5])
-(defloop snares  (8 1/2) snare   [- - - - 9 - - -  - - - - 6 3 9 -])
-(defloop kicks   (8 1/2) kick    [9 - 9 - - - - -  9 1 9 5 - - - -])
+(def hats
+  (loop-player 1/2 hat     [_ 5 _ 5 _ 5 _ 5  5 _ _ 5 5 _ _ 5]))
+
+(def kicks
+  (loop-player 1/2 kick    [8 _ 8 _ _ _ _ _]))
+(def snares
+  (loop-player 1/2 snare   [_ _ _ _ 8 _ _ _  _ _ _ _ 8 _ _ _
+                            _ _ _ _ 7 _ _ _  _ _ _ 3 _ 5 7 _]))
+
+
 
 ;; ---------------------------------------------
 

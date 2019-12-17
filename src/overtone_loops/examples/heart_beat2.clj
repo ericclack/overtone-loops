@@ -1,29 +1,19 @@
 (ns overtone-loops.examples.heart-beat2
-  "Heart beat pattern using defloop, giving us more control"
+  "Heart beat pattern"
   (:use [overtone.live]
         [overtone-loops.loops]
         [overtone-loops.samples]))
 
-;; Our loops - both 4 beats to the bar
-(defloop heart 4
-  0    (kick)
-  1    (kick)
-  2.5  (kick :amp 0.3)
-  2.75 (kick :amp 0.5)
-  3    (kick)
-  )
 
-(defloop ticks 4
-  0    (hat)
-  1    (hat)
-  1.44 (hat :amp 0.4)
-  1.88 (hat :amp 0.4)
-  2    (hat)
-  3    (hat)
-  3.5  (hat :amp 0.5)
-  )
+(set-up)
 
-(metro-bpm metro 240)
+(def heart          ;;   1       2       3       4
+  (loop-player 1/4 kick [8 _ _ _ 8 _ _ _ _ _ 3 5 6 _ _ _]))
+
+(def ticks          ;;   1                  2                  3                  4
+  (loop-player 1/9 hat  [8 _ _ _ _ _ _ _ _  8 _ _ _ 4 _ _ 3 _  8 _ _ _ _ _ _ _ _  8 _ _ _ _ 5 _ _ _ ]))
+
+(bpm 200)
 (heart (metro))
 (ticks (metro))
 

@@ -1,22 +1,19 @@
 (ns overtone-loops.examples.heart-beat
-  "Simple defloop0 example heartbeat pattern"
+  "Simple example heartbeat pattern"
   (:use [overtone.live]
         [overtone-loops.loops]
         [overtone-loops.samples]))
 
+(set-up)
+
 ;; Our loops - both 4 beats to the bar
-(defloop0 heart 4
-  0 kick
-  1 kick
-  )
+(def heart
+  (loop-player 1 kick  [_   8   3   _  ]))
 
-(defloop0 ticks 4
-  0 hat
-  1 hat
-  2 hat
-  2.5 hat)
+(def ticks
+  (loop-player 1/2 hat [6 _ 5 _ 5 4 _ _]))
 
-(metro-bpm metro 240)
+(bpm 240)
 (heart (metro))
 (ticks (metro))
 ;;
