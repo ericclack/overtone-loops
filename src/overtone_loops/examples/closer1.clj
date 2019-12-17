@@ -3,13 +3,19 @@
         [overtone-loops.loops]
         [overtone-loops.samples]))
 
-;;                                1 & 2 & 3 & 4 & 
-(defloop hats  (4 1/2) hat        [- 5 - 5 - 5 - 5 ])
+(set-up)
 
-(defloop kicks (16 1/2) kick      [7 - - - 7 - - -  7 - - - 7 6 5 -  7 5 2 - 7 - - -  7 5 2 - 7 6 2 - ])
-(defloop sd    (16 1/2) snare     [- - 7 - - - 7 -  - - 7 - - - - -  - - 7 - - - 7 -  - - 7 5 - 4 8 - ]) 
+;;                              1 & 2 & 3 & 4 & 
+(def hats
+  (loop-player 1/2 hat        [_ 5 _ 5 _ 5 _ 5 ]))
 
-(defloop bells (16 1/2) ride-bell [- 8 - 7 - 8 - 6  - 8 3 7 - 8 - 6  - 8 5 7 - 8 6 -  - 8 - 7 - 8 5 6 ])
+(def kicks
+  (loop-player 1/2 kick       [7 _ _ _ 7 _ _ _  7 _ _ _ 7 6 5 _  7 5 2 _ 7 _ _ _  7 5 2 _ 7 6 2 _ ]))
+(def sd
+  (loop-player 1/2 snare      [_ _ 7 _ _ _ 7 _  _ _ 7 _ _ _ _ _  _ _ 7 _ _ _ 7 _  _ _ 7 5 _ 4 8 _ ]))
+
+(def bells
+  (loop-player 1/2 ride-bell  [_ 8 _ 7 _ 8 _ 6  _ 8 3 7 _ 8 _ 6  _ 8 5 7 _ 8 6 _  _ 8 _ 7 _ 8 5 6 ]))
   
 ;; ---------------------------------------------
 
@@ -27,7 +33,7 @@
         )
   
 (at-bar 3
-        (bells close_beat)
+        (bells) ;; close_beat)
         )
 
 ;;(stop)

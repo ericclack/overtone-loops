@@ -3,35 +3,27 @@
         [overtone-loops.loops]
         [overtone-loops.samples]))
 
+(set-up)
 (amp-scale 1/9)
 
-;;                                      1 & 2 & 3 & 4 &  5 & 6 & 7 & 8 &
-(defloop hats    (8 1/2) cymbal-closed [- 5 - 5 - 5 - 5  - - - - 5 9 5 9 ])
-(defloop crashes (8 1/2) cymbal-open   [- - - - 4                        ])
-(defloop claps    4      clap          [-   6   -   8    -   6   -   8   ])
-(defloop kicks   (4 1/2) bass-soft     [7 - - - 2 - - -  7 - - - 2 - - - ])
+;;                                1 & 2 & 3 & 4 &  5 & 6 & 7 & 8 &
+(def hats
+  (loop-player 1/2 cymbal-closed [_ 5 _ 5 _ 5 _ 5  _ _ _ _ 5 9 5 9 ]))
+(def crashes
+  (loop-player 1/2 cymbal-open   [_ _ _ _ 4 _ _ _  _ _ _ _ _ _ _ _ ]))
+(def claps
+  (loop-player 1   clap          [_   6   _   8    _   6   _   8   ]))
+(def kicks
+  (loop-player 1/2 bass-soft     [7 _ _ _ 2 _ _ _  7 _ _ _ 2 _ _ _ ]))
 
-(defloop exkicks (8 1/2) bass-hard     [- - - - - - - -  - 4 - 4 - - - - ])
+(def exkicks [7 _ _ _ 2 _ _ _  7 4 _ 4 2 _ _ _ ])
 
-(def snare snare-hard)
-(defloop extra-snares 16
-  2.5 (snare :amp 0.8)
-  3 (snare :amp 0.5)
-  3.5 (snare :amp 0.2)
+(def extra-snares      ;;  0 1 2 3 4 5 6 7 8 9  0 1 2 3 4 5 6 7 8 9  0 1 2 3 4 5 6 7 8 9  0 1 2 3 4 5 6 7 8 9  
+  (loop-player 1/10 snare [_ _ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _  _ _ _ _ _ 8 _ _ _ _  5 _ _ _ _ 2 _ _ _ _ ;; 0-3
+                           _ _ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _  _ _ _ _ _ 8 _ _ _ _  5 _ _ _ _ 2 _ _ _ _ ;; 4-7
+                           _ _ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ ;; 8-11
+                           _ _ _ _ _ _ 4 5 6 _  8 _ _ 4 4 _ _ _ _ _  7 _ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ ])) ;; 12-15
   
-  6.5 (snare :amp 0.8)
-  7 (snare :amp 0.5)
-  7.5 (snare :amp 0.2)
-  
-  12.6 (snare :amp 0.4)
-  12.7 (snare :amp 0.5)
-  12.8 (snare :amp 0.6)
-  13 (snare :amp 0.8)  
-  13.3 (snare :amp 0.4)
-  13.5 (snare :amp 0.4)
-  14 (snare :amp 0.7)
-  )
-
 ;; ---------------------------------------------
 
 (bpm 130)
@@ -45,12 +37,15 @@
   )
 
 (at-bar 3
-        (exkicks 4))
+        (kicks exkicks))
+
+(at-bar 7
+        (kicks :pop))
 
 (comment ; all play for only a few phrases
   ;; Play these with Ctrl-X Ctrl-E
-  (exkicks (on-next-bar) 4)
-  (extra-snares (on-next-bar) 8)
+  (kicks (on-next-bar) exkicks)
+  (extra-snares (on-next-bar))
   )
 
 ;;(stop)
