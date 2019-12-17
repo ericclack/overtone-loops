@@ -2,26 +2,19 @@
   (:use [overtone.live]
         [overtone-loops.loops]
         [overtone-loops.samples]))
-  
+
+(set-up)
+
 ;; We want to use amps between 0 and 9 in our lists
 (amp-scale 1/9)
 
-;;                                        1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 
-(defloop ticks     4      cymbal-pedal   [4   3   4   3  ])
-(defloop hats1    (4 1/2) cymbal-closed  [- 5 - 7 - 7 - 7])
-(defloop crashes1  8      cymbal-open    [-   -   4   -   -   -   -   -])
+;;                                     1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 
+(defloop ticks     1   cymbal-pedal   [4   3   4   3  ])
+(defloop hats1     1/2 cymbal-closed  [_ 5 _ 7 _ 7 _ 7])
+(defloop crashes1  1   cymbal-open    [_   _   4   _   _   _   _   _])
 
-(defloop kicks1   (8 1/2) bass-hard      [6 - 4 - - - 4 - 6 - 4 - - - 4 -])
-(defloop snares1  (8 1/2) snare-hard     [- - - - 6 - - 3 - - - 1 6 1 - 3])
-
-(defloop extra-kicks 8
-  4.75 (bass-hard :amp 0.4)
-  )
-
-(defloop extra-snares 8
-  5.75 (snare-hard :amp 0.5)
-  )
-
+(defloop kicks1    1/2 bass-hard      [6 _ 4 _ _ _ 4 _ 6 _ 4 _ _ _ 4 _])
+(defloop snares1   1/2 snare-hard     [_ _ _ _ 6 _ _ 3 _ _ _ 1 6 1 _ 3])
 
 ;; ---------------------------------------------
 
@@ -43,11 +36,6 @@
   )
 
 (comment
-  (extra-kicks (on-next-bar))
-  (extra-snares (on-next-bar))
-
-  (emptyloop extra-kicks 8)
-  (emptyloop extra-snares 8)
   )
 
 ;;(stop)

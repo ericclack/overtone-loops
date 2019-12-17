@@ -4,17 +4,17 @@
         [overtone-loops.samples]))
 
 ;; Quarter beats                       1 e & a 2 e & a 3 e & a 4 e & a 
-(defloop kicks  (4 1/4) bass-hard     [6 - - - 6 - - - 6 1 - 4 6 - - - ])
+(defloop kicks  1/4 bass-hard     [6 _ _ _ 6 _ _ _ 6 1 _ 4 6 _ _ _ ])
 
-(defloop hats1  (4 1/4) cymbal-closed [- - 9 - - - 9 - - - 9 - - - 9 - ])
-(defloop hats2  (4 1/4) cymbal-pedal  [- - - - - 3 - - - - - - - 3 - - ])
-(defloop hats3  (8 1/4) cymbal-open   [- - - - - - - 2 - - - - - - - 3
-                                       - - - - - - - - 3 - 5 - 3 - 5 2 ])
+(defloop hats1  1/4 cymbal-closed [_ _ 9 _ _ _ 9 _ _ _ 9 _ _ _ 9 _ ])
+(defloop hats2  1/4 cymbal-pedal  [_ _ _ _ _ 3 _ _ _ _ _ _ _ 3 _ _ ])
+(defloop hats3  1/4 cymbal-open   [_ _ _ _ _ _ _ 2 _ _ _ _ _ _ _ 3
+                                   _ _ _ _ _ _ _ _ 3 _ 5 _ 3 _ 5 2 ])
 
-(defloop snares (8 1/4) snare-hard    [- - - - - - 7 -
-                                       - - - - - - 7 -
-                                       - - - - - - 7 -
-                                       - - - - 1 3 7 3])
+(defloop snares 1/4 snare-hard    [_ _ _ _ _ _ 7 _
+                                   _ _ _ _ _ _ 7 _
+                                   _ _ _ _ _ _ 7 _
+                                   _ _ _ _ 1 3 7 3])
 
 (bpm 105)
 (beats-in-bar 4)

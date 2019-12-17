@@ -14,7 +14,7 @@
   (let [env (env-gen (lin :sustain sustain :release release) :action FREE)
         src (sin-osc freq)]
     (* amp env src)))
-;; (tone (note->hz :c3))
+;; (tone (note->hz :c4))
 ;; (tone :amp 0.1)
 
 (defn atone
@@ -31,9 +31,9 @@
 
 ;; Define loop players with default patterns
 ;;                        1   .   .   2   .   .   3   .   .   4   .   . 
-(def ticks  (loop-player 12 bass-soft
+(def ticks  (loop-player 1 bass-soft
                          [6   _   _   6   _   _   6   _   _   6   _   _  ]))
-(def music  (loop-player 12 atone
+(def music  (loop-player 1 atone
                          [:d4 _   :d4 _   :d4 _   :d4 _   :d4 _   :d4 :c4]))
 
 (def silence    [])

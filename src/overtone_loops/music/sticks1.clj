@@ -4,45 +4,26 @@
         [overtone-loops.loops]
         [overtone-loops.samples]))
 
-;;                              1 e & a 2 e & a 3 e & a 4 e & a 
-(defloop sticks (4 1/4) stick  [8 - - - 6 - - 6 - - 6 - - 6 - - ]) 
-(defloop kicks  4       kick   [8       8       8       8       ])
-(defloop clicks (4 1/4) finger [- - - 1 - - 2 - - 1 - - - - 3 - ])
+(set-up)
 
-(defn o [n a]
-  (overpad (note n) :amp a))
+;;                          1 e & a 2 e & a 3 e & a 4 e & a 
+(defloop sticks 1/4 stick  [8 _ _ _ 6 _ _ 6 _ _ 6 _ _ 6 _ _ ]) 
+(defloop kicks  1   kick   [8       8       8       8       ])
+(defloop clicks 1/4 finger [_ _ _ 3 _ _ 4 _ _ 3 _ _ _ _ 5 _ ])
 
-(defloop bass-line 4
-  0    (o :f2 0.4)
-  2    (o :g2 0.5)
-  2.5  (o :b3 0.3)
-  3.5  (o :a3 0.2)
-  3.82 (o :g2 0.2)
-  )
+(defn o [[n a]]
+  (overpad (note n) :amp (/ a 9)))
 
-;; (emptyloop bass-line 4)
+;;                      
+(defloop bass-line 1/4 o [[:f2 4] _ _ _  _ _ _ _  [:g2 5] _ [:b3 3] _  _ _ [:a3 2] [:g2 2]])
 
-(defn k [n a]
-  (ks1 (note n) :amp a))
+(defn k [[n a]]
+  (ks1 (note n) :amp (/ a 9)))
 
-(defloop melody1 8
-  0    (k :g4 0.8)
-  1    (k :a4 0.8)
-  2    (k :b4 0.8)
-  3    (k :c5 0.8)
-  )
+(defloop melody1 1 k   [[:g4 8] [:a4 8] [:b4 8] [:c5 8] _ _ _ _])
 
-;; (emptyloop melody1 8)
-
-(defloop melody2 8
-  5.5  (k :c5 0.8)
-  6    (k :a4 0.8)
-  6.5  (k :b4 0.8)
-  7    (k :g4 0.8)   
-  7.5  (k :f4 0.8)   
-  )
-
-;; (emptyloop melody2 8)
+;;                      1   2   3   4    5   6         7               8 
+(defloop melody2 1/2 k [_ _ _ _ _ _ _ _  _ _ _ [:c5 8] [:a4 8] [:b4 8] [:g4 8] [:f4 8]])
 
 ;; ---------------------------------------------
 
@@ -72,6 +53,7 @@
 
 (comment ; all play for only a few phrases
   ;; Play these with Ctrl-X Ctrl-E
+  (melody1 (metro))
   )
 
 ;;(stop)
