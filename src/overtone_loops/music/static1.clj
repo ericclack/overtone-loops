@@ -32,24 +32,24 @@
 
 ;;                                 1 & 2 & 3 & 4 &   1 & 2 & 3 & 4 &   1 & 2 & 3 & 4 &   1 & 2 & 3 & 4 &   
 (def hats
-  (loop-player [4 1/2] hat      [2 7 2 7 _ 7 2 7 ]))
+  (loop-player 1/2 hat       [2 7 2 7 _ 7 2 7 ]))
 
 (def fingers
-  (loop-player 4      finger    [9   _   9   _   ]))
+  (loop-player 1   finger    [9   _   9   _   ]))
 
 (def kicks
-  (loop-player 4      kick      [6   6   6   6   ]))
+  (loop-player 1   kick      [6   6   6   6   ]))
 
 (def claps
-  (loop-player [8 1/2] clap     [_ 6 _ _ _ 6 _ _   _ 6 _ _ _ 3 7 3 ]))
+  (loop-player 1/2 clap      [_ 6 _ _ _ 6 _ _   _ 6 _ _ _ 3 7 3 ]))
 
 (def bass1
-  (loop-player [4 1/2] atone   [[:f2 4] [:f2 2] [:f2 4] [:d2 2]
-                                [:f2 4] [:d2 2] [:f2 4] [:g2 2]]))
+  (loop-player 1/2 atone    [[:f2 4] [:f2 2] [:f2 4] [:d2 2]
+                             [:f2 4] [:d2 2] [:f2 4] [:g2 2]]))
 
 (def bass2
-  (loop-player [4 1/2] atone   [[:c3 4]  [:f3 2]  _       [:c3 2]
-                                [:ab3 4] [:ab3 2] [:c3 4] [:f3 2]]))
+  (loop-player 1/2 atone    [[:c3 4]  [:f3 2]  _       [:c3 2]
+                             [:ab3 4] [:ab3 2] [:c3 4] [:f3 2]]))
 
 ;; ---------------------------------------------
 
@@ -76,9 +76,8 @@
         (bass2)
         (claps []))
 
-(comment ; all play for only a few phrases
-  ;; Play these with Ctrl-X Ctrl-E
-  ;;
+(comment 
+  ;; Play these with Ctrl-X Ctrl-E in Emacs
   (bass1 (metro) :first)
   (bass2 (metro) [])
   )

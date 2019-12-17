@@ -10,12 +10,12 @@
 ;; We want to use amps between 0 and 9 in our lists
 (amp-scale 1/9)
 
-;; Define loop players with default patterns    1 & 2 & 3 & 4 &
-(def ticks (loop-player  [4 1/2] cymbal-closed [7 5 6 5 7 5 _ 3 ]))
-(def hats (loop-player   [4 1/2] cymbal-pedal  [_ _ _ _ _ _ 6 _ ]))
+;; Define loop players with start pattern   1 & 2 & 3 & 4 &
+(def ticks  (loop-player 1/2 cymbal-closed [7 5 6 5 7 5 _ 3 ]))
+(def hats   (loop-player 1/2 cymbal-pedal  [_ _ _ _ _ _ 6 _ ]))
 
-(def kicks (loop-player  [4 1/2] bass-hard     [6 6 _ _ 6 _ _ _ ]))
-(def snares (loop-player [4 1/2] snare-hard    [_ _ 7 _ _ _ 9 _ ]))
+(def kicks  (loop-player 1/2 bass-hard     [6 6 _ _ 6 _ _ _ ]))
+(def snares (loop-player 1/2 snare-hard    [_ _ 7 _ _ _ 9 _ ]))
 
 (def alt-kicks  [_ _ _ _ _ 5 _ 6 ])
 (def alt-snares [_ 2 _ 7 _ _ _ 3 ])
@@ -45,9 +45,8 @@
         (kicks alt-kicks))
 
 (at-bar 9
-        ;; switch back to original pattern - we have to
-        ;; repeat it here
-        (kicks [6 6 _ _ 6 _ _ _ ]))
+        ;; switch back to original pattern
+        (kicks :pop))
 
 ;;(stop)
 
@@ -55,7 +54,8 @@
   ;; Run these in Emacs with Ctrl-X Ctrl-E
 
   (kicks (metro) alt-kicks)
-  (kicks (metro) [6 6 _ _ 6 _ _ _ ])
+  (kicks (metro) [6 6])
+  (kicks (on-next-bar) :first)
 
   (snares (metro) alt-snares)
   (snares (metro) silence)

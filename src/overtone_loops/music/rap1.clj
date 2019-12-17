@@ -3,21 +3,24 @@
         [overtone-loops.loops]
         [overtone-loops.samples]))
 
+;; Stop any currently playing music and clear any patterns
+(set-up)
+
 ;; We want to use amps between 0 and 9 in our lists
 (amp-scale 1/9)
 
-;;                                              1 & 2 & 3 & 4 &
-(def ticks (loop-player  [4 1/2] cymbal-closed  [7 5 6 5 7 5 _ 3 ]))
-(def hats  (loop-player  [4 1/2] cymbal-pedal   [_ _ _ _ _ _ 6 _ ]))
+;;                                           1 & 2 & 3 & 4 &
+(def ticks (loop-player  1/2 cymbal-closed  [7 5 6 5 7 5 _ 3 ]))
+(def hats  (loop-player  1/2 cymbal-pedal   [_ _ _ _ _ _ 6 _ ]))
 
-(def kicks (loop-player  [4 1/2] bass-hard      [6 6 _ _ 6 _ _ _ ]))
-(def snares (loop-player [4 1/2] snare-hard     [_ _ 7 _ _ _ 9 _ ]))
+(def kicks (loop-player  1/2 bass-hard      [6 6 _ _ 6 _ _ _ ]))
+(def snares (loop-player 1/2 snare-hard     [_ _ 7 _ _ _ 9 _ ]))
 
 (def extra-kicks  [6 6 _ _ 6 5 _ 6 ])
 (def extra-snares [_ 2 7 7 _ _ 9 3 ])
 
-;;
 
+;; TO DO...
 (defn late-halves
   "Play half beats a bit late"
   [b]
@@ -43,7 +46,7 @@
   (kicks (metro) [6 6 _ _ 6 _ _ _ ])
   (snares (metro) extra-snares)
   ; the default...
-  (snares (metro) [_ _ 7 _ _ _ 9 _ ])
+  (snares (metro) :first)
   )
 
 ;;(stop)

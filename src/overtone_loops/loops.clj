@@ -102,13 +102,11 @@
   Then:
   (a (metro))
   "
-  [beats instrument start-pattern]
+  [fraction instrument start-pattern]
   
-  (let [beats-in-bar (if (vector? beats) (first beats) beats)
-        fraction (if (vector? beats) (second beats) 1)
-        loop-fn-id (swap! loop-fn-counter inc)]
+  (let [loop-fn-id (swap! loop-fn-counter inc)]
     
-    (print (str "Saving pattern for id " loop-fn-id start-pattern "\n"))
+    (print (str "Saving pattern for id " loop-fn-id ": " start-pattern "\n"))
     ;; Each function ID maps to a pattern
     (swap! loop-patterns
            assoc loop-fn-id [start-pattern])
@@ -136,9 +134,10 @@
             ;; On beat get the pattern and play it
             (apply-by (metro beat)
                       (fn []
-                        (let [pattern (last (get @loop-patterns loop-fn-id))]
+                        (let [pattern (last (get @loop-patterns loop-fn-id))
+                              beats-in-phrase (* (count pattern) fraction)]
                           (play-bar-list beat fraction instrument pattern)
-                          (next-loop-iter player (+ beats-in-bar beat))))))))))
+                          (next-loop-iter player (+ beats-in-phrase beat))))))))))
   )
                       
 ;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 

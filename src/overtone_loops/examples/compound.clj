@@ -4,15 +4,18 @@
         [overtone-loops.samples])
   (:require [clojure.pprint :refer [pp pprint]]))
 
+;; Model compound time 12/8 with bass playing every beat
+;; and snares playing off-beats
+
 ;; Stop any currently playing music and clear any patterns
 (set-up)
 
 ;; We want to use amps between 0 and 9 in our lists
 (amp-scale 1/9)
 
-;; Define loop players with default patterns  1 . . 2 . . 3 . . 4 . . 
-(def ticks  (loop-player 12    bass-soft     [6 _ _ 6 _ _ 6 _ _ 6 _ _ ]))
-(def snares (loop-player 12    snare-soft    [3 _ 3 _ 3 _ 3 _ 3 _ 3 2 ]))
+;; Define players with start patterns   1 . . 2 . . 3 . . 4 . . 
+(def ticks  (loop-player 1 bass-soft   [6 _ _ 6 _ _ 6 _ _ 6 _ _ ]))
+(def snares (loop-player 1 snare-soft  [3 _ 3 _ 3 _ 3 _ 3 _ 3 2 ]))
 
 (def silence    [])
 
@@ -45,6 +48,9 @@
 
 (at-bar 12
         (snares [3 _ _ _ _ _ _ _ _ _ _ _ ]))
+
+(at-bar 13
+        (snares :first))
 
         
 ;;(stop)
