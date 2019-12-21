@@ -3,13 +3,16 @@
         [overtone-loops.loops]
         [overtone-loops.samples]))
 
+;; Stop any currently playing music and clear any patterns
+(set-up)
+
 ;; We want to use amps between 0 and 9 in our lists
 (amp-scale 1/9)
 
-;;                                         1 & 2 & 3 & 4 & 
-(defloop closed-hhs (4 1/2) cymbal-closed [7 7 7 7 7 7 7 7 ])
-(defloop sds        (4 1/2) snare-hard    [- - 8 - - - 8 - ])
-(defloop kicks      (4 1/2) bass-hard     [8 - - - 8 - - - ])
+;;                                     1 & 2 & 3 & 4 & 
+(defloop closed-hhs 1/2 cymbal-closed [7 7 7 7 7 7 7 7 ])
+(defloop sds        1/2 snare-hard    [_ _ 8 _ _ _ 8 _ ])
+(defloop kicks      1/2 bass-hard     [8 _ _ _ 8 _ _ _ ])
   
 ;; ---------------------------------------------
 
