@@ -2,6 +2,9 @@
   (:use [overtone.live]
         [overtone-loops.loops]))
 
+;; Stop any currently playing music and clear any patterns
+(set-up)
+
 ;; Define some samples from Freesound.org
 (def closed-hh (freesound2 404890))
 (def snare (freesound2 404859))
@@ -10,15 +13,15 @@
 ;; We want to use amps between 0 and 9 in our lists
 (amp-scale 1/9)
 
-;; Quarter beats                       1 e & a 2 e & a 3 e & a 4 e & a  1 e & a 2 e & a 3 e & a 4 e & a 
-(defloop closed-hhs (4 1/4) closed-hh [7 - 5 - 7 - 4 - 8 - 5 - 8 - 6 - ])
-(defloop sds        (4 1/4) snare     [- - - - 7 - - - - - - - 7 - - - ])
+;; Quarter beats                   1 e & a 2 e & a 3 e & a 4 e & a  1 e & a 2 e & a 3 e & a 4 e & a 
+(defloop closed-hhs 1/4 closed-hh [7 _ 5 _ 7 _ 4 _ 8 _ 5 _ 8 _ 6 _ ])
+(defloop sds        1/4 snare     [_ _ _ _ 7 _ _ _ _ _ _ _ 7 _ _ _ ])
 
-(defloop kicks      (16 1/4) kick     [6 - - 6 - - - 6 - - - 7 - - - -
-                                       7 - - - - - - 6 7 - 7 - - - 6 -
-                                       7 - 6 7 - - - 6 - - 7 - - 6 - -
-                                       7 - 6 - - 6 - 6 7 - 7 8 - 7 - 7])
-;; Quarter beats                       1 e & a 2 e & a 3 e & a 4 e & a  1 e & a 2 e & a 3 e & a 4 e & a
+(defloop kicks      1/4 kick      [6 _ _ 6 _ _ _ 6 _ _ _ 7 _ _ _ _
+                                   7 _ _ _ _ _ _ 6 7 _ 7 _ _ _ 6 _
+                                   7 _ 6 7 _ _ _ 6 _ _ 7 _ _ 6 _ _
+                                   7 _ 6 _ _ 6 _ 6 7 _ 7 8 _ 7 _ 7])
+;; Quarter beats                   1 e & a 2 e & a 3 e & a 4 e & a  1 e & a 2 e & a 3 e & a 4 e & a
 
 (bpm 100)
 (beats-in-bar 4)

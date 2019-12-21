@@ -2,6 +2,9 @@
   (:use [overtone.live]
         [overtone-loops.loops]))
 
+;; Stop any currently playing music and clear any patterns
+(set-up)
+
 ;; Define some samples from Freesound.org
 (def closed-hh (freesound2 404890))
 (def snare (freesound2 270156))
@@ -15,29 +18,29 @@
 
 ;;                   BAR1               BAR2               BAR3               BAR4                        
 
-;;                                  1 & 2 & 3 & 4 & // 1 & 2 & 3 & 4 & // 1 & 2 & 3 & 4 & // 1 & 2 & 3 & 4 & 
+;;                             1 & 2 & 3 & 4 & // 1 & 2 & 3 & 4 & // 1 & 2 & 3 & 4 & // 1 & 2 & 3 & 4 & 
 (defloop closed-hhs
-  (4 1/2) closed-hh                [7 7 7 7 7 7 7 7 ])
+  1/2 closed-hh               [7 5 7 4 6 3 8 4 ])
 
-(defloop sds      (4 1/2) snare    [- - 8 - - - 8 - ])
-
-(defloop kicks02  (8  1/2) kick    [8 - - - 8 - - -    8 - - - 8 8 - -])
-(defloop kicks03  (12 1/2) kick    [8 - - - 8 - - -    8 - - - 8 8 - -    8 8 - - - 8 - -])
-(defloop kicks04  (16 1/2) kick    [8 - - - 8 - - -    8 - - - 8 8 - -    8 8 - - - 8 - -    8 8 - 8 - 8 - 8])
+(defloop sds      1/2 snare   [_ _ 8 _ _ _ 8 _ ])
+(defloop kicks    1/2 kick    [8 _ _ _ 8 _ _ _    8 _ _ _ 8 8 _ _    8 8 _ _ _ 8 _ _    8 8 _ 8 _ 8 _ 8])
 
 ;; Variations
-;;                                  1 & 2 & 3 & 4 & // 1 & 2 & 3 & 4 & // 1 & 2 & 3 & 4 & // 1 & 2 & 3 & 4 & 
-(defloop sds1     (4 1/2) snare    [- - 8 - - 8 - 8])    
-(defloop kicks1   (4 1/2) kick     [8 - - 8 8 - - -])
+;;             1 & 2 & 3 & 4 & // 1 & 2 & 3 & 4 & // 1 & 2 & 3 & 4 & // 1 & 2 & 3 & 4 & 
+(def kicks02  [8 _ _ _ 8 _ _ _    8 _ _ _ 8 8 _ _])
+(def kicks03  [8 _ _ _ 8 _ _ _    8 _ _ _ 8 8 _ _    8 8 _ _ _ 8 _ _])
 
-(defloop sds2     (4 1/2) snare    [- - 8 - 8 - 8 -])
-(defloop kicks2   (4 1/2) kick     [8 - - 8 - 8 - -])
+(def sds1     [_ _ 8 _ _ 8 _ 8])    
+(def kicks1   [8 _ _ 8 8 _ _ _])
 
-(defloop sds3     (4 1/2) snare    [- 8 - - - - 8 -])
-(defloop kicks3   (4 1/2) kick     [8 - - 8 8 - - 8])
+(def sds2     [_ _ 8 _ 8 _ 8 _])
+(def kicks2   [8 _ _ 8 _ 8 _ _])
 
-(defloop sds4     (4 1/2) snare    [- 8 - - 8 - 8 -]) 
-(defloop kicks4   (4 1/2) kick     [8 - 8 8 - 8 - -])
+(def sds3     [_ 8 _ _ _ _ 8 _])
+(def kicks3   [8 _ _ 8 8 _ _ 8])
+
+(def sds4     [_ 8 _ _ 8 _ 8 _]) 
+(def kicks4   [8 _ 8 8 _ 8 _ _])
 
 (bpm 160)
 (beats-in-bar 4)
@@ -46,61 +49,66 @@
 
 (at-bar 1
         ;; same HH pattern all the way through
-        (closed-hhs 20) 
+        (closed-hhs) 
 
-        ;; 4 bars standard: 1-4
-        (sds     4)
-        (kicks04 1) ;; 4 bar phrase
+        (sds)
+        (kicks) 
         )
 
 ;; Now mix it up:
 ;; Bars 5-8
 
 (at-bar 5
-        (sds     3) ;; 1 bar phrase for 3 bars
-        (kicks03 1) ;; 3 bar
+        (kicks kicks03) ;; 3 bar
         )
 
 (at-bar 8
-        (sds1    1)
-        (kicks1  1)
+        (sds sds1)
+        (kicks kicks1)
         )
 
 (at-bar 9
-        (sds     2) ;; 1 bar phrase for 2 bars
-        (kicks02 1) ;; 2 bar
+        (kicks kicks02) ;; 2 bar
         )
 
 (at-bar 11
-        (sds3    1)
-        (kicks3  1)
+        (sds sds3)
+        (kicks kicks3)
         )
 
 (at-bar 12
-        (sds4    1)
-        (kicks4  1)
+        (sds sds4)
+        (kicks kicks4)
         )
 
 (at-bar 13
   ;; Bars 13-16
-  (sds     2) ;; 1 bar phrase for 2 bars
-  (kicks02 1) ;; 2 bar
+  (sds :first)
+  (kicks kicks02)
   )
 
 (at-bar 15
-        (sds2    1)
-        (kicks2  1)  
+        (sds sds2)
+        (kicks kicks2)  
   )
 
 (at-bar 16
-        (sds1    1)
-        (kicks1  1)
+        (sds sds1)
+        (kicks kicks1)
         )
 
 ;; Back to usual 17-20
 (at-bar 17
-        (sds     4)
-        (kicks04 1) ;; 4 bar phrase
+        (sds :first)
+        (kicks :first) 
         )
+
+(at-bar 21
+        (sds [])
+        (kicks [])
+        )
+
+(at-bar 22
+        (closed-hhs []))
 
 ;;(stop)
