@@ -10,7 +10,7 @@
 (defloop ticks   1  cymbal-pedal   [4   2   4   2  ])
 (defloop kicks   1  bass-hard      [_   5   _   5  ])
 (defloop snares  1  snare-hard     [_   _   5   _  ])
-(defloop claps   1  clap        [5   _   _   _  ])
+(defloop claps   1  clap           [5   _   _   _  ])
 
 ;; ---------------------------------------------
 
