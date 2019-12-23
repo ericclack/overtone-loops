@@ -22,7 +22,7 @@
         (claps))
 
 (comment
-    ;; Put live codeing here
+    ;; Put live code here
 
     ;;
     (stop)
