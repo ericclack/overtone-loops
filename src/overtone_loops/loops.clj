@@ -14,6 +14,9 @@
 ;; Make patterns easier to read
 (def _ 0)
 
+;; Schedule loop patterns a bit early to avoid playback glitches
+(def schedule-ahead 1/10)
+
 (defn bpm [b]
   (metro-bpm metro b))
 
@@ -126,21 +129,22 @@
                                     update-in [loop-fn-id] pop)
                         ;; Back to the first pattern
                         :first (swap! loop-patterns
-                                      update-in [loop-fn-id] #(vector (first %))) 
+                                      update-in [loop-fn-id] #(vector (first %)))
                         ;; Put this new pattern at the head of the pattern list
                         (swap! loop-patterns
                                update-in [loop-fn-id] conj new-pattern))))
           (do
             ;; On beat get the pattern and play it
-            (apply-by (metro beat)
+            (apply-by (metro (- beat schedule-ahead))
                       (fn []
                         (let [pattern (last (get @loop-patterns loop-fn-id))
                               beats-in-phrase (* (count pattern) fraction)]
+                          (print (str "Playing pattern " pattern " on beat " beat "\n"))
                           (play-bar-list beat fraction instrument pattern)
                           (next-loop-iter player (+ beats-in-phrase beat))))))))))
   )
-                      
-;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 (defmacro defloop
   [name fraction instrument amps-list]
