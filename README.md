@@ -1,6 +1,6 @@
 # Overtone Loops
 
-A simple, yet flexible, loop syntax for Overtone, to make drum patterns or other repeating phrases.
+A simple, yet flexible, loop syntax for Overtone, to make drum patterns or other repeating phrases. Have a look at a quick demo video: https://youtu.be/4Tj7AIRwK9w
 
 Currently this work is highly experimental. Feel free to leave suggestions on the Issues page. I should point out that I'm not a talented drummer!
 
