@@ -168,16 +168,6 @@
        [~beat-sym]
        (play-bar ~beat-sym nil ~@thunked-pairs))))
 
-(defmacro emptyloop
-  "(Re)define a loop as an empty loop. You can redefine
-  it again later to bring back beats as it is still
-  actively looping.
-  "
-  [name beats-in-bar]
-  `(defloop0 ~name ~beats-in-bar)
-  )
-  
-
 ;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 (defmacro at-bar
