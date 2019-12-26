@@ -87,9 +87,9 @@
   (doall (map-indexed player params-list)))
 
 (defn next-loop-iter
-  "Schedule fn for beat any extra args."
+  "Schedule fn for beat plus any extra args."
   [fun beat & rest]
-  (apply-by (metro beat) fun beat rest))
+  (apply-by (metro (- beat schedule-ahead)) fun beat rest))
 
 ;; ----------------------------------------------------------------
 
@@ -109,7 +109,6 @@
   
   (let [loop-fn-id (swap! loop-fn-counter inc)]
     
-    (print (str "Saving pattern for id " loop-fn-id ": " start-pattern "\n"))
     ;; Each function ID maps to a pattern
     (swap! loop-patterns
            assoc loop-fn-id [start-pattern])
@@ -120,8 +119,8 @@
       [beat & rest]
       (let [new-pattern (when (some? rest) (first rest))]
         (if (some? new-pattern)
-          ;; On beat change the pattern
-          (apply-by (metro beat)
+          ;; Just before beat, and just before next loop iteration, change the pattern
+          (apply-by (metro (- beat schedule-ahead schedule-ahead))
                     (fn []
                       (condp = new-pattern
                         ;; Drop the most recent pattern
@@ -139,7 +138,6 @@
                       (fn []
                         (let [pattern (last (get @loop-patterns loop-fn-id))
                               beats-in-phrase (* (count pattern) fraction)]
-                          (print (str "Playing pattern " pattern " on beat " beat "\n"))
                           (play-bar-list beat fraction instrument pattern)
                           (next-loop-iter player (+ beats-in-phrase beat))))))))))
   )
