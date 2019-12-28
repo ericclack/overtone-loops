@@ -78,6 +78,9 @@
   "Examples:
   (play-bar-list (metro) 1 kick   [6   1   5   6])
   (play-bar-list (metro) 1/2 kick [6 _ 5 _ _ 4 6])
+
+  TODO: Does this function have a synchronisation problem? 
+  Try putting a slow call between defn- and doall to see it
   "
   [beat beat-fraction instrument params-list]
   (defn- player [in-beats amp]
