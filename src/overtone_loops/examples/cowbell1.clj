@@ -3,10 +3,6 @@
         [overtone-loops.loops]
         [overtone-loops.samples]))
 
-;; Lists of name, beat-pattern, instrument and amplitudes, 0=mute
-;; beat-pattern is either an int = number of beats in a bar
-;; or a pair of (beats-in-bar beat-value)
-
 (set-up)
 
 ;;                        1 & 2 & 3 & 4 & 

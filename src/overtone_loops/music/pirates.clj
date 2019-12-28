@@ -36,8 +36,6 @@
 (def music  (loop-player 1 atone
                          [:d4 _   :d4 _   :d4 _   :d4 _   :d4 _   :d4 :c4]))
 
-(def silence    [])
-
 ;; ---------------------------------------------
 
 (bpm 300)
@@ -71,7 +69,6 @@
 ;;(stop)
 
 (comment
-  (music (metro) silence)
-  (ticks (metro) silence)
+  (silence (metro) music ticks)
   (cymbal-closed)
   )

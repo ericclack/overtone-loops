@@ -5,17 +5,21 @@
         [overtone-loops.samples]))
 
 (set-up)
+(bpm 240)
+(beats-in-bar 4)
 
 ;; Our loops - both 4 beats to the bar
 (def heart
-  (loop-player 1 kick  [_   8   3   _  ]))
+  (loop-player 1 kick  [ _   8   6   _   ]))
 
 (def ticks
-  (loop-player 1/2 hat [6 _ 5 _ 5 4 _ _]))
+  (loop-player 1/2 hat [ 4 _ 3 _ 4 _ 4 _ ]))
 
-(bpm 240)
-(heart (metro))
-(ticks (metro))
+;; Schedule
+(at-bar 1
+        (heart)
+        (ticks))
+                      
 ;;
 
 ;;(stop)

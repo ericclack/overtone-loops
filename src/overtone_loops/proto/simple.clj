@@ -23,7 +23,7 @@
 
 (comment
     ;; Put live code here
-
+  (claps (metro) :pop)
     ;;
     (stop)
     )

@@ -5,17 +5,16 @@
         [overtone-loops.samples]))
 
 (set-up)
-
-(defloop hats  1 cymbal-pedal  [6 6 6 6])
-(defloop kicks 1 bass-hard     [9 9 9 9])
-
-(defloop double-kicks 1/3 bass-soft [9 9 _
-                                     9 9 _
-                                     9 9 _
-                                     9 9 _])
 (bpm 90)
 (beats-in-bar 4)
 
+(defloop hats  1 cymbal-pedal  [6 6 6 6])
+(defloop kicks 1 bass-hard     [7 7 7 7])
+
+(defloop double-kicks 1/3 bass-soft [7 7 _
+                                     7 7 _
+                                     7 7 _
+                                     7 7 _])
 (at-bar 1
         (hats))
 
@@ -23,15 +22,15 @@
         (kicks))
 
 (at-bar 4
-        (kicks [])
+        (silence kicks)
         (double-kicks))
 
 (at-bar 6
-        (double-kicks [])
+        (silence double-kicks)
         (kicks :first))
 
 (at-bar 8
-        (double-kicks []))
+        (silence kicks hats))
 
 ;; bar 9
 ;; end
