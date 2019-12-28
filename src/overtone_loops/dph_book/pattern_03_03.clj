@@ -6,9 +6,6 @@
 ;; Stop any currently playing music and clear any patterns
 (set-up)
 
-;; We want to use amps between 0 and 9 in our lists
-(amp-scale 1/9)
-
 ;;                        BAR1               BAR2               BAR3               BAR4                        
 ;;                        1 & 2 & 3 & 4 & // 1 & 2 & 3 & 4 & // 1 & 2 & 3 & 4 & // 1 & 2 & 3 & 4 & 
 (defloop closed-hhs
@@ -26,9 +23,9 @@
 (beats-in-bar 4)
   
 (at-bar 1
-  (closed-hhs )
-  (sds        )
-  (kicks      )
+  (closed-hhs)
+  (sds)
+  (kicks)
   )
 
 ;;(stop)
