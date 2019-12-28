@@ -15,7 +15,7 @@
 (def _ 0)
 
 ;; Schedule loop patterns a bit early to avoid playback glitches
-(def schedule-ahead 1/4)
+(def schedule-ahead 1/8)
 
 (defn bpm [b]
   (metro-bpm metro b))
@@ -138,17 +138,22 @@
                         (fn []
                           (let [pattern (last (get @loop-patterns loop-fn-id))
                                 beats-in-phrase (* (count pattern) fraction)]
-                            (play-bar-list beat fraction instrument pattern)
-                            ;; Schedule the next loop
-                            (player (+ beats-in-phrase beat)))))
+                            (when (seq pattern)
+                              (play-bar-list beat fraction instrument pattern))
+                            ;; Schedule the next loop and handle special case
+                            ;; of empty pattern
+                            (player
+                             (if (empty? pattern)
+                               (+ @the-beats-in-bar beat)
+                               (+ beats-in-phrase beat))))))
               ))))
       {:doc (str "Player " loop-fn-id " for instrument " (:doc (meta instrument)) " with fraction " fraction)})
     ))
 
 (defn silence
-  "Send each loop player function an empty list"
-  [& fns]
-  (map #(% (metro) []) fns))
+  "Send each loop player an empty list to silence it"
+  [beat & fns]
+  (map #(% beat []) fns))
 
 ;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
