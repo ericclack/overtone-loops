@@ -1,32 +1,26 @@
 (ns overtone-loops.dph-book.pattern-03-14
   (:use [overtone.live]
-        [overtone-loops.loops]))
+        [overtone-loops.loops]
+        [overtone-loops.samples]))
 
-;; Define some samples from Freesound.org
-(def closed-hh (freesound2 404890))
-(def open-hh (freesound2 404893))
-(def ride-bell (freesound2 171482))
-(def snare (freesound2 404859))
-(def kick (freesound2 171104))
+;; Stop any currently playing music and clear any patterns
+(set-up)
 
-;; We want to use amps between 0 and 9 in our lists
-(amp-scale 1/9)
+;; Quarter beats                   1 e & a 2 e & a 3 e & a 4 e & a  1 e & a 2 e & a 3 e & a 4 e & a 
+(defloop rides      1/4 ride-bell [_ _ 5 _ _ _ 5 _ _ _ 5 _ _ _ 5 _  _ _ 5 _ _ _ 5 1 _ _ 5 _ _ 1 5 _ ])
 
-;; Quarter beats                       1 e & a 2 e & a 3 e & a 4 e & a  1 e & a 2 e & a 3 e & a 4 e & a 
-(defloop rides      (8 1/4) ride-bell [- - 5 - - - 5 - - - 5 - - - 5 -  - - 5 - - - 5 1 - - 5 - - 1 5 - ])
-
-(defloop sds        (16 1/4) snare    [- - - - 7 - - - - 5 - - 7 - - -  - - - - 7 - - - - - - - 7 - - 5  - 5 - - 7 - 6 - - - - - 7 - - -  - - - - 7 - - - - 5 - - 7 - - - ])
-(defloop kicks      (16 1/4) kick     [6 - - 6 - - - 6 - - 7 - - - - -  6 - - - - - - 5 6 - 7 - - - 7 -  7 - 6 7 - - - 7 - - 7 - - 7 - -  8 - 7 - - 7 - 7 8 - 7 8 - 7 - 6 ])
-;;                                     |       |       |       |        |       |       |       |        |       |       |       |        |       |       |       |
-;; Quarter beats                       1 e & a 2 e & a 3 e & a 4 e & a  1 e & a 2 e & a 3 e & a 4 e & a  1 e & a 2 e & a 3 e & a 4 e & a  1 e & a 2 e & a 3 e & a 4 e & a
+(defloop sds        1/4 snare     [_ _ _ _ 7 _ _ _ _ 5 _ _ 7 _ _ _  _ _ _ _ 7 _ _ _ _ _ _ _ 7 _ _ 5  _ 5 _ _ 7 _ 6 _ _ _ _ _ 7 _ _ _  _ _ _ _ 7 _ _ _ _ 5 _ _ 7 _ _ _ ])
+(defloop kicks      1/4 kick      [6 _ _ 6 _ _ _ 6 _ _ 7 _ _ _ _ _  6 _ _ _ _ _ _ 5 6 _ 7 _ _ _ 7 _  7 _ 6 7 _ _ _ 7 _ _ 7 _ _ 7 _ _  8 _ 7 _ _ 7 _ 7 8 _ 7 8 _ 7 _ 6 ])
+;;                                 |       |       |       |        |       |       |       |        |       |       |       |        |       |       |       |
+;; Quarter beats                   1 e & a 2 e & a 3 e & a 4 e & a  1 e & a 2 e & a 3 e & a 4 e & a  1 e & a 2 e & a 3 e & a 4 e & a  1 e & a 2 e & a 3 e & a 4 e & a
 
 (bpm 120)
 (beats-in-bar 4)
 
 (at-bar 1
-        (rides 4) ;; 2 bar phrase
-        (sds 2) ;; 4 bar phrases, twice
-        (kicks 2)
+        (rides)
+        (sds) 
+        (kicks)
         )
 
 ;;(stop)
