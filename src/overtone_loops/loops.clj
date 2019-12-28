@@ -83,13 +83,9 @@
   (defn- player [in-beats amp]
     (when-not (and (number? amp) (zero? amp))
       (at (metro (+ beat (* in-beats beat-fraction)))
-        (instrument (scale-amps amp)))))
-  (doall (map-indexed player params-list)))
-
-(defn next-loop-iter
-  "Schedule fn for beat plus any extra args."
-  [fun beat & rest]
-  (apply-by (metro (- beat schedule-ahead)) fun beat rest))
+          (instrument (scale-amps amp)))))
+  (doall (map-indexed player params-list))
+  nil)
 
 ;; ----------------------------------------------------------------
 
@@ -140,10 +136,11 @@
                           (let [pattern (last (get @loop-patterns loop-fn-id))
                                 beats-in-phrase (* (count pattern) fraction)]
                             (play-bar-list beat fraction instrument pattern)
-                            (next-loop-iter player (+ beats-in-phrase beat))))))
-            )))
-      {:doc (str "Player for instrument " (:doc (meta instrument)) " with fraction " fraction)})
-      ))
+                            ;; Schedule the next loop
+                            (player (+ beats-in-phrase beat)))))
+              ))))
+      {:doc (str "Player " loop-fn-id " for instrument " (:doc (meta instrument)) " with fraction " fraction)})
+    ))
 
 (defn silence
   "Send each loop player function an empty list"
