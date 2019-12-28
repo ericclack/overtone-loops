@@ -142,6 +142,11 @@
                           (next-loop-iter player (+ beats-in-phrase beat))))))))))
   )
 
+(defn silence
+  "Send each loop player function an empty list"
+  [& fns]
+  (map #(% (metro) []) fns))
+
 ;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 (defmacro defloop

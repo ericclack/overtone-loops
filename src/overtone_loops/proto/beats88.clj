@@ -7,7 +7,7 @@
 (set-up)
 
 ;; Loop patterns
-(defloop kicks   1/2 bass-hard     [6 _ 5 _ 5 _ _ _  _ _ _ _ _ _ _ _ ])
+(defloop kicks   1/2 bass-soft     [6 _ 5 _ 5 _ _ _  _ _ _ _ _ _ _ _ ])
 
 (defloop ticks   1/2 cymbal-closed [5 1 4 1 5 2 4 1  6 1 4 2 5 3 6 1 ])
 
@@ -45,10 +45,11 @@
   (snares (metro) :first)
 
   ;; Rides
-  (bells (metro)  [4 _ _ _ 3 _ _ 6  _ _ _ 3 _ _ _ 4 ])
+  (bells (metro)  [4 _ _ _ 3 _ _ _  6 _ _ _ 3 _ _ _ ])
   (bells (metro) :first)
 
   ;; 
   ;;
+  (silence kicks snares bells ticks)
   (stop)
   )
