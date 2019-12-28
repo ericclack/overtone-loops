@@ -15,7 +15,7 @@
 (def _ 0)
 
 ;; Schedule loop patterns a bit early to avoid playback glitches
-(def schedule-ahead 1/10)
+(def schedule-ahead 1/4)
 
 (defn bpm [b]
   (metro-bpm metro b))
@@ -115,32 +115,35 @@
     
     ;; Play this loop pattern on beat, or if specified change
     ;; this pattern on beat
-    (fn player
-      [beat & rest]
-      (let [new-pattern (when (some? rest) (first rest))]
-        (if (some? new-pattern)
-          ;; Just before beat, and just before next loop iteration, change the pattern
-          (apply-by (metro (- beat schedule-ahead schedule-ahead))
-                    (fn []
-                      (condp = new-pattern
-                        ;; Drop the most recent pattern
-                        :pop (swap! loop-patterns
-                                    update-in [loop-fn-id] pop)
-                        ;; Back to the first pattern
-                        :first (swap! loop-patterns
-                                      update-in [loop-fn-id] #(vector (first %)))
-                        ;; Put this new pattern at the head of the pattern list
-                        (swap! loop-patterns
-                               update-in [loop-fn-id] conj new-pattern))))
-          (do
-            ;; On beat get the pattern and play it
-            (apply-by (metro (- beat schedule-ahead))
+    (with-meta
+      (fn player
+        [beat & rest]
+        (let [new-pattern (when (some? rest) (first rest))]
+          (if (some? new-pattern)
+            ;; Just before beat, and just before next loop iteration, change the pattern
+            (apply-by (metro (- beat schedule-ahead schedule-ahead))
                       (fn []
-                        (let [pattern (last (get @loop-patterns loop-fn-id))
-                              beats-in-phrase (* (count pattern) fraction)]
-                          (play-bar-list beat fraction instrument pattern)
-                          (next-loop-iter player (+ beats-in-phrase beat))))))))))
-  )
+                        (condp = new-pattern
+                          ;; Drop the most recent pattern
+                          :pop (swap! loop-patterns
+                                      update-in [loop-fn-id] pop)
+                          ;; Back to the first pattern
+                          :first (swap! loop-patterns
+                                        update-in [loop-fn-id] #(vector (first %)))
+                          ;; Put this new pattern at the head of the pattern list
+                          (swap! loop-patterns
+                                 update-in [loop-fn-id] conj new-pattern))))
+            (do
+              ;; On beat get the pattern and play it
+              (apply-by (metro (- beat schedule-ahead))
+                        (fn []
+                          (let [pattern (last (get @loop-patterns loop-fn-id))
+                                beats-in-phrase (* (count pattern) fraction)]
+                            (play-bar-list beat fraction instrument pattern)
+                            (next-loop-iter player (+ beats-in-phrase beat))))))
+            )))
+      {:doc (str "Player for instrument " (:doc (meta instrument)) " with fraction " fraction)})
+      ))
 
 (defn silence
   "Send each loop player function an empty list"
@@ -253,9 +256,11 @@
         buf-id     (:id sample-buf)
         dur        (:duration sample-buf)
         channels   (:n-channels sample-buf)]
-    (fn [ & args ]
-      (cond
-        (= 1 channels) (apply mono-sample-player buf-id dur args)
-        (= 2 channels) (apply stereo-sample-player buf-id dur args)))))
+    (with-meta
+      (fn [ & args ]
+        (cond
+          (= 1 channels) (apply mono-sample-player buf-id dur args)
+          (= 2 channels) (apply stereo-sample-player buf-id dur args)))
+      {:doc (str "Sample player for " path)})))
 
 ;;(stop)
