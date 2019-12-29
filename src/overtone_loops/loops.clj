@@ -57,7 +57,7 @@
 (defn schedule-ahead-pattern
   "Schedule loop pattern changes a bit before loop playback  generation"
   [beat loop-fn-id]
-  (- schedule-ahead 1/8))
+  (- (schedule-ahead beat loop-fn-id) 1/8))
 
 (defn play-bar-pairs
   "Play this bar on beat, given a list of pairs (offset playable)
