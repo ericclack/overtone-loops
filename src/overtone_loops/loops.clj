@@ -14,9 +14,6 @@
 ;; Make patterns easier to read
 (def _ 0)
 
-;; Schedule loop patterns a bit early to avoid playback glitches
-(def schedule-ahead 1/8)
-
 (defn bpm [b]
   (metro-bpm metro b))
 
@@ -51,6 +48,17 @@
        (quot (metro) @the-beats-in-bar))
     @the-beats-in-bar)))
 
+(defn schedule-ahead
+  "Schedule loop playback generation a bit early to avoid playback glitches.
+  Generation is early but beats are always ontime thanks to `apply-by` and `at`"
+  [beat loop-fn-id]
+  (- beat (* loop-fn-id 1/16)))
+
+(defn schedule-ahead-pattern
+  "Schedule loop pattern changes a bit before loop playback  generation"
+  [beat loop-fn-id]
+  (- schedule-ahead 1/8))
+
 (defn play-bar-pairs
   "Play this bar on beat, given a list of pairs (offset playable)
 
@@ -81,6 +89,7 @@
 
   TODO: Does this function have a synchronisation problem? 
   Try putting a slow call between defn- and doall to see it
+  Maybe dosync fixes this?
   "
   [beat beat-fraction instrument params-list]
   (defn- player [in-beats amp]
@@ -94,7 +103,8 @@
 
 (defn set-up []
   (stop)
-  (reset! loop-patterns (hash-map)))
+  (reset! loop-patterns (hash-map))
+  (reset! loop-fn-counter 0))
 
 (defn loop-player
   "Return a function to play this loop pattern. E.g.
@@ -120,7 +130,7 @@
         (let [new-pattern (when (some? rest) (first rest))]
           (if (some? new-pattern)
             ;; Just before beat, and just before next loop iteration, change the pattern
-            (apply-by (metro (- beat schedule-ahead schedule-ahead))
+            (apply-by (metro (schedule-ahead-pattern beat loop-fn-id))
                       (fn []
                         (condp = new-pattern
                           ;; Drop the most recent pattern
@@ -134,7 +144,7 @@
                                  update-in [loop-fn-id] conj new-pattern))))
             (do
               ;; On beat get the pattern and play it
-              (apply-by (metro (- beat schedule-ahead))
+              (apply-by (metro (schedule-ahead beat loop-fn-id))
                         (fn []
                           (let [pattern (last (get @loop-patterns loop-fn-id))
                                 beats-in-phrase (* (count pattern) fraction)]
