@@ -1,4 +1,4 @@
-(ns overtone-loops.proto.schedule-tests-overtone2
+(ns overtone-loops.proto.schedule-tests-overtone3
   (:use [overtone.live]))
 
 ;; Stop any currently playing music and clear any patterns
@@ -22,7 +22,7 @@
         src (sin-osc freq-env)
         drum (+ sqr (* env src))]
     (compander drum drum 0.2 1 0.1 0.01 0.01)))
-;;(asnare)
+;;(isnare)
 
 ;; ---------------------------------------------
 
@@ -32,25 +32,23 @@
 (defn kicks [beat]
   (apply-by (metro beat)
             (fn []
-              (Thread/sleep 100)
-              (doall (map
-                      (fn [b]
-                        (at (metro (+ beat b)) (ikick)))
-                      [0 1 3 4]))
+              (defn- player [b]
+                (at (metro (+ beat b))
+                    (ikick)))
+              (doall (map player [0 1 3 4]))
               (kicks (+ beat 8)))))
 
 (defn snares [beat]
   (apply-by (metro beat)
             (fn []
-              (Thread/sleep 100)
-              (doall (map
-                      (fn [b]
-                        (at (metro (+ beat b)) (isnare)))
-                      [2 5 7]))
+              (defn- player [b]
+                (at (metro (+ beat b))
+                    (isnare)))              
+              (doall (map player [2 5 7]))
               (snares (+ beat 8)))))  
-
 
 (kicks (metro))
 (snares (metro))
+
 
 ;;(stop)
