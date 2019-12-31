@@ -6,12 +6,12 @@
 
 (def cowbell (sample2 "resources/samples/drum_cowbell.wav")) ;; (cowbell)
 (def clap (sample2 "resources/samples/perc_clap.wav")) ;; (clap)
-(def crash (freesound2 439789)) ;; (crash)
+;;(def crash (freesound2 439789)) ;; (crash)
 
 (def cymbal-open (sample2 "resources/samples/drum_cymbal_open.wav")) ;; (cymbal-open)
 (def cymbal-closed (sample2 "resources/samples/drum_cymbal_closed.wav"))  ;; (cymbal-closed)
-(def hatc2 (freesound2 404890)) ;; closed ;; (hatc2)
-(def hatc3 (freesound2 96140))  ;; (hat3)
+;;(def hatc2 (freesound2 404890)) ;; closed ;; (hatc2)
+;;(def hatc3 (freesound2 96140))  ;; (hat3)
 (def cymbal-pedal (sample2 "resources/samples/drum_cymbal_pedal.wav")) ;; (cymbal-pedal)
 (def cymbal-soft (sample2 "resources/samples/drum_cymbal_soft.wav")) ;; (cymbal-soft)
 (def hat cymbal-closed)
@@ -35,4 +35,4 @@
   
 ;; Snaps etc
 (def finger (sample2 "resources/samples/finger_177495.wav")) ;; (finger)
-(def stick (freesound2 82280)) ;; (stick)
+;;(def stick (freesound2 82280)) ;; (stick)
