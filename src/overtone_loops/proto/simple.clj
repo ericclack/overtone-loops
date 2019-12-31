@@ -14,16 +14,20 @@
 
 ;; ---------------------------------------------
 
-(bpm 130)
+(bpm 230)
 (beats-in-bar 4)
 
 (at-bar 1
         (ticks)
         (claps))
 
+(at-bar 3
+        (snares)
+        (kicks))
+
 (comment
-    ;; Put live code here
+  ;; Put live code here
   (claps (metro) :pop)
-    ;;
-    (stop)
-    )
+  ;;
+  (stop)
+  )
