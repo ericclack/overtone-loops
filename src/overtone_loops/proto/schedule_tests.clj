@@ -56,20 +56,17 @@
   (ihat2 amp))
 
 ;;                                    1 & 2 & 3 & 4 &
-(def ticks (loop-player  1/2 fhat     [7 5 6 5 7 5 _ 3 ]))
-(def hats  (loop-player  1/2 fhat2    [_ _ _ _ _ _ 6 _ ]))
-
+(def ticks (loop-player  1/2 fhat     [7 5 6 5 7 5 6 3 ]))
 (def kicks (loop-player  1/2 fkick    [6 6 _ _ 6 _ _ _ ]))
 (def snares (loop-player 1/2 fsnare   [_ _ 7 _ _ _ 9 _ ]))
 
 ;; ---------------------------------------------
 
-(bpm 105)
+(bpm 150)
 (beats-in-bar 4)
 
 (at-bar 1
-        (ticks)
-        (hats))
+        (ticks))
 
 (at-bar 3
         (kicks)
