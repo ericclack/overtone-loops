@@ -1,4 +1,4 @@
-(ns overtone-loops.proto.schedule-tests
+(ns overtone-loops.proto.schedule-tests-overtone2
   (:use [overtone.live]
         [overtone-loops.loops]
         [overtone-loops.samples]))
@@ -17,10 +17,6 @@
     (compander drum drum 0.2 1 0.1 0.01 0.01)))
 ;;(ikick)
 
-(defn fkick [amp]
-  (ikick))
-;;(fkick 4/9)
-
 (definst isnare [freq 200 dur 0.5 width 0.5]
   (let [freq-env (* freq (env-gen (perc 0 (* 0.99 dur))))
         env (env-gen (perc 0.01 dur) 1 1 0 1 FREE)
@@ -30,19 +26,30 @@
     (compander drum drum 0.2 1 0.1 0.01 0.01)))
 ;;(asnare)
 
-(defn fsnare [amp]
-  (isnare))
-
-;;                                    1 & 2 & 3 & 4 &
-(def kicks (loop-player  1/2 fkick    [6 6 _ 6 6 _ _ _ ]))
-(def snares (loop-player 1/2 fsnare   [_ _ 7 _ _ 6 _ 2 ]))
-
 ;; ---------------------------------------------
 
-(bpm 150)
-(beats-in-bar 4)
+(bpm 300)
+
+(defn kicks [beat]
+  (apply-by (metro beat)
+            (fn []
+              (doall (map
+                      (fn [b]
+                        (at (metro (+ beat b)) (ikick)))
+                      [0 1 3 4]))
+              (kicks (+ beat 8)))))
+
+(defn snares [beat]
+  (apply-by (metro beat)
+            (fn []
+              (doall (map
+                      (fn [b]
+                        (at (metro (+ beat b)) (isnare)))
+                      [2 5 7]))
+              (snares (+ beat 8)))))  
 
 (kicks (metro))
 (snares (metro))
+
 
 ;;(stop)
