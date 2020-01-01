@@ -52,4 +52,5 @@
 
 (comment
   (cymbal-closed)
+  (silence (metro) ticks snares)
   )

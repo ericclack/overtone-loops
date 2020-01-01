@@ -25,7 +25,7 @@
 
 ;; ---------------------------------------------
 
-(bpm 105)
+(bpm 140)
 (beats-in-bar 4)
 
 (at-bar 1
@@ -45,4 +45,7 @@
   (snares (metro) :first)
   )
 
-;;(stop)
+(comment
+  (silence (metro) ticks hats kicks snares)
+  (stop)
+ )
