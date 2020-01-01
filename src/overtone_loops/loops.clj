@@ -94,11 +94,12 @@
   Maybe dosync fixes this?
   "
   [beat beat-fraction instrument params-list]
-  (defn- player [in-beats amp]
-    (when-not (and (number? amp) (zero? amp))
-      (at (metro (+ beat (* in-beats beat-fraction)))
-          (instrument (scale-amps amp)))))
-  (doall (map-indexed player params-list))
+  (doall (map-indexed
+          (fn [in-beats amp]
+            (when-not (and (number? amp) (zero? amp))
+              (at (metro (+ beat (* in-beats beat-fraction)))
+                  (instrument (scale-amps amp)))))
+          params-list))
   nil)
 
 ;; ----------------------------------------------------------------
