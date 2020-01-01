@@ -51,15 +51,13 @@
 (defn schedule-ahead
   "Schedule loop playback generation a bit early to avoid playback glitches.
   Generation is early but beats are always ontime thanks to `apply-by` and `at`"
-  [beat loop-fn-id]
+  [beat]
   (- beat 1/16))
-  ;;(- beat (* loop-fn-id 1/16)))
 
 (defn schedule-ahead-pattern
   "Schedule loop pattern changes a bit before loop playback  generation"
-  [beat loop-fn-id]
-  (schedule-ahead beat loop-fn-id))
-  ;;(- (schedule-ahead beat loop-fn-id) 1/8))
+  [beat]
+  (schedule-ahead (- beat 1/16)))
 
 (defn play-bar-pairs
   "Play this bar on beat, given a list of pairs (offset playable)
@@ -133,7 +131,7 @@
         (let [new-pattern (when (some? rest) (first rest))]
           (if (some? new-pattern)
             ;; Just before beat, and just before next loop iteration, change the pattern
-            (apply-by (metro (schedule-ahead-pattern beat loop-fn-id))
+            (apply-by (metro (schedule-ahead-pattern beat))
                       (fn []
                         (condp = new-pattern
                           ;; Drop the most recent pattern
@@ -147,7 +145,7 @@
                                  update-in [loop-fn-id] conj new-pattern))))
             (do
               ;; On beat get the pattern and play it
-              (apply-by (metro (schedule-ahead beat loop-fn-id))
+              (apply-by (metro (schedule-ahead beat))
                         (fn []
                           (let [pattern (last (get @loop-patterns loop-fn-id))
                                 beats-in-phrase (* (count pattern) fraction)]

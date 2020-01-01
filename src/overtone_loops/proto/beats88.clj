@@ -50,6 +50,6 @@
 
   ;; 
   ;;
-  (silence kicks snares bells ticks)
+  (silence (metro) kicks snares bells ticks)
   (stop)
   )
