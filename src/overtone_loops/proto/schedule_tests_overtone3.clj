@@ -1,4 +1,8 @@
 (ns overtone-loops.proto.schedule-tests-overtone3
+  "Tests for instrument clashes, something I've seen fairly
+  frequently: where one instrument takes the wrong rhythm.
+
+  This code uses no Overtone Loops functionality. "
   (:use [overtone.live]))
 
 ;; Stop any currently playing music and clear any patterns
@@ -32,6 +36,7 @@
 (defn kicks [beat]
   (apply-by (metro beat)
             (fn []
+              ;; This format seems to result in instrument clashes
               (defn- player [b]
                 (at (metro (+ beat b))
                     (ikick)))

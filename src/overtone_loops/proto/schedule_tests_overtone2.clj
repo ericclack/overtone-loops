@@ -1,4 +1,8 @@
 (ns overtone-loops.proto.schedule-tests-overtone2
+  "Tests for instrument clashes, something I've seen fairly
+  frequently: where one instrument takes the wrong rhythm.
+
+  This code uses no Overtone Loops functionality. "  
   (:use [overtone.live]))
 
 ;; Stop any currently playing music and clear any patterns
@@ -34,6 +38,7 @@
             (fn []
               (Thread/sleep 100)
               (doall (map
+                      ;; This format seems to play well
                       (fn [b]
                         (at (metro (+ beat b)) (ikick)))
                       [0 1 3 4]))
