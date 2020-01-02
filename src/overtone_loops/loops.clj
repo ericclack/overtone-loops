@@ -59,31 +59,11 @@
   [beat]
   (schedule-ahead (- beat 1/16)))
 
-(defn play-bar-pairs
-  "Play this bar on beat, given a list of pairs (offset playable)
-
-  (play-bar-pairs (metro) [[0 kick] [1 kick] [2 snare]])
-  (play-bar-pairs (metro) [[0.5 hat] [1.5 hat]])
-  "
-  [beat beat-playable-pairs]
-  (defn- player [[in-beats playable]]
-    (at (metro (+ beat in-beats)) (playable)))
-  (doall (map player beat-playable-pairs)))
-
-(defn play-bar 
-  "Play this bar on beat, given: offset playable offset playable ...
-
-  (play-bar (metro) 0 kick 1 kick 1 snare 2 kick 3 kick 3 snare)
-  "
-  [beat beat-adjust & beats-and-playables]
-  (play-bar-pairs beat (pairer
-                        (if (nil? beat-adjust)
-                          beats-and-playables
-                          (map-odds beat-adjust
-                                    beats-and-playables)))))
-
 (defn play-phrase
-  "Examples:
+  "Play this phrase expressed as a list of amplitudes or data to
+  pass to instrument. 
+
+  Examples:
   (play-phrase (metro) 1 kick   [6   1   5   6])
   (play-phrase (metro) 1/2 kick [6 _ 5 _ _ 4 6])
   "
@@ -95,6 +75,28 @@
                   (instrument (scale-amps amp)))))
           params-list))
   nil)
+
+(defn play-schedule-pairs
+  "Play this bar on beat, given a list of pairs (offset playable)
+
+  (play-bar-pairs (metro) [[0 kick] [1 kick] [2 snare]])
+  (play-bar-pairs (metro) [[0.5 hat] [1.5 hat]])
+  "
+  [beat beat-playable-pairs]
+  (doall (map (fn [[in-beats playable]]
+                (at (metro (+ beat in-beats))
+                    (playable)))
+              beat-playable-pairs)))
+
+(defn play-schedule
+  "Play this combination of beats and playables. Easier to use than
+  play-schedule-pairs, which does the work.
+
+  (play-schedule (metro) 0 kick 1 kick 1 snare 2 kick 3 kick 3 snare)
+  "
+  [beat & beats-and-playables]
+  (play-schedule-pairs beat (pairer beats-and-playables)))
+
 
 ;; ----------------------------------------------------------------
 
@@ -165,19 +167,24 @@
 ;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 (defmacro defloop
+  "Define a loop from a list of amplitudes."
   [name fraction instrument amps-list]
   `(def ~name
      (loop-player ~fraction ~instrument ~amps-list)))
 
-(defmacro defphrase
-  "Define a phrase with pairs of beats and s-exps, like 
-   defloop but with no looping.
+(defmacro defschedule
+  "Define a schedule of beats and playables with pairs of beats and s-exps.
 
-  (defphrase part1 
-     0 (piano :c3) 2 (piano :e3) 3 (piano :g3))
-  ;; then to play a repeat:
+  (defschedule part1 
+     0 (piano :c3) 
+     2 (piano :e3) 
+     3 (piano :g3))
+
+  ;; Then to play:
   (part1 (metro))
-  (part1 (on-next-bar 2))
+
+  ;; Or
+  (at-bar 1 (part1))
   "
   [name & beats-and-sexps]
   (defn- make-thunk [s-exp]
@@ -186,7 +193,7 @@
         beat-sym (gensym "beat")]
     `(defn ~name
        [~beat-sym]
-       (play-bar ~beat-sym nil ~@thunked-pairs))))
+       (play-schedule ~beat-sym ~@thunked-pairs))))
 
 ;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

@@ -10,8 +10,8 @@
 (def crash (freesound2 439789))
 (def clap (freesound2 24787))
 
-;; We want to use amps between 0 and 9 in our lists
-(amp-scale 1/9)
+;; Stop any currently playing music and clear any patterns
+(set-up)
 
 ;;           BAR1              
 ;;           1 . t . t . 2 . t . t . 3 . t . t . 4 . t . t .   1 . t . t . 2 . t . t . 3 . t . t . 4 . t . t .   1 . t . t . 2 . t . t . 3 . t . t . 4 . t . t .   1 . t . t . 2 . t . t . 3 . t . t . 4 . t . t .  
@@ -26,7 +26,7 @@
   kick      [8 _ _ _ _ _ _ _ _ _ _ _ 8 _ _ 4 6 _ _ _ _ 5 _ _   8 _ _ _ _ _ _ _ _ _ 6 _ 8 _ _ 7 _ _ _ _ _ _ _ _   8 _ _ _ 7 _ _ _ _ 4 5 _ 8 _ 7 8 _ _ _ _ _ _ _ _   8 _ _ 5 6 _ _ _ _ _ 5 _ 7 _ _ _ _ _ _ _ _ _ _ _
                        8 _ _ _ _ _ _ _ _ 6 8 _ _ _ _ _ 7 8 _ _ _ _ 6 _   8 _ _ _ 7 _ _ _ _ _ 6 _ _ _ _ _ 7 _ _ _ _ 5 _ _   8 _ _ _ 7 _ _ _ 7 _ _ _ 8 _ _ 7 _ 8 _ _ _ _ 8 _   8 _ 7 _ _ _ _ 3 5 _ 8 _ _ _ _ 6 _ 8 _ _ _ _ _ _ ]) 
 
-(defphrase fade-out
+(defschedule fade-out
   0  (inst-volume! stereo-sample-player 0.8)
   1  (inst-volume! stereo-sample-player 0.7)
   2  (inst-volume! stereo-sample-player 0.6)
