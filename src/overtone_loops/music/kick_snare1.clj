@@ -32,4 +32,8 @@
 (at-bar 4
         (snares))
 
-;;(stop)
+(comment
+  (silence (on-next-bar) hats1 hats2 hats3 kicks snares)
+  (stop)
+  )
+

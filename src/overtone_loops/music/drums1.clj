@@ -7,11 +7,11 @@
 
 ;;                                     1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 
 (defloop ticks     1   cymbal-pedal   [4   3   4   3  ])
-(defloop hats1     1/2 cymbal-closed  [_ 5 _ 7 _ 7 _ 7])
-(defloop crashes1  1   cymbal-open    [_   _   3   _   _   _   _   _])
+(defloop hats      1/2 cymbal-closed  [_ 5 _ 7 _ 7 _ 7])
+(defloop crashes   1   cymbal-open    [_   _   3   _   _   _   _   _  ])
 
-(defloop kicks1    1/2 bass-hard      [6 _ 4 _ _ _ 4 _ 6 _ 4 _ _ _ 4 _])
-(defloop snares1   1/2 snare-hard     [_ _ _ _ 6 _ _ 3 _ _ _ 1 6 1 _ 3])
+(defloop kicks     1/2 bass-hard      [6 _ 4 _ _ _ 4 _ 6 _ 4 _ _ _ 4 _])
+(defloop snares    1/2 snare-hard     [_ _ _ _ 6 _ _ 3 _ _ _ 1 6 1 _ 3])
 
 ;; ---------------------------------------------
 
@@ -20,19 +20,19 @@
   
 (at-bar 1
   (ticks)
-  (hats1)
-  (kicks1)
+  (hats)
+  (kicks)
   )
 
-(at-bar 1
-  (crashes1)
+(at-bar 3
+  (crashes)
 )
 
 (at-bar 5
-  (snares1)
+  (snares)
   )
 
 (comment
+  (silence (on-next-bar) ticks hats kicks crashes snares)
+  (stop)
   )
-
-;;(stop)
