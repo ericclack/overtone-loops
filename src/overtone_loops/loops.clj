@@ -82,14 +82,10 @@
                           (map-odds beat-adjust
                                     beats-and-playables)))))
 
-(defn play-bar-list
+(defn play-phrase
   "Examples:
-  (play-bar-list (metro) 1 kick   [6   1   5   6])
-  (play-bar-list (metro) 1/2 kick [6 _ 5 _ _ 4 6])
-
-  TODO: Does this function have a synchronisation problem? 
-  Try putting a slow call between defn- and doall to see it
-  Maybe dosync fixes this?
+  (play-phrase (metro) 1 kick   [6   1   5   6])
+  (play-phrase (metro) 1/2 kick [6 _ 5 _ _ 4 6])
   "
   [beat beat-fraction instrument params-list]
   (doall (map-indexed
@@ -150,7 +146,7 @@
                           (let [pattern (last (get @loop-patterns loop-fn-id))
                                 beats-in-phrase (* (count pattern) fraction)]
                             (when (seq pattern)
-                              (play-bar-list beat fraction instrument pattern))
+                              (play-phrase beat fraction instrument pattern))
                             ;; Schedule the next loop and handle special case
                             ;; of empty pattern
                             (player
@@ -164,7 +160,7 @@
 (defn silence
   "Send each loop player an empty list to silence it"
   [beat & fns]
-  (map #(% beat []) fns))
+  (doall (map #(% beat []) fns)))
 
 ;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

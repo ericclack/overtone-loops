@@ -19,43 +19,46 @@
 ;; (stop)
 
 ;; Define loop players with default patterns
-;;                        1   .   .   2   .   .   3   .   .   4   .   . 
-(def ticks  (loop-player 1 bass-soft
-                         [6   _   _   6   _   _   6   _   _   6   _   _  ]))
-(def music  (loop-player 1 fpiano
-                         [:d4 _   :d4 _   :d4 _   :d4 _   :d4 _   :d4 :c4]))
+;; 1   .   .   2   .   .   3   .   .   4   .   . 
+(defloop ticks 1 bass-soft
+  [6   _   _   6   _   _   6   _   _   6   _   _  ])
+(defloop piano-loop 1 fpiano
+  [:d4 _   :d4 _   :d4 _   :d4 _   :d4 _   :d4 :c4])
+
 
 ;; ---------------------------------------------
 
 (bpm 300)
 (beats-in-bar 12)
 
-;; Calling a player starts it, passing a new pattern (list)
-;; changes the pattern
-
-;; Start playing each loop
 (at-bar 1
         (ticks))
 
 (at-bar 3
-        (music))
+        (piano-loop))
 
 (at-bar 8
-        (music [:d4 :c4 :d4 :c4 :d4 :c4 :d4 _ :d4 _ :d4 :c4 ]))
+        (silence piano-loop)
+        (play-phrase 1 fpiano
+                     [:d4 :c4 :d4 :c4 :d4 :c4 :d4 _ :d4 _ :d4 :c4 ]))
 
 (at-bar 9
-        (music [:d4 :c4 :d4 :c4 :d4 :c4 :d4 _ :d4 :c4 :d4 :c4 ]))
+        (play-phrase 1 fpiano
+                     [:d4 :c4 :d4 :c4 :d4 :c4 :d4 _ :d4 :c4 :d4 :c4 ]))
 
 (at-bar 10
-        (music [:d4 :c4 :d4 :c4 :d4 :c4 :f4 _ :e4 _ :d4 :c4 ]))
+        (play-phrase 1 fpiano
+                     [:d4 :c4 :d4 :c4 :d4 :c4 :f4 _ :e4 _ :d4 :c4 ]))
 
 (at-bar 11
-        (music [:d4 _ _ _ _ _ _ _ _ _ _ :d4 ]))
+        (play-phrase 1 fpiano
+                     [:d4 _ _ _ _ _ _ _ _ _ _ :d4 ]))
 
 (at-bar 12
-        (music [:d4 _ _ _ _ _ _ _ _ _ _ _ ]))
+        (play-phrase 1 fpiano
+                     [:d4 _ _ _ _ _ _ _ _ _ _ _ ]))
         
 (comment
-  (silence (metro) music ticks)
+  (silence (metro) ticks)
   (stop)
   )
