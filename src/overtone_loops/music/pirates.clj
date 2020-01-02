@@ -1,5 +1,6 @@
 (ns overtone-loops.music.pirates
   (:use [overtone.live]
+        [overtone.inst.piano]
         [overtone-loops.loops]
         [overtone-loops.samples])
   (:require [clojure.pprint :refer [pp pprint]]))
@@ -7,33 +8,21 @@
 ;; Stop any currently playing music and clear any patterns
 (set-up)
 
-(defn note->hz [n] (midi->hz (note n)))
-
-(definst tone [freq 440 amp 0.7 sustain 0.5 release 0.5]
-  "Sine tone that lasts about half a second"
-  (let [env (env-gen (lin :sustain sustain :release release) :action FREE)
-        src (sin-osc freq)]
-    (* amp env src)))
-;; (tone (note->hz :c4))
-;; (tone :amp 0.1)
-
-(defn atone
+;; Function to play piano notes
+(defn fpiano
   [anote]
-  (tone :freq (note->hz anote)
-        :amp 3/9 ; :amp (/ amp 9)
-        :sustain 0.2
-        :release 0.1))
-;; (atone :c4)
+  (piano :note (note anote)
+         :vel 50
+         :sustain 0.2
+         :decay 0.1))
+;; (fpiano :c4)
 ;; (stop)
-
-;; We want to use amps between 0 and 9 in our lists
-(amp-scale 1/9)
 
 ;; Define loop players with default patterns
 ;;                        1   .   .   2   .   .   3   .   .   4   .   . 
 (def ticks  (loop-player 1 bass-soft
                          [6   _   _   6   _   _   6   _   _   6   _   _  ]))
-(def music  (loop-player 1 atone
+(def music  (loop-player 1 fpiano
                          [:d4 _   :d4 _   :d4 _   :d4 _   :d4 _   :d4 :c4]))
 
 ;; ---------------------------------------------
@@ -66,9 +55,7 @@
 (at-bar 12
         (music [:d4 _ _ _ _ _ _ _ _ _ _ _ ]))
         
-;;(stop)
-
 (comment
   (silence (metro) music ticks)
-  (cymbal-closed)
+  (stop)
   )
