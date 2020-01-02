@@ -26,7 +26,7 @@
   kick      [8 _ _ _ _ _ _ _ _ _ _ _ 8 _ _ 4 6 _ _ _ _ 5 _ _   8 _ _ _ _ _ _ _ _ _ 6 _ 8 _ _ 7 _ _ _ _ _ _ _ _   8 _ _ _ 7 _ _ _ _ 4 5 _ 8 _ 7 8 _ _ _ _ _ _ _ _   8 _ _ 5 6 _ _ _ _ _ 5 _ 7 _ _ _ _ _ _ _ _ _ _ _
                        8 _ _ _ _ _ _ _ _ 6 8 _ _ _ _ _ 7 8 _ _ _ _ 6 _   8 _ _ _ 7 _ _ _ _ _ 6 _ _ _ _ _ 7 _ _ _ _ 5 _ _   8 _ _ _ 7 _ _ _ 7 _ _ _ 8 _ _ 7 _ 8 _ _ _ _ 8 _   8 _ 7 _ _ _ _ 3 5 _ 8 _ _ _ _ 6 _ 8 _ _ _ _ _ _ ]) 
 
-(defschedule fade-out
+(defplayblock fade-out
   0  (inst-volume! stereo-sample-player 0.8)
   1  (inst-volume! stereo-sample-player 0.7)
   2  (inst-volume! stereo-sample-player 0.6)
@@ -35,7 +35,6 @@
   5  (inst-volume! stereo-sample-player 0.3)
   6  (inst-volume! stereo-sample-player 0.1)
   7  (inst-volume! stereo-sample-player 0)
-  8  (stop)
   )
 
 ;; ---------------------------------------------
@@ -47,11 +46,9 @@
 (at-bar 1
         (closed-hhs)
         (sds)
-        (kicks)
-  )
+        (kicks))
 
-(comment
-  (fade-out (metro))
-  )
+(at-bar 9
+        (fade-out))
 
 ;;(stop)

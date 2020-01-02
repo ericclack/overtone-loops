@@ -76,11 +76,11 @@
           params-list))
   nil)
 
-(defn play-schedule-pairs
+(defn play-pairs
   "Play this bar on beat, given a list of pairs (offset playable)
 
-  (play-bar-pairs (metro) [[0 kick] [1 kick] [2 snare]])
-  (play-bar-pairs (metro) [[0.5 hat] [1.5 hat]])
+  (play-pairs (metro) [[0 kick] [1 kick] [2 snare]])
+  (play-pairs (metro) [[0.5 hat] [1.5 hat]])
   "
   [beat beat-playable-pairs]
   (doall (map (fn [[in-beats playable]]
@@ -88,14 +88,14 @@
                     (playable)))
               beat-playable-pairs)))
 
-(defn play-schedule
+(defn play-block
   "Play this combination of beats and playables. Easier to use than
   play-schedule-pairs, which does the work.
 
   (play-schedule (metro) 0 kick 1 kick 1 snare 2 kick 3 kick 3 snare)
   "
   [beat & beats-and-playables]
-  (play-schedule-pairs beat (pairer beats-and-playables)))
+  (play-pairs beat (pairer beats-and-playables)))
 
 
 ;; ----------------------------------------------------------------
@@ -172,8 +172,9 @@
   `(def ~name
      (loop-player ~fraction ~instrument ~amps-list)))
 
-(defmacro defschedule
-  "Define a schedule of beats and playables with pairs of beats and s-exps.
+(defmacro defplayblock
+  "Define a ready to play block beats and playables. Using a macro ensures 
+  the playables don't play immediately. 
 
   (defschedule part1 
      0 (piano :c3) 
@@ -193,7 +194,7 @@
         beat-sym (gensym "beat")]
     `(defn ~name
        [~beat-sym]
-       (play-schedule ~beat-sym ~@thunked-pairs))))
+       (play-block ~beat-sym ~@thunked-pairs))))
 
 ;; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

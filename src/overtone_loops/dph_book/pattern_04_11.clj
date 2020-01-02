@@ -12,23 +12,23 @@
 (def crash (freesound2 439789))
 (def clap (freesound2 24787))
 
-;; We want to use amps between 0 and 9 in our lists
-(amp-scale 1/9)
+;; Stop any currently playing music and clear any patterns
+(set-up)
 
 ;;                    BAR1              
 ;;                    1 e & a 2 e & a 3 e & a 4 e & a
 ;;                    v       v       v       v 
 (defloop open-hhs
-  (4 1/4) open-hh    [- - 6 - - - 6 - - - 6 - - - 6 -  ])
+  1/4 open-hh        [_ _ 6 _ _ _ 6 _ _ _ 6 _ _ _ 6 _  ])
 (defloop ped-hhs
-  (4 1/4) pedal-hh   [3 - - - 3 - - - 3 - - - 3 - - -  ])
+  1/4 pedal-hh       [3 _ _ _ 3 _ _ _ 3 _ _ _ 3 _ _ _  ])
 
 (defloop sds
-  (8 1/4) snare      [- - - - 8 - - - - - - - 8 - - -   - - - - 8 - - - - 5 - - 8 - - -  ])
+  1/4 snare          [_ _ _ _ 8 _ _ _ _ _ _ _ 8 _ _ _   _ _ _ _ 8 _ _ _ _ 5 _ _ 8 _ _ _  ])
 (defloop kicks
-  (8 1/4) kick       [8 - - 8 - - 8 - - 6 8 - - - - 7   8 - - - - - 5 7 - - 8 - - - - 8  ])
+  1/4 kick           [8 _ _ 8 _ _ 8 _ _ 6 8 _ _ _ _ 7   8 _ _ _ _ _ 5 7 _ _ 8 _ _ _ _ 8  ])
                       
-(defphrase fade-out
+(defplayblock fade-out
   0  (inst-volume! stereo-sample-player 0.8)
   1  (inst-volume! stereo-sample-player 0.7)
   2  (inst-volume! stereo-sample-player 0.6)
