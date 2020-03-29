@@ -35,4 +35,4 @@
   
 ;; Snaps etc
 (def finger (sample2 "resources/samples/finger_177495.wav")) ;; (finger)
-;;(def stick (freesound2 82280)) ;; (stick)
+(def stick (sample2 "resources/samples/stick_82280.wav")) ;; (stick)
